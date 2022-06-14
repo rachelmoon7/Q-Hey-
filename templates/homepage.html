@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+{% block title %}Time for Q&Hey!{% endblock %}
+
+{% block body %}
+  <h1>Q&Hey!</h1>
+
+  <h2>Login</h2>
+  <form action="/login" method="POST">
+    <p>
+      Username <input type="text" name="user_username">
+    </p>
+
+    <p>
+      Password <input type="password" name="user_password">
+    </p>
+
+    <p>
+      <input type="submit">
+    </p>
+  </form>
+
+  <div>
+    No account yet? <a href="/signup">Sign Up</a>
+  </div>
+{% endblock %}

@@ -25,10 +25,13 @@ class User(db.Model):
                         autoincrement=True,
                         primary_key=True
                         )
+    fname = db.Column(db.String, nullable=False)  
+    lname = db.Column(db.String, nullable=False)                     
+    username = db.Column(db.String, unique=True, nullable=False)                                
     email = db.Column(db.String, unique=True, nullable=False)
     password = db.Column(db.String, nullable=False)
 
-    #self.posts (posts attribute) was given to us by backref in class Post
+    # self.posts (posts attribute) was given to us by backref in class Post
 
 
     #c is sqlalchemy attribute for a column so friend.c.f1-id = column in friend table with f1_id id 
@@ -78,7 +81,7 @@ class Image(db.Model):
     image_id = db.Column(db.Integer,
                         autoincrement=True,
                         primary_key=True)
-    post_id = db.Column(db.Integer, db.ForeignKey("post.post_id"), nullable=False)
+    post_id = db.Column(db.Integer, db.ForeignKey("posts.post_id"), nullable=False)
     img_URL = db.Column(db.String)
 
     post = db.relationship("Post", backref="images")
@@ -97,7 +100,7 @@ class Prompt(db.Model):
                         primary_key=True)
     question = db.Column(db.String, nullable=False)
 
-    #self.posts (posts attribute) was given to us by backref in class Post
+    # self.posts (posts attribute) was given to us by backref in class Post
 
     def __repr__(self):
         return f'<Prompt prompt_id={self.prompt_id}>'
