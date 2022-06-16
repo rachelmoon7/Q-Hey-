@@ -17,9 +17,13 @@ model.db.create_all() #creates all tables
 
 #open file, f, read, to string, json.loads converts string from f.read() to dict
 #movie_data is a dictionary
-with open('data/prompts.json') as f:
-    prompt_data = json.loads(f.read())
+with open('data/questions.json') as f:
+    questions_data = json.loads(f.read())
 
-questions_in_db = []
-# for question in prompt_data:
-#     question = 
+for question in questions_data:
+    question = (question["question"]) 
+
+    db_questions = crud.create_question(question)
+    model.db.session.add(db_questions)
+
+model.db.session.commit()

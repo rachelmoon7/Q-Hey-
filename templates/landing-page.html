@@ -1,8 +1,23 @@
 {% extends 'base.html' %}
-{% block title %}Time for Q&Hey!{% endblock %}
+{% block title %}Welcome to Q&Hey!{% endblock %}
 
 {% block body %}
   <h1>Q&Hey!</h1>
-  
 
+<h2>Q: </h2>
+{{ questions[week_num - 1].question }}
+
+<form action="/post-form-data" method="post" enctype="multipart/form-data">
+  <input type="file" name="my-file">
+  POST:
+  <input type="text" name="caption"> 
+  <input type="submit" >
+</form>
+
+{% if posts[-1].post_date.isocalendar().week == week_num %}
+<img src = "{{ posts[-1].images[-1].img_URL }}" />
+<div>{{ posts[-1].caption }}</div>
+{% endif %}
+<!-- JavaScript Bundle with Popper -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
 {% endblock %}

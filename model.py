@@ -63,18 +63,19 @@ class Post(db.Model):
                         autoincrement=True,
                         primary_key=True)
     user_id = db.Column(db.Integer, db.ForeignKey("users.user_id"), nullable=False)
-    prompt_id = db.Column(db.Integer, db.ForeignKey("prompts.prompt_id"), nullable=False)
+    question_id = db.Column(db.Integer, db.ForeignKey("questions.question_id"), nullable=False)
     post_date = db.Column(db.Date)
-
+    caption = db.Column(db.String)
+    
     user = db.relationship("User", backref="posts")
-    prompt = db.relationship("Prompt", backref="posts")
+    question = db.relationship("Question", backref="posts")
 
     def __repr__(self):
         return f'<Post post_id={self.post_id} post_date={self.post_date}>'
 
 
 class Image(db.Model):
-    """Image(s) in response to a prompt."""
+    """Image(s) in response to a question."""
 
     __tablename__ = "images"
 
@@ -90,12 +91,12 @@ class Image(db.Model):
         return f'<Image image_id={self.image_id}>'
 
 
-class Prompt(db.Model):
+class Question(db.Model):
     """A prompt."""
 
-    __tablename__ = "prompts"
+    __tablename__ = "questions"
 
-    prompt_id = db.Column(db.Integer,
+    question_id = db.Column(db.Integer,
                         autoincrement=True,
                         primary_key=True)
     question = db.Column(db.String, nullable=False)
@@ -103,7 +104,7 @@ class Prompt(db.Model):
     # self.posts (posts attribute) was given to us by backref in class Post
 
     def __repr__(self):
-        return f'<Prompt prompt_id={self.prompt_id}>'
+        return f'<Question question_id={self.question_id}>'
 
 
 def connect_to_db(flask_app, db_uri="postgresql:///project", echo=True):
