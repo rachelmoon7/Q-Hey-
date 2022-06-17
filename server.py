@@ -47,13 +47,15 @@ def login_user():
 @app.route('/landing-page')
 def landing_page():
     """Show landing page."""
+
     questions = crud.get_question()
     week_num = datetime.now().isocalendar().week
     posts = crud.get_post()
-
+    images = crud.get_image()
+    print("ALL IMAGES ", images)
     flash("Logged in!")
-    print("THE DATE OF THE POST IS:", posts[-1].post_date)
-    return render_template('landing-page.html', questions=questions, week_num=week_num, posts=posts)
+    
+    return render_template('landing-page.html', questions=questions, week_num=week_num, posts=posts, images=images)
 
 @app.route('/signup')
 def create_account():
@@ -87,16 +89,16 @@ def register_user():
 def process_form():
     """Process the form"""
     my_file = request.files['my-file']
-    print("######", my_file)
     result = cloudinary.uploader.upload(my_file,
                                         api_key=CLOUDINARY_KEY,
                                         api_secret=CLOUDINARY_SECRET,
                                         cloud_name=CLOUD_NAME)
-    img_url = result['secure_url']   
-    
+    img_url = result['secure_url']  
+
+
     
     user_id = session["user_id"]
-    print("@###$@#", user_id)
+   
     question_id = datetime.now().isocalendar().week
     post_date = datetime.now()
     caption = request.form.get("caption")
@@ -108,6 +110,18 @@ def process_form():
     new_image = crud.create_image(new_post.post_id, img_url) 
     db.session.add(new_image)
     db.session.commit()
+    print("$$$$", request.files.get('my-file-2'))
+    if request.files.get("my-file-2"):
+        my_file_2 = request.files['my-file-2']
+        result_2 = cloudinary.uploader.upload(my_file_2,
+                                        api_key=CLOUDINARY_KEY,
+                                        api_secret=CLOUDINARY_SECRET,
+                                        cloud_name=CLOUD_NAME)
+        img_url_2 = result['secure_url']  
+        new_image_2 = crud.create_image(new_post.post_id, img_url_2)
+        
+        db.session.add(new_image_2)
+        db.session.commit()
 
     return redirect('/landing-page')
 

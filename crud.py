@@ -48,6 +48,11 @@ def get_post():
 
     return Post.query.all()
 
+def get_image():
+    """Retrieve a list of images from database."""
+
+    return Image.query.all()
+
 if __name__ == '__main__':
     from server import app
     
