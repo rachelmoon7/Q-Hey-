@@ -53,6 +53,7 @@ def landing_page():
     posts = crud.get_post()
     images = crud.get_image()
     print("ALL IMAGES ", images)
+    print("ALL POSTS", posts)
     flash("Logged in!")
     
     return render_template('landing-page.html', questions=questions, week_num=week_num, posts=posts, images=images)
@@ -117,7 +118,7 @@ def process_form():
                                         api_key=CLOUDINARY_KEY,
                                         api_secret=CLOUDINARY_SECRET,
                                         cloud_name=CLOUD_NAME)
-        img_url_2 = result['secure_url']  
+        img_url_2 = result_2['secure_url']  
         new_image_2 = crud.create_image(new_post.post_id, img_url_2)
         
         db.session.add(new_image_2)
