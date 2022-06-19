@@ -1,6 +1,6 @@
 """Server for Q&Hey! app."""
 
-from flask import (Flask, render_template, request, flash, session,
+from flask import (Flask, render_template, request, flash, session, jsonify,
                    redirect)
 from model import connect_to_db, db
 import crud
@@ -32,9 +32,8 @@ def login_user():
  
     existing_user = crud.get_user_by_username(user_username)
 
-    #for single post, pass in user.post[-1], in jinja, for loop thoruhg posts.images
     if existing_user and user_password == existing_user.password:
-        # print("ENTER IF")
+        
         session["user_email"] = existing_user.email
         session["user_id"] = existing_user.user_id
 
@@ -52,8 +51,7 @@ def landing_page():
     week_num = datetime.now().isocalendar().week
     posts = crud.get_post()
     images = crud.get_image()
-    print("ALL IMAGES ", images)
-    print("ALL POSTS", posts)
+    
     flash("Logged in!")
     
     return render_template('landing-page.html', questions=questions, week_num=week_num, posts=posts, images=images)
@@ -111,7 +109,7 @@ def process_form():
     new_image = crud.create_image(new_post.post_id, img_url) 
     db.session.add(new_image)
     db.session.commit()
-    print("$$$$", request.files.get('my-file-2'))
+
     if request.files.get("my-file-2"):
         my_file_2 = request.files['my-file-2']
         result_2 = cloudinary.uploader.upload(my_file_2,
@@ -126,6 +124,12 @@ def process_form():
 
     return redirect('/landing-page')
 
+@app.route('/show-search-result', methods=["POST"])
+def show_search_result():
+    
+    user = crud.get_user_by_username(request.json['searchString'])
+    print("NAME OF USER:", user.fname)
+    return jsonify([{'potential friend': user.fname}])
 
 if __name__ == "__main__":
     connect_to_db(app)
