@@ -124,12 +124,33 @@ def process_form():
 
     return redirect('/landing-page')
 
-@app.route('/show-search-result', methods=["POST"])
-def show_search_result():
-    
+@app.route('/get-search-result', methods=["POST"])
+def get_search_result():
+    """Look for user with the username in search box"""
+
     user = crud.get_user_by_username(request.json['searchString'])
-    print("NAME OF USER:", user.fname)
+
+    if user == None:
+        return jsonify([{'potential friend': "does not exist"}])
+    
     return jsonify([{'potential friend': user.fname}])
+
+
+@app.route("/profile/<username>")
+def show_melon(username):
+    """Return page showing the details of a given user.
+
+    Show all info about a user. Also, provide a button to add user as a friend.
+    """
+
+    user = crud.get_user_by_username(request.json['searchString'])
+
+    return render_template("profile.html")
+                           
+
+
+
+
 
 if __name__ == "__main__":
     connect_to_db(app)
