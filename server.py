@@ -1,6 +1,6 @@
 """Server for Q&Hey! app."""
 
-from flask import (Flask, render_template, request, flash, session, jsonify,
+from flask import (Flask, render_template, request, flash, session, jsonify, json,
                    redirect)
 from model import connect_to_db, db
 import crud
@@ -8,6 +8,7 @@ from jinja2 import StrictUndefined
 from datetime import datetime
 import cloudinary.uploader
 import os
+
 
 CLOUDINARY_KEY = os.environ['CLOUDINARY_KEY']
 CLOUDINARY_SECRET = os.environ['CLOUDINARY_SECRET']
@@ -37,10 +38,17 @@ def login_user():
         session["user_email"] = existing_user.email
         session["user_id"] = existing_user.user_id
 
+
         return redirect('/landing-page')
     else:
         flash("Incorrect password!")
         return redirect('/')
+
+# @app.route('/logout')
+# def logout():
+#     "Log out the user"
+
+
 
 
 @app.route('/landing-page')
@@ -124,30 +132,90 @@ def process_form():
 
     return redirect('/landing-page')
 
+
 @app.route('/get-search-result', methods=["POST"])
 def get_search_result():
     """Look for user with the username in search box"""
 
     user = crud.get_user_by_username(request.json['searchString'])
-
-    if user == None:
-        return jsonify([{'potential friend': "does not exist"}])
     
-    return jsonify([{'potential friend': user.fname}])
+    if user == None:
+        return jsonify([{'potentialFriend': "does not exist"}])
+    
+    return jsonify([{'potentialFriend': user.username}])
 
 
-@app.route("/profile/<username>")
-def show_melon(username):
+@app.route('/request-friend', methods=["POST"])
+def request_friend():
+    """Request user in search result as a friend."""
+
+    logged_in_user = crud.get_user_by_id(session["user_id"])    
+    potential_friend = crud.get_user_by_username(request.json['result'])
+
+    crud.request_friend(logged_in_user, potential_friend)
+    db.session.add(potential_friend)
+    db.session.commit()
+    print("$$-158-$$POTENTIAL FRIEND'S FOLLOWERS:", potential_friend.followers)
+    #send friend request to potential_friend
+
+    return jsonify([{'user': session["user_id"]}])
+
+
+@app.route('/accept-request', methods=["POST"])
+def accept_request():
+    """Accept friend request"""
+    logged_in_user = crud.get_user_by_id(session["user_id"])
+    print("!!-169-!!LOGGED IN AS", logged_in_user)
+   
+    potential_friend = crud.get_user_by_id(request.json['request_from'])
+    print("$$-172-$$accepting from:", potential_friend)
+    
+    crud.accept_request(logged_in_user, potential_friend)
+    db.session.commit()
+
+    print("---178--whomyfriends:", logged_in_user.followers)
+    return jsonify([{'friend': potential_friend.to_dict()}])
+
+
+@app.route('/myFriends')
+def show_friends_and_requests():
+    """Show list of friends and any friend requests"""
+    logged_in_user = crud.get_user_by_id(session["user_id"])
+    
+    requested = set(logged_in_user.following) - set(logged_in_user.followers)
+    
+    return render_template("myfriends.html", logged_in_user=logged_in_user, requested=requested)
+
+
+@app.route('/get-all-requests')
+def get_all_requests():
+    """Get all friend requests"""
+
+    logged_in_user = crud.get_user_by_id(session["user_id"])  
+    friend_requests = set(logged_in_user.followers) - set(logged_in_user.following)
+    
+    all_fr = []
+    for fr in friend_requests:
+        all_fr.append(fr.to_dict())
+    print("--202--ALL REQUESTS", all_fr)    
+    return jsonify(all_fr)
+
+
+@app.route("/profile")
+def show_melon():
     """Return page showing the details of a given user.
 
     Show all info about a user. Also, provide a button to add user as a friend.
     """
-
-    user = crud.get_user_by_username(request.json['searchString'])
+    #get username form session 
+    # user = crud.get_user_by_username(request.json['searchString'])
 
     return render_template("profile.html")
+    #div on profile.html which renders profiles jsx
                            
 
+
+    
 
 
 

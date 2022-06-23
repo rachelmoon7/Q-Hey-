@@ -50,6 +50,17 @@ class User(db.Model):
         """Get all friends, those you are following AND those following you."""
         return self.following + self.followers
     
+    def to_dict(self):
+        """Convert python object to dictionary"""
+
+        return {'user_id': self.user_id,
+                'fname': self.fname, 
+                'lname': self.lname, 
+                'username': self.username                 
+                }
+
+
+
     def __repr__(self):
         return f'<User user_id={self.user_id} email={self.email}>'
 

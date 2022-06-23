@@ -53,6 +53,27 @@ def get_image():
 
     return Image.query.all()
 
+def get_user_by_id(user_id):
+    """Get user object by user_id"""
+
+    return User.query.filter(User.user_id == user_id).first() 
+
+
+def request_friend(logged_in_user, potential_friend):
+    """ Request friend. """
+
+    logged_in_user.following.append(potential_friend)
+
+    return logged_in_user.following
+
+def accept_request(logged_in_user, potential_friend):
+    """Accept request. """
+
+    logged_in_user.followers.append(potential_friend)
+    logged_in_user.following.append(potential_friend)
+    potential_friend.followers.append(logged_in_user)
+
+
 if __name__ == '__main__':
     from server import app
     
