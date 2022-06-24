@@ -5,17 +5,18 @@
 <div id="navBar"></div>
 <h1>Q&Hey!</h1>
 <!-- <div id="root"></div> -->
-<div id="reactUpload"></div>
+
 <h2>Q: </h2>
 {{ questions[week_num - 1].question }}
 
 <section id="upload">
-  <form action="/post-form-data" method="post" enctype="multipart/form-data" id="upload-form">
+  <div id="reactUpload"></div>
+  <!-- <form action="/post-form-data" method="post" enctype="multipart/form-data" id="upload-form">
     <input type="file" name="my-file">
     CAPTION:
     <input type="text" name="caption"> 
     <input type="submit" >
-  </form>
+  </form> -->
 </section>
 
 {% for image in posts[-1].images %}
