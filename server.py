@@ -33,21 +33,21 @@ def login_user():
  
     existing_user = crud.get_user_by_username(user_username)
 
-    if existing_user and user_password == existing_user.password:
-        
+    if existing_user and user_password == existing_user.password:     
         session["user_email"] = existing_user.email
         session["user_id"] = existing_user.user_id
-
-
         return redirect('/landing-page')
     else:
         flash("Incorrect password!")
         return redirect('/')
 
-# @app.route('/logout')
-# def logout():
-#     "Log out the user"
+@app.route('/logout')
+def logout():
+    "Log out the user"
 
+    session.clear()
+
+    return redirect('/') 
 
 
 
@@ -183,8 +183,10 @@ def show_friends_and_requests():
     logged_in_user = crud.get_user_by_id(session["user_id"])
     
     requested = set(logged_in_user.following) - set(logged_in_user.followers)
+
+    my_friends = set(logged_in_user.following) & set(logged_in_user.followers)
     
-    return render_template("myfriends.html", logged_in_user=logged_in_user, requested=requested)
+    return render_template("myfriends.html", logged_in_user=logged_in_user, requested=requested, my_friends=my_friends)
 
 
 @app.route('/get-all-requests')

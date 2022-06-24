@@ -28,6 +28,7 @@ const NavBar = () => {
         }
     )}
     
+
     
     return (
         <nav class="navbar navbar-expand-lg bg-light" sticky="top">
@@ -39,33 +40,36 @@ const NavBar = () => {
         </button>
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav">
-            <li class="nav-item">
-                <a class="nav-link active" aria-current="page" href="/landing-page">Home</a>
-            </li>
-          
-            <li class="nav-item">
-               <a class="nav-link" href="/profile" id="my-profile">My Profile</a>
-            </li>
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="/landing-page">Home</a>
+                </li>
             
-            <li class="nav-item">             
-               <a class="nav-link" href="/myFriends">My Friends</a>
-            </li>
-            <li class="nav-item">
-               <a class="nav-link" href="#">Settings</a>
-            </li>
-            <li class="nav-item">
-                <input type="text" name ="searchString" placeholder="Find friends via username" onChange={(e) => setSearchString(e.target.value)}></input>
-                <p>
-                    {searchString} 
-                </p>
-            </li>
-            <li class="nav-item">
-                <button type="submit" onClick={handleClick} >Submit</button>              
-            </li>
-            <li>
-                <div> Add this friend?:</div>
-                <button onClick={requestFriend}>  {result} </button>                             
-            </li>            
+                <li class="nav-item">
+                <a class="nav-link" href="/profile" id="my-profile">My Profile</a>
+                </li>
+                
+                <li class="nav-item">             
+                <a class="nav-link" href="/myFriends">My Friends</a>
+                </li>
+                <li class="nav-item">
+                <a class="nav-link" href="#">Settings</a>
+                </li>
+                <li class="nav-item">
+                    <input type="text" name ="searchString" placeholder="Find friends via username" onChange={(e) => setSearchString(e.target.value)}></input>
+                    <p>
+                        {searchString} 
+                    </p>
+                </li>
+                <li class="nav-item">
+                    <button type="submit" onClick={handleClick} >Submit</button>              
+                </li>
+                <li>
+                    <div> Add this friend?:</div>
+                    <button onClick={requestFriend}>  {result} </button>                             
+                </li> 
+                <li>
+                    <a class="nav-link" href="/logout">Logout</a>
+                </li>           
             </ul>
         </div>
         </div>

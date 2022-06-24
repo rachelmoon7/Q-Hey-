@@ -1,7 +1,4 @@
 'use strict';
-import {Route, Link} from 'react-router-dom';
-const Link = ReactRouterDOM.Link;
-const Route = ReactRouterDOM.Route;
 
 function addPic2() {
     //Callback function for eventListener when user wishes to upload second picture in same post

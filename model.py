@@ -46,9 +46,9 @@ class User(db.Model):
 
     #call this fcn to get all frineds of given users so don't use backref ^ directly
     #self.followers (followers attribute) was given to us by backref
-    def get_all_friends(self):
-        """Get all friends, those you are following AND those following you."""
-        return self.following + self.followers
+    # def get_all_friends(self):
+    #     """Get all friends, those you are following AND those following you."""
+    #     return self.following + self.followers
     
     def to_dict(self):
         """Convert python object to dictionary"""
