@@ -92,58 +92,13 @@ def register_user():
         flash("Account successfully created! Please log in.")
         return redirect('/')
 
-# @app.route("/post-form-data", methods=["POST"])
-# def process_form():
-#     """Process the form"""
-#     my_file = request.files['my-file']
-#     result = cloudinary.uploader.upload(my_file,
-#                                         api_key=CLOUDINARY_KEY,
-#                                         api_secret=CLOUDINARY_SECRET,
-#                                         cloud_name=CLOUD_NAME)
-#     img_url = result['secure_url']  
 
-
-    
-#     user_id = session["user_id"]
-   
-#     question_id = datetime.now().isocalendar().week
-#     post_date = datetime.now()
-#     caption = request.form.get("caption")
-
-#     new_post = crud.create_post(user_id, question_id, post_date, caption)
-#     db.session.add(new_post)
-#     db.session.commit()
-
-#     new_image = crud.create_image(new_post.post_id, img_url) 
-#     db.session.add(new_image)
-#     db.session.commit()
-
-#     if request.files.get("my-file-2"):
-#         my_file_2 = request.files['my-file-2']
-#         result_2 = cloudinary.uploader.upload(my_file_2,
-#                                         api_key=CLOUDINARY_KEY,
-#                                         api_secret=CLOUDINARY_SECRET,
-#                                         cloud_name=CLOUD_NAME)
-#         img_url_2 = result_2['secure_url']  
-#         new_image_2 = crud.create_image(new_post.post_id, img_url_2)
-        
-#         db.session.add(new_image_2)
-#         db.session.commit()
-
-#     return redirect('/landing-page')
-
-#for React fetch request 
 @app.route("/post-form-data", methods=["POST"])
 def process_form():
     """Process the form"""
-    # my_file = request.files['my-file']
-    # result = cloudinary.uploader.upload(my_file,
-    #                                     api_key=CLOUDINARY_KEY,
-    #                                     api_secret=CLOUDINARY_SECRET,
-    #                                     cloud_name=CLOUD_NAME)
-    # img_url = result['secure_url'] 
+
     print("LINE 145??", request.json)
-    # img_url = request.json['img1']  
+    img_url = request.json['img1']  
 
     
     user_id = session["user_id"]
@@ -157,21 +112,17 @@ def process_form():
     db.session.add(new_post)
     db.session.commit()
 
-    # new_image = crud.create_image(new_post.post_id, img_url) 
-    # db.session.add(new_image)
-    # db.session.commit()
+    new_image = crud.create_image(new_post.post_id, img_url) 
+    db.session.add(new_image)
+    db.session.commit()
 
-    # if request.json['img2']:
-    #     # my_file_2 = request.files['my-file-2']
-    #     # result_2 = cloudinary.uploader.upload(my_file_2,
-    #     #                                 api_key=CLOUDINARY_KEY,
-    #     #                                 api_secret=CLOUDINARY_SECRET,
-    #     #                                 cloud_name=CLOUD_NAME)
-    #     img_url_2 = request.json['img2']   
-    #     new_image_2 = crud.create_image(new_post.post_id, img_url_2)
+    if request.json['img2']:
+
+        img_url_2 = request.json['img2']   
+        new_image_2 = crud.create_image(new_post.post_id, img_url_2)
         
-    #     db.session.add(new_image_2)
-    #     db.session.commit()
+        db.session.add(new_image_2)
+        db.session.commit()
 
     return jsonify({})
 
