@@ -1,13 +1,13 @@
 const Upload = () => {
     const [showImgForm2, setShowImgForm2] = React.useState(false);
     const [showAddAnother, setShowAddAnother] = React.useState(false);
-    // const [imgURL1, setImgURL1] = React.useState('');
     const [imgURL, setImgURL] = React.useState('');
     const [img, setImg] = React.useState('');
     const [img1, setImg1] = React.useState('');
     const [imgURL2, setImgURL2] = React.useState('');
     const [img2, setImg2] = React.useState('');
     const [caption, setCaption] = React.useState('');
+    const [post, setPost] = React.useState('');
 
 
     const getCloudinaryLink = (file) => {
@@ -25,29 +25,16 @@ const Upload = () => {
         .then((result) => {
             console.log("RESULT??", result.url); 
             if (imgURL == "") {
-                console.log("hello line 26");
+                console.log("entering IF");
                 setImgURL(result.url);
             } else {
+                console.log("ENTERING ELSE");
                 setImgURL2(result.url);
             }
         });
     };
 
     const upload = () => {
-        // const data = new FormData()
-        // data.append("file", imgURL1)
-        // data.append("upload_preset", "pba5lu5s")
-        
-        // fetch("https://api.cloudinary.com/v1_1/dvbrrbcum/image/upload"
-        // , {
-        //     method: 'POST',            
-        //     body: data
-        // })
-        // .then((response) => response.json())
-        // .then((result) => {
-        //     console.log("LINE 25 URL", result.url)
-        console.log("ARE WE GETTING CL LINK", imgURL);
-        // setImg1(img);
 
         fetch('/post-form-data', {
             method:'POST',
@@ -57,38 +44,15 @@ const Upload = () => {
                                    "caption": caption 
                                 })
         })
-        .then((response) => console.log("$$$", response))
+        .then((response) => response)
+        .then((result) => {
+            console.log(result)
+            setPost(result)
+
+        })
     };
         
-          
-
-    // const secondUpload = () => {
-    //     // const data = new FormData()
-    //     // data.append("file", imgURL2)
-    //     // data.append("upload_preset", "pba5lu5s")
-        
-    //     // fetch("https://api.cloudinary.com/v1_1/dvbrrbcum/image/upload"
-    //     // , {
-    //     //     method: 'POST',            
-    //     //     body: data
-    //     // })
-    //     // .then((response) => response.json())
-    //     // .then((result2) => {
-    //     //     setImg2(result2.url);
-    //     fetch('/post-form-data', {
-    //         method:'POST',
-    //         headers: { "Content-Type": "application/json" },
-    //         body: JSON.stringify({ "img2": result2.url, "caption": caption })
-    //     })
-    //     .then((response) => console.log("$$$", response))
-    //     };
-    
-    // let secondButton; 
-    // if (showAddAnother) {
-    //     secondButton = `<input type="file" onChange={(e)=> {setImgURL2(e.target.files[1])}}></input>         
-    // <button onClick = {secondUpload}>Upload Second Photo</button>`
-    // }
-//     
+   
     return (
         <React.Fragment> 
             <input type="file" onChange={(e)=> {setShowAddAnother(true), getCloudinaryLink(e.target.files[0])} } ></input>         
