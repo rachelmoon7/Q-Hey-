@@ -1,4 +1,4 @@
-const Upload = () => {
+const NewPost = () => {
     const [showImgForm2, setShowImgForm2] = React.useState(false);
     const [showAddAnother, setShowAddAnother] = React.useState(false);
     const [imgURL, setImgURL] = React.useState('');
@@ -83,6 +83,5 @@ const Upload = () => {
     )
 }
 
-
-
-ReactDOM.render(<Upload entry={entry}/>, document.querySelector("#reactUpload"));
+// export default NewPost;
+// ReactDOM.render(NewPost, document.querySelector("#reactPostsContainer"));

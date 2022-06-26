@@ -1,6 +1,7 @@
-import Upload from './Upload'
 const Post = (props) => {
-    console.log(props.entry)
+    return ( 
+        <div></div>
+    );
 }
 
-ReactDOM.render(<Post />, document.querySelector("#reactPost"));
+// ReactDOM.render(<Post />, document.querySelector("#reactPost"));

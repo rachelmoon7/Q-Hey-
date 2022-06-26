@@ -5,14 +5,10 @@
 <div id="navBar"></div>
 <h1>Q&Hey!</h1>
 
-
 <h2>Q: </h2>
 {{ questions[week_num - 1].question }}
 
-<!-- <section id="upload"> -->
-<div id="reactUpload"></div>
-
-<!-- </section> -->
+<div id="reactPostsContainer"></div>
 
 {% for image in posts[-1].images %}
   {% if posts[-1].post_date.isocalendar().week == week_num %} 
@@ -25,10 +21,11 @@
 <div id="reactPost"></div>
 
 <!-- JavaScript Bundle with Popper -->
-<!-- <script src="../static/functions.js"></script> -->
 <script type='text/babel' src="../static/components/navBar.jsx"></script>
-<script type='text/babel' src="../static/components/upload.jsx"></script>
+<script type='text/babel' src="../static/components/NewPost.jsx"></script>
 <script type='text/babel' src="../static/components/post.jsx"></script>
+<script type='text/babel' src="../static/containers/postContainer.jsx"></script>
+
 
 <!-- <script type='text/babel' src="../static/components/MyProfile.jsx"></script> -->
 
