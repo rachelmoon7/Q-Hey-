@@ -124,7 +124,9 @@ def process_form():
         db.session.add(new_image_2)
         db.session.commit()
 
-    return jsonify([{'new_post': new_post, 'new_image': new_image, 'new_image_2': new_image_2}])
+        return jsonify([{'new_post': new_post.to_dict(), 'new_image': new_image.to_dict(), 'new_image_2': new_image_2.to_dict()}])
+    
+    return jsonify([{'new_post': new_post.to_dict(), 'new_image': new_image.to_dict()}])
 
 
 @app.route('/get-search-result', methods=["POST"])

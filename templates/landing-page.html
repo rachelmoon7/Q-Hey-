@@ -4,28 +4,32 @@
 {% block body %}
 <div id="navBar"></div>
 <h1>Q&Hey!</h1>
-<!-- <div id="root"></div> -->
+
 
 <h2>Q: </h2>
 {{ questions[week_num - 1].question }}
 
-<section id="upload">
-  <div id="reactUpload"></div>
+<!-- <section id="upload"> -->
+<div id="reactUpload"></div>
 
-</section>
+<!-- </section> -->
 
 {% for image in posts[-1].images %}
   {% if posts[-1].post_date.isocalendar().week == week_num %} 
     <img src = "{{ image.img_URL }}" />
-    <div>{{ posts[-1].caption }}</div>
+    
   {% endif %}
 {%endfor%}
+<div>{{ posts[-1].caption }}</div>
 
+<div id="reactPost"></div>
 
 <!-- JavaScript Bundle with Popper -->
-<script src="../static/functions.js"></script>
+<!-- <script src="../static/functions.js"></script> -->
 <script type='text/babel' src="../static/components/navBar.jsx"></script>
-<script type='text/babel' src="../static/components/posts.jsx"></script>
+<script type='text/babel' src="../static/components/upload.jsx"></script>
+<script type='text/babel' src="../static/components/post.jsx"></script>
+
 <!-- <script type='text/babel' src="../static/components/MyProfile.jsx"></script> -->
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>

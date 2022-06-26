@@ -81,6 +81,16 @@ class Post(db.Model):
     user = db.relationship("User", backref="posts")
     question = db.relationship("Question", backref="posts")
 
+    def to_dict(self):
+        """Convert python object to dictionary"""
+
+        return {'post_id': self.post_id, 
+                'user_id': self.user_id,
+                'question_id': self.question_id,
+                'post_date': self.post_date,
+                'caption': self.caption
+                }
+
     def __repr__(self):
         return f'<Post post_id={self.post_id} post_date={self.post_date}>'
 
@@ -97,6 +107,16 @@ class Image(db.Model):
     img_URL = db.Column(db.String)
 
     post = db.relationship("Post", backref="images")
+
+    def to_dict(self):
+        """Convert python object to dictionary"""
+
+        return {'image_id': self.image_id,
+                'post_id': self.post_id,
+                'img_URL': self.img_URL
+                }
+
+
 
     def __repr__(self):
         return f'<Image image_id={self.image_id}>'
