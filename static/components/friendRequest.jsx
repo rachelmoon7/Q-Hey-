@@ -1,4 +1,4 @@
-//define FriendRequest component to render one request
+//render one request
 const FriendRequest = (props) => {
     const [friend, setFriend] = React.useState('')
     const [active, setActive] = React.useState(true)
@@ -24,6 +24,7 @@ const FriendRequest = (props) => {
         : <div></div>
     )
 }
+
 const FriendRequestContainer = () => {
     const requests = [];
     const [friends, setFriends] = React.useState('');
@@ -37,7 +38,7 @@ const FriendRequestContainer = () => {
     }, []);
     
 
-    console.log("((((((%%%%))))))", friends)
+    console.log("my friends as a result:", friends)
 
     for (const request of friends) {
         requests.push(<FriendRequest user_id={request.user_id} name={request.fname}          

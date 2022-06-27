@@ -1,5 +1,7 @@
 """CRUD operations."""
 from model import db, User, Post, Image, Question, connect_to_db
+from datetime import datetime
+import asyncio
 
 def create_user(fname, lname, email, username, password):
     """Create and return a new user."""
@@ -48,6 +50,20 @@ def get_post():
 
     return Post.query.all()
 
+def get_friend_posts_week(user_id):
+    """Retrieve list of friend's posts from current week."""
+
+    week_num = datetime.now().isocalendar().week
+    friend_posts_all = Post.query.filter(Post.user_id == user_id).all()
+    # print("*** CRUD LINE 58 USERS POSTS:", friend_posts_all)
+    friend_posts_current_week = []
+    for post in friend_posts_all:
+        if post.get_week_num() == week_num:
+            friend_posts_current_week.append(post)
+    print("+++++CURRENT WEEK POSTS:", friend_posts_current_week)
+
+    return friend_posts_current_week 
+
 def get_image():
     """Retrieve a list of images from database."""
 
@@ -72,6 +88,10 @@ def accept_request(logged_in_user, potential_friend):
     logged_in_user.followers.append(potential_friend)
     logged_in_user.following.append(potential_friend)
     potential_friend.followers.append(logged_in_user)
+
+# def get_my_friends(logged_in_user):
+#     """ Get all of my friends. """
+
 
 
 if __name__ == '__main__':

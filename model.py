@@ -81,6 +81,11 @@ class Post(db.Model):
     user = db.relationship("User", backref="posts")
     question = db.relationship("Question", backref="posts")
 
+    def get_week_num(self):
+        """Get week number of post_date."""
+
+        return self.post_date.isocalendar().week
+        
     def to_dict(self):
         """Convert python object to dictionary"""
 

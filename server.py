@@ -199,7 +199,42 @@ def get_all_requests():
     return jsonify(all_fr)
 
 
-@app.route("/profile")
+@app.route('/get-friends')
+def get_friends_posts():
+    """Return user's friends."""
+
+    logged_in_user = crud.get_user_by_id(session["user_id"])  
+    #list of my friends objects 
+    my_friends = set(logged_in_user.followers) & set(logged_in_user.following)
+    
+    my_friends_todict = []
+    
+    for friend in my_friends:
+        my_friends_todict.append(friend.to_dict())
+    # print("******SERVER LINE 209: MY FRIENDS:", my_friends_todict)
+
+    return jsonify(my_friends_todict)
+
+@app.route('/get-post', methods=["POST"])
+def get_post():
+    """Return post info for one user."""
+    print("---&&& SERVER'S LINE 222:", request.json['result'][0]['user_id'])
+
+    # # return jsonify(my_friends_dict)
+    # for friend in my_friends:
+    #     print("**LINE 216 FRIEND OBJ:", friend)
+    #     print("&&LINE 217 FRIEND OBJ USERID:", friend.user_id)
+    #     friends_posts = crud.get_friend_posts_week(friend.user_id)
+    #     friends_posts_dict = friends_posts[0].to_dict()
+    #     print("$$$$$$line 219 getting posts?", friends_posts_dict)
+    
+    #     return jsonify(friends_posts_dict)
+
+    
+
+
+
+@app.route('/profile')
 def show_melon():
     """Return page showing the details of a given user.
 

@@ -8,7 +8,7 @@
 <h2>Q: </h2>
 {{ questions[week_num - 1].question }}
 
-<div id="reactPostsContainer"></div>
+<div id="reactLandingContainer"></div>
 
 {% for image in posts[-1].images %}
   {% if posts[-1].post_date.isocalendar().week == week_num %} 
@@ -23,8 +23,8 @@
 <!-- JavaScript Bundle with Popper -->
 <script type='text/babel' src="../static/components/navBar.jsx"></script>
 <script type='text/babel' src="../static/components/NewPost.jsx"></script>
-<script type='text/babel' src="../static/components/post.jsx"></script>
-<script type='text/babel' src="../static/containers/postContainer.jsx"></script>
+<script type='text/babel' src="../static/components/MyFriends.jsx"></script>
+<script type='text/babel' src="../static/containers/LandingContainer.jsx"></script>
 
 
 <!-- <script type='text/babel' src="../static/components/MyProfile.jsx"></script> -->

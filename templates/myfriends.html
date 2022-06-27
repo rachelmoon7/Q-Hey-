@@ -3,12 +3,13 @@
 
 {% block body %}
 <div id="navBar"></div>
+
 <h2>My Friends</h2>
 {% for friends in my_friends %}
     <li>{{ friends.fname }} {{ friends.lname }}</li>
 {% endfor %}
 
-<h2>Requested:</h2>
+<h2>Requested to:</h2>
 {% for friend in requested %}   
     <li>{{ friend.fname }} {{ friend.lname}}</li>    
 {% endfor %}
