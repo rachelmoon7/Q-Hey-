@@ -42,6 +42,7 @@ def create_image(post_id, img_URL):
     """Create an image when a user uploads."""
 
     image = Image(post_id=post_id, img_URL=img_URL)
+    print("$$$$CRUD LINE 45 IMAGE OBJECT", image)
 
     return image
 
@@ -49,20 +50,6 @@ def get_post():
     """Retrieve a list of posts from database."""
 
     return Post.query.all()
-
-def get_friend_posts_week(user_id):
-    """Retrieve list of friend's posts from current week."""
-
-    week_num = datetime.now().isocalendar().week
-    friend_posts_all = Post.query.filter(Post.user_id == user_id).all()
-    # print("*** CRUD LINE 58 USERS POSTS:", friend_posts_all)
-    friend_posts_current_week = []
-    for post in friend_posts_all:
-        if post.get_week_num() == week_num:
-            friend_posts_current_week.append(post)
-    print("+++++CURRENT WEEK POSTS:", friend_posts_current_week)
-
-    return friend_posts_current_week 
 
 def get_image():
     """Retrieve a list of images from database."""
@@ -89,10 +76,37 @@ def accept_request(logged_in_user, potential_friend):
     logged_in_user.following.append(potential_friend)
     potential_friend.followers.append(logged_in_user)
 
-# def get_my_friends(logged_in_user):
-#     """ Get all of my friends. """
+def get_friend_posts_week(user_id):
+    """Retrieve list of friend's posts from current week."""
 
+    week_num = datetime.now().isocalendar().week
+    friend_posts_all = Post.query.filter(Post.user_id == user_id).all()
+    # print("*** CRUD LINE 58 USERS POSTS:", friend_posts_all)
+    friend_posts_current_week = []
+    for post in friend_posts_all:
+        if post.get_week_num() == week_num:
+            friend_posts_current_week.append(post.to_dict())
+    print("+++++CURRENT WEEK POSTS:", friend_posts_current_week)
 
+    return friend_posts_current_week 
+
+def get_friend_images_week(user_id):
+    """Retrieve list of friend's images from current week."""
+
+    week_num = datetime.now().isocalendar().week
+    friend_posts_all = Post.query.filter(Post.user_id == user_id).all()
+
+    friend_posts_current_week = []
+    for post in friend_posts_all:
+        if post.get_week_num() == week_num:
+            friend_posts_current_week.append(post.to_dict())
+
+    friend_images_current_week =[]
+    for i in range(len(friend_posts_current_week)):
+        friend_images_current_week.append(Image(post_id=friend_posts_current_week[i]['post_id']).to_dict())
+    print("CRUD LINE 106 IMAGES ", friend_images_current_week)
+
+    return friend_images_current_week
 
 if __name__ == '__main__':
     from server import app

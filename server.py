@@ -97,8 +97,8 @@ def register_user():
 def process_form():
     """Process the form"""
 
-    print("LINE 145??", request.json)
     img_url = request.json['img1']  
+    print("(((((LINE 101??", img_url)
 
     
     user_id = session["user_id"]
@@ -217,18 +217,21 @@ def get_friends_posts():
 
 @app.route('/get-post', methods=["POST"])
 def get_post():
-    """Return post info for one user."""
-    print("---&&& SERVER'S LINE 222:", request.json['result'][0]['user_id'])
-
-    # # return jsonify(my_friends_dict)
-    # for friend in my_friends:
-    #     print("**LINE 216 FRIEND OBJ:", friend)
-    #     print("&&LINE 217 FRIEND OBJ USERID:", friend.user_id)
-    #     friends_posts = crud.get_friend_posts_week(friend.user_id)
-    #     friends_posts_dict = friends_posts[0].to_dict()
-    #     print("$$$$$$line 219 getting posts?", friends_posts_dict)
+    """Return post info (images and caption) for one user."""
+    print("---SERVER'S LINE 222:", request.json['result'])
+    friends_ids = []
+    friends_objs = request.json['result']
+    for friend in friends_objs:
+        friends_ids.append(friend['user_id'])
+    print("---SERVER LINE 226 FRIEND ID'S?", friends_ids)
+    #list of a list of dict with friend's posts info of current week 
+    posts = []
+    for id in friends_ids:
+        posts.append(crud.get_friend_images_week(id))
+    print("---SERVER LINE 231: POSTS", posts)
     
-    #     return jsonify(friends_posts_dict)
+    return jsonify(posts)
+    
 
     
 

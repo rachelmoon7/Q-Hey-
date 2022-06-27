@@ -121,10 +121,8 @@ class Image(db.Model):
                 'img_URL': self.img_URL
                 }
 
-
-
     def __repr__(self):
-        return f'<Image image_id={self.image_id}>'
+        return f'<Image image_id={self.image_id} image_url={self.img_URL}>'
 
 
 class Question(db.Model):
