@@ -10,19 +10,7 @@ const UsersPosts = (props) => {
     // const [img2, setImg2] = React.useState('');
     // const [caption, setCaption] = React.useState('');
 
-    // React.useEffect(() => {
-    //     //post fetch request !!(add friends to send to)
-    //     fetch('/get-post', {
-    //         method: 'POST',
-    //         headers: { "Content-Type": "application/json" },
-    //         body: JSON.stringify({ friends })
-    //     })
-    //     .then((response) => response.json())
-    //     .then((result) => {
-    //         console.log("POST (REACT) RESULT:", result);
-            
-    //     });
-    // }, []);
+    //receive caption and img url(s) from parent component, myFriends
     
     return (
         <React.Fragment>

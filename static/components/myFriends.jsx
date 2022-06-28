@@ -11,7 +11,8 @@ const MyFriends = () => {
         fetch('/get-friends-posts')
         .then((response) => response.json())
         .then((result) => {
-            
+            //set variables 
+            //figure out what to send to child component, usersPosts
         })
 
     }, []);
