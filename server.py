@@ -272,9 +272,10 @@ def get_friends_posts():
             print("_+_+_+server 272", caption_image[current_week_images_obj[i]['post_id']])
             caption_image[current_week_images_obj[i]['post_id']].update({'img_url': current_week_images_obj[i]['img_URL']})
         post_info[friend_id] = caption_image
-    print("-&_&_&_&_&_server 264", post_info)
+    print("-&_&_&_&_&_server 275", post_info)
 
     return jsonify(post_info)
+    
 
 
 

@@ -1,6 +1,7 @@
 const MyFriends = () => {
-    //friends is a list of user's friendss user_ids:
-    const [friends, setFriends] = React.useState([]);
+    //friends is a list of [{10:xxxx}, {9:xxxx}]
+    
+    const [friend, setFriend] = React.useState([]);
 
     const [img, setImg] = React.useState('');
     const [img2, setImg2] = React.useState('');
@@ -13,6 +14,13 @@ const MyFriends = () => {
         .then((result) => {
             //set variables 
             //figure out what to send to child component, usersPosts
+            setFriend(result)
+            //loop over result - child comp for a post
+            //1 key val pair in result = 1 friend
+            //component for 1 friend
+                //child comp of 1 friend comp = 1 post
+            //handle varying length by looping over each key in result
+            //
         })
 
     }, []);
@@ -20,7 +28,7 @@ const MyFriends = () => {
 
     return ( 
         <React.Fragment>
-            <div> {caption} </div>
+            <div>  </div>
         </React.Fragment>
     );
 }
