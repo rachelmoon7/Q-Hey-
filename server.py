@@ -243,7 +243,7 @@ def get_friends_posts():
     """Retrieve all posts for each friend."""
     #empty dictionary for {friend_id: {post_id: {caption: caption, post_date: post_date, img_url:img_url}}}
     post_info = {}
-    caption_image = {}
+    
 
     logged_in_user = crud.get_user_by_id(session["user_id"])  
     #list of my friends objects 
@@ -253,25 +253,30 @@ def get_friends_posts():
     my_friends_ids = [obj.user_id for obj in my_friends ]
     print("+++++++SERVER 256: ID?", my_friends_ids)
     for friend_id in my_friends_ids:
+        
         #current_week_posts_obj is a list of post objects for each user [{post1 info}, {post2 info}]
         current_week_posts_obj = crud.get_friend_posts_week(friend_id)
-        print("~~~~~SERVER POST OBJS LINE 258", current_week_posts_obj)
+        # print("~~~~~SERVER POST OBJS LINE 258", current_week_posts_obj)
 
         current_week_images_obj = crud.get_friend_images_week(friend_id)
-        print("~!~!~!~SERVER IMG OBJS LINE 260", current_week_images_obj)
+        # print("~!~!~!~SERVER IMG OBJS LINE 260", current_week_images_obj)
 
         for i in range(len(current_week_posts_obj)): 
+            #initialize empty value here to start fresh for each friend
+            caption_image = {}
             # print("!!!_____!! SERVER262", current_week_posts_obj[i]['post_id'])
             caption_image[current_week_posts_obj[i]['post_id']] = {'caption': current_week_posts_obj[i]['caption']}
-        
+            # print("!!!!!!!!!!!!!!", current_week_posts_obj[i]['user_id'])                
      
         for i in range(len(current_week_images_obj)): 
             if len(current_week_images_obj) > 1:
                 caption_image[current_week_images_obj[i]['post_id']].update({'img_url': current_week_images_obj[i]['img_URL']}) 
                 caption_image[current_week_images_obj[i]['post_id']].update({'img_url2': current_week_images_obj[1]['img_URL']})
-            print("_+_+_+server 272", caption_image[current_week_images_obj[i]['post_id']])
+            # print("_+_+_+server 272", caption_image[current_week_images_obj[i]['post_id']])
             caption_image[current_week_images_obj[i]['post_id']].update({'img_url': current_week_images_obj[i]['img_URL']})
+            # print("$$$SERVER CAPTION_IMAGE VALUE:", caption_image)
         post_info[friend_id] = caption_image
+        
     print("-&_&_&_&_&_server 275", post_info)
 
     return jsonify(post_info)

@@ -10,17 +10,9 @@ const MyFriends = () => {
 
     React.useEffect(() => {
         fetch('/get-friends-posts')
-        .then((response) => response.json())
+        .then((response) => console.log("MYFRIENDS.JSX RESULT:", response.json()))
         .then((result) => {
-            //set variables 
-            //figure out what to send to child component, usersPosts
-            setFriend(result)
-            //loop over result - child comp for a post
-            //1 key val pair in result = 1 friend
-            //component for 1 friend
-                //child comp of 1 friend comp = 1 post
-            //handle varying length by looping over each key in result
-            //
+  
         })
 
     }, []);
