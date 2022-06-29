@@ -101,15 +101,26 @@ def get_friend_images_week(user_id):
             friend_posts_current_week.append(post.to_dict())
 
     friend_images_current_week = None
+
     for i in range(len(friend_posts_current_week)):
+        print("_____CRUD 106 POST ID'S", friend_posts_current_week[i]['post_id'])
         friend_images_current_week = Image.query.filter(Image.post_id==friend_posts_current_week[i]['post_id']).all()
-    print("@@@ CRUD LINE 106", friend_images_current_week)
+
+    if friend_images_current_week == None:
+        return []
 
     friend_images_current_week_todict = []
     for image_obj in friend_images_current_week:
         friend_images_current_week_todict.append(image_obj.to_dict())
 
     return friend_images_current_week_todict
+
+def get_username(id):
+    """Retrieve the username of the user with id in argument."""
+
+    return User.query.filter(User.user_id == id).first().username
+
+
 
 if __name__ == '__main__':
     from server import app

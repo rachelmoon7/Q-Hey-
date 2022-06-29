@@ -198,97 +198,48 @@ def get_all_requests():
     print("--202--ALL REQUESTS", all_fr)    
     return jsonify(all_fr)
 
-
-# @app.route('/get-friends')
-# def get_friends_posts():
-#     """Return user's friends."""
-
-#     logged_in_user = crud.get_user_by_id(session["user_id"])  
-#     #list of my friends objects 
-#     my_friends = set(logged_in_user.followers) & set(logged_in_user.following)
-    
-#     my_friends_todict = []
-    
-#     for friend in my_friends:
-#         my_friends_todict.append(friend.to_dict())
-#     print("******SERVER LINE 209: MY FRIENDS:", my_friends_todict)
-
-#     return jsonify(my_friends_todict)
-
-# @app.route('/get-post', methods=["POST"])
-# def get_post():
-    # """Return post info (images and caption?) for one user."""
-    # print("---SERVER'S LINE 222:", request.json['result'])
-    # friends_ids = []
-    # friends_objs = request.json['result']
-
-    # for friend in friends_objs:
-    #     friends_ids.append(friend['user_id'])
-    # # print("---SERVER LINE 226 FRIEND ID'S?", friends_ids)
-    # #list of a list of dict with friend's posts info of current week 
-    # images = []
-    # for id in friends_ids:
-    #     images.append(crud.get_friend_images_week(id))
-    # print("---SERVER LINE 231: image objects", images)
-    
-    # posts = []
-    # for id in friends_ids:
-    #     posts.append(crud.get_friend_posts_week(id))
-    #     print("-!!-!!-SERVER LINE 237: image objects", images)
-
-    # return jsonify(images)
     
 @app.route('/get-friends-posts')
 def get_friends_posts():
     """Retrieve all posts for each friend."""
-    #empty dictionary for {friend_id: {post_id: {caption: caption, post_date: post_date, img_url:img_url}}}
+    #declare empty dictionary for {friend_id: {post_id: {caption: caption, post_date: post_date, img_url:img_url}}}
     post_info = {}
-    
 
-    logged_in_user = crud.get_user_by_id(session["user_id"])  
+    logged_in_user = crud.get_user_by_id(session["user_id"])
+
     #list of my friends objects 
-    my_friends = list(set(logged_in_user.followers) & set(logged_in_user.following))
-    print("***SERVER", my_friends)
-    
-    my_friends_ids = [obj.user_id for obj in my_friends ]
-    print("+++++++SERVER 256: ID?", my_friends_ids)
-    for friend_id in my_friends_ids:
-        
+    friends = list(set(logged_in_user.followers) & set(logged_in_user.following))
+    friends_ids = [obj.user_id for obj in friends]
+
+    for friend_id in friends_ids:
+        #initialize empty value here to start fresh for each friend
+        caption_image = {}
         #current_week_posts_obj is a list of post objects for each user [{post1 info}, {post2 info}]
         current_week_posts_obj = crud.get_friend_posts_week(friend_id)
-        # print("~~~~~SERVER POST OBJS LINE 258", current_week_posts_obj)
-
+        #current_week_images_obj is a list of image objects for each user
         current_week_images_obj = crud.get_friend_images_week(friend_id)
-        # print("~!~!~!~SERVER IMG OBJS LINE 260", current_week_images_obj)
 
-        for i in range(len(current_week_posts_obj)): 
-            #initialize empty value here to start fresh for each friend
-            caption_image = {}
-            # print("!!!_____!! SERVER262", current_week_posts_obj[i]['post_id'])
-            caption_image[current_week_posts_obj[i]['post_id']] = {'caption': current_week_posts_obj[i]['caption']}
-            # print("!!!!!!!!!!!!!!", current_week_posts_obj[i]['user_id'])                
-     
-        for i in range(len(current_week_images_obj)): 
+        for i in range(len(current_week_posts_obj)):
             if len(current_week_images_obj) > 1:
-                caption_image[current_week_images_obj[i]['post_id']].update({'img_url': current_week_images_obj[i]['img_URL']}) 
-                caption_image[current_week_images_obj[i]['post_id']].update({'img_url2': current_week_images_obj[1]['img_URL']})
-            # print("_+_+_+server 272", caption_image[current_week_images_obj[i]['post_id']])
-            caption_image[current_week_images_obj[i]['post_id']].update({'img_url': current_week_images_obj[i]['img_URL']})
-            # print("$$$SERVER CAPTION_IMAGE VALUE:", caption_image)
-        post_info[friend_id] = caption_image
+                print("------entering if")
+                caption_image[current_week_posts_obj[i]['post_id']] = {'caption': current_week_posts_obj[i]['caption'], 
+                                                                        'img_url': current_week_images_obj[0]['img_URL'],
+                                                                        'img_url2': current_week_images_obj[1]['img_URL']
+                                                                      }
+            else:
+                caption_image[current_week_posts_obj[i]['post_id']] = {'caption': current_week_posts_obj[i]['caption'], 
+                                                                   'img_url': current_week_images_obj[0]['img_URL']
+                                                                    }
+            print("!!! SERVER LINE 235", caption_image) 
+                
+        if len(current_week_images_obj) == 0:
+            caption_image[current_week_posts_obj[i]['post_id']] = {'caption': current_week_posts_obj[i]['caption']}
+       
+        username = crud.get_username(friend_id)
+        post_info[username] = caption_image
         
-    print("-&_&_&_&_&_server 275", post_info)
-
+    print("-_-_-_-_-_-Server 275", post_info)
     return jsonify(post_info)
-    
-
-
-
-
-
-
-
-
 
 
     @app.route('/profile')
