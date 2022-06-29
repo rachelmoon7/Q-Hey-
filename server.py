@@ -225,11 +225,11 @@ def get_friends_posts():
                 caption_image[current_week_posts_obj[i]['post_id']] = {'caption': current_week_posts_obj[i]['caption'], 
                                                                         'img_url': current_week_images_obj[0]['img_URL'],
                                                                         'img_url2': current_week_images_obj[1]['img_URL']
-                                                                      }
+                                                                        }
             else:
                 caption_image[current_week_posts_obj[i]['post_id']] = {'caption': current_week_posts_obj[i]['caption'], 
-                                                                   'img_url': current_week_images_obj[0]['img_URL']
-                                                                    }
+                                                                        'img_url': current_week_images_obj[0]['img_URL']
+                                                                        }
             print("!!! SERVER LINE 235", caption_image) 
                 
         if len(current_week_images_obj) == 0:
@@ -253,12 +253,6 @@ def get_friends_posts():
 
     return render_template("profile.html")
     #div on profile.html which renders profiles jsx
-                           
-
-
-    
-
-
 
 
 if __name__ == "__main__":

@@ -36,7 +36,6 @@ const FriendRequestContainer = () => {
             setFriends(result)
         });
     }, []);
-    
 
     console.log("my friends as a result:", friends)
 
