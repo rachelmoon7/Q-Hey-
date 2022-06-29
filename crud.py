@@ -81,7 +81,7 @@ def accept_request(logged_in_user, potential_friend):
     potential_friend.followers.append(logged_in_user)
 
 
-def get_friend_posts_week(user_id):
+def get_users_posts_week(user_id):
     """Retrieve list of friend's posts from current week."""
 
     week_num = datetime.now().isocalendar().week

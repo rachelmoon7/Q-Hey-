@@ -36,6 +36,7 @@ def login_user():
     if existing_user and user_password == existing_user.password:     
         session["user_email"] = existing_user.email
         session["user_id"] = existing_user.user_id
+        session["username"] = existing_user.username
         return redirect('/landing-page')
     else:
         flash("Incorrect password!")
@@ -201,7 +202,7 @@ def get_all_requests():
     
 @app.route('/get-friends-posts')
 def get_friends_posts():
-    """Retrieve all posts for each friend."""
+    """Retrieve all posts for each friend from current week to show in Landing Page."""
     #declare empty dictionary for {friend_id: {post_id: {caption: caption, post_date: post_date, img_url:img_url}}}
     post_info = {}
 
@@ -215,7 +216,7 @@ def get_friends_posts():
         #initialize empty value here to start fresh for each friend
         caption_image = {}
         #current_week_posts_obj is a list of post objects for each user [{post1 info}, {post2 info}]
-        current_week_posts_obj = crud.get_friend_posts_week(friend_id)
+        current_week_posts_obj = crud.get_users_posts_week(friend_id)
         
         #iterate thorugh posts object to get .images attribute of each post
         for post in current_week_posts_obj:
@@ -225,27 +226,72 @@ def get_friends_posts():
             if len(post.images) > 1:
                 caption_image[post.post_id]['img_url'] = post.images[0].img_URL
                 caption_image[post.post_id]['img_url2'] = post.images[1].img_URL
-
-            print("!!! SERVER LINE 235", caption_image) 
+            # print("!!! SERVER LINE 235", caption_image) 
                 
         username = crud.get_username(friend_id)
         post_info[username] = caption_image
         
-    print("-_-_-_-_-_-Server 275", post_info)
+    # print("-_-_-_-_-_-Server 275", post_info)
     return jsonify(post_info)
 
 
-    @app.route('/profile')
-    def show_melon():
-        """Return page showing the details of a given user.
+@app.route('/profile')
+def my_profile():
+    """Return page showing the details of a given user.
 
     Show all info about a user. Also, provide a button to add user as a friend.
     """
-    #get username form session 
-    # user = crud.get_user_by_username(request.json['searchString'])
-
+ 
     return render_template("profile.html")
     #div on profile.html which renders profiles jsx
+
+
+@app.route('/get-logged-in-user')
+def show_logged_in_user():
+    """Return logged in user's username."""
+
+    return jsonify(session['username'])
+
+
+@app.route('/get-my-posts')
+def get_my_posts():
+    """Retrieve all posts for myself from current week to show in Landing Page."""
+    #declare empty dictionary for {friend_id: {post_id: {caption: caption, post_date: post_date, img_url:img_url}}}
+    post_info = {}
+
+    my_id = session["user_id"]
+    caption_image = {}
+    #current_week_posts_obj is a list of post objects for each user [{post1 info}, {post2 info}]
+    current_week_posts_obj = crud.get_users_posts_week(my_id)
+    for post in current_week_posts_obj:
+            caption_image[post.post_id] = {'caption': post.caption}
+            caption_image[post.post_id]['img_url'] = post.images[0].img_URL
+
+            if len(post.images) > 1:
+                caption_image[post.post_id]['img_url'] = post.images[0].img_URL
+                caption_image[post.post_id]['img_url2'] = post.images[1].img_URL
+            # print("!!! SERVER LINE 235", caption_image) 
+    # for friend_id in friends_ids:
+    #     #initialize empty value here to start fresh for each friend
+    #     caption_image = {}
+    #     #current_week_posts_obj is a list of post objects for each user [{post1 info}, {post2 info}]
+    #     current_week_posts_obj = crud.get_friend_posts_week(friend_id)
+        
+    #     #iterate thorugh posts object to get .images attribute of each post
+    #     for post in current_week_posts_obj:
+    #         caption_image[post.post_id] = {'caption': post.caption}
+    #         caption_image[post.post_id]['img_url'] = post.images[0].img_URL
+
+    #         if len(post.images) > 1:
+    #             caption_image[post.post_id]['img_url'] = post.images[0].img_URL
+    #             caption_image[post.post_id]['img_url2'] = post.images[1].img_URL
+    #         # print("!!! SERVER LINE 235", caption_image) 
+                
+    username = crud.get_username(friend_id)
+    post_info[username] = caption_image
+        
+    print("-_-_-_-_-_-Server 275", post_info)
+    return jsonify(post_info)
 
 
 if __name__ == "__main__":
