@@ -38,6 +38,7 @@ def create_post(user_id, question_id, post_date, caption):
     
     return post
 
+
 def create_image(post_id, img_URL):
     """Create an image when a user uploads."""
 
@@ -45,15 +46,18 @@ def create_image(post_id, img_URL):
 
     return image
 
+
 def get_post():
     """Retrieve a list of posts from database."""
 
     return Post.query.all()
 
+
 def get_image():
     """Retrieve a list of images from database."""
 
     return Image.query.all()
+
 
 def get_user_by_id(user_id):
     """Get user object by user_id"""
@@ -68,12 +72,14 @@ def request_friend(logged_in_user, potential_friend):
 
     return logged_in_user.following
 
+
 def accept_request(logged_in_user, potential_friend):
     """Accept request. """
 
     logged_in_user.followers.append(potential_friend)
     logged_in_user.following.append(potential_friend)
     potential_friend.followers.append(logged_in_user)
+
 
 def get_friend_posts_week(user_id):
     """Retrieve list of friend's posts from current week."""
@@ -84,42 +90,16 @@ def get_friend_posts_week(user_id):
     friend_posts_current_week = []
     for post in friend_posts_all:
         if post.get_week_num() == week_num:
-            friend_posts_current_week.append(post.to_dict())
+            friend_posts_current_week.append(post)
     # print("+++++CURRENT WEEK POSTS:", friend_posts_current_week)
 
     return friend_posts_current_week 
 
-def get_friend_images_week(user_id):
-    """Retrieve list of friend's images from current week."""
-
-    week_num = datetime.now().isocalendar().week
-    friend_posts_all = Post.query.filter(Post.user_id == user_id).all()
-    friend_posts_current_week = []
-
-    for post in friend_posts_all:
-        if post.get_week_num() == week_num:
-            friend_posts_current_week.append(post.to_dict())
-
-    friend_images_current_week = None
-
-    for i in range(len(friend_posts_current_week)):
-        print("_____CRUD 106 POST ID'S", friend_posts_current_week[i]['post_id'])
-        friend_images_current_week = Image.query.filter(Image.post_id==friend_posts_current_week[i]['post_id']).all()
-
-    if friend_images_current_week == None:
-        return []
-
-    friend_images_current_week_todict = []
-    for image_obj in friend_images_current_week:
-        friend_images_current_week_todict.append(image_obj.to_dict())
-
-    return friend_images_current_week_todict
 
 def get_username(id):
     """Retrieve the username of the user with id in argument."""
 
     return User.query.filter(User.user_id == id).first().username
-
 
 
 if __name__ == '__main__':

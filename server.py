@@ -216,25 +216,18 @@ def get_friends_posts():
         caption_image = {}
         #current_week_posts_obj is a list of post objects for each user [{post1 info}, {post2 info}]
         current_week_posts_obj = crud.get_friend_posts_week(friend_id)
-        #current_week_images_obj is a list of image objects for each user
-        current_week_images_obj = crud.get_friend_images_week(friend_id)
+        
+        #iterate thorugh posts object to get .images attribute of each post
+        for post in current_week_posts_obj:
+            caption_image[post.post_id] = {'caption': post.caption}
+            caption_image[post.post_id]['img_url'] = post.images[0].img_URL
 
-        for i in range(len(current_week_posts_obj)):
-            if len(current_week_images_obj) > 1:
-                print("------entering if")
-                caption_image[current_week_posts_obj[i]['post_id']] = {'caption': current_week_posts_obj[i]['caption'], 
-                                                                        'img_url': current_week_images_obj[0]['img_URL'],
-                                                                        'img_url2': current_week_images_obj[1]['img_URL']
-                                                                        }
-            else:
-                caption_image[current_week_posts_obj[i]['post_id']] = {'caption': current_week_posts_obj[i]['caption'], 
-                                                                        'img_url': current_week_images_obj[0]['img_URL']
-                                                                        }
+            if len(post.images) > 1:
+                caption_image[post.post_id]['img_url'] = post.images[0].img_URL
+                caption_image[post.post_id]['img_url2'] = post.images[1].img_URL
+
             print("!!! SERVER LINE 235", caption_image) 
                 
-        if len(current_week_images_obj) == 0:
-            caption_image[current_week_posts_obj[i]['post_id']] = {'caption': current_week_posts_obj[i]['caption']}
-       
         username = crud.get_username(friend_id)
         post_info[username] = caption_image
         
