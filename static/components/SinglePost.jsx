@@ -14,7 +14,15 @@ const SinglePost = (props) => {
     }, []);
 
     const deletePost = () => {
-        
+        fetch('/delete-post', {
+            method:'POST',
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(props.post_id)
+        })
+        .then((response) => response.json())
+        .then((result) => {
+            setEntry(result[0]);
+        })
     }
     return (
         <React.Fragment>

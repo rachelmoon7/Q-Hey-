@@ -1,4 +1,6 @@
 const ProfileContainer = () => {
+
+    
     return ( 
         <React.Fragment>
            <NewPost /> 

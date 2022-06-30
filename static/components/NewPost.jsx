@@ -46,7 +46,6 @@ const NewPost = () => {
         .then((response) => response.json())
         .then((result) => {
             setEntry(result[0]);
-            //maybe another fetch request here to server to go to landing with my post 
         })
     };
 

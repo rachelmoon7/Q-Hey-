@@ -238,11 +238,20 @@ def get_friends_posts():
 @app.route('/profile')
 def my_profile():
     """Return page showing the details of a given user."""
- 
-    return render_template("profile.html")
+    username = session['username']
+
+    return render_template("profile.html", username=username)
     #div on profile.html which renders profiles jsx
 
 
+@app.route('/whose-profile')
+def whose_profile():
+    """Return username of the profile."""
+
+    username = session['username']
+    return jsonify(username)
+
+    
 @app.route('/get-logged-in-user')
 def show_logged_in_user():
     """Return logged in user's username."""
@@ -301,6 +310,11 @@ def get_my_previous_posts():
         
     # print("!@!@!@!@!@ Server 304", post_info)
     return jsonify(post_info)
+
+
+# @app.route('/delete-post', methods=["POST"])
+# def delete_post():
+#     """Delete the post """
 
 
 if __name__ == "__main__":

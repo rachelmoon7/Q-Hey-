@@ -33,7 +33,6 @@ const MyPostsThisWeek = () => {
 
     return (
         <React.Fragment>
-            Hello, {loggedInUser}
             {allPosts}
         </React.Fragment>
     )
