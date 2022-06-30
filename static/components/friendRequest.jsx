@@ -13,6 +13,7 @@ const FriendRequest = (props) => {
         .then((result) => {
             setActive(false)
         })
+        .then(window.location.reload(false))
     }
     return (
         //if active is true = active ? // : is else

@@ -295,14 +295,16 @@ def get_my_previous_posts():
     caption_image = {}
     #current_week_posts_obj is a list of post objects for each user [{post1 info}, {post2 info}]
     previous_posts_obj = crud.get_users_previous_posts(my_id)
-    # print("$$$$$server 292 post obj?", previous_posts_obj)
+    print("$$$$$server 292 post obj?", previous_posts_obj[0].post_id)
     for post in previous_posts_obj:
-            caption_image[post.post_id] = {'caption': post.caption}
-            caption_image[post.post_id]['img_url'] = post.images[0].img_URL
-
             if len(post.images) > 1:
+                caption_image[post.post_id] = {'caption': post.caption}
                 caption_image[post.post_id]['img_url'] = post.images[0].img_URL
                 caption_image[post.post_id]['img_url2'] = post.images[1].img_URL
+            
+            else:
+                caption_image[post.post_id] = {'caption': post.caption}
+                caption_image[post.post_id]['img_url'] = post.images[0].img_URL
             # print("!!! SERVER LINE 235", caption_image) 
                 
     username = crud.get_username(my_id)
@@ -317,9 +319,9 @@ def delete_post():
     """Delete the post """
     print("___SERVER318,", request.json)
     post_id = request.json
-
+    print("+++++POST ID", post_id)
     crud.delete_post(post_id)
-    return jsonify('Post deleted')
+    return jsonify('Delete successful')
 
 
 if __name__ == "__main__":
