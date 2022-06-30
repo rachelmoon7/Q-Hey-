@@ -12,15 +12,15 @@ const MyProfile = () => {
 
     const allPosts = []
     
-    for (const friend in friendsPosts) {
-        for (const allposts in friendsPosts[friend]) {
-
-                allPosts.push(<SinglePost username={friend} 
-                                    caption={friendsPosts[friend][allposts]['caption']}
-                                    img_url={friendsPosts[friend][allposts]['img_url']} 
-                                    img_url2={friendsPosts[friend][allposts]['img_url2']}                             
-                            />)};
-    }
+    for (const allposts in myPosts) {
+        for (const mine in myPosts[allposts]) {
+                allPosts.push(<SinglePost
+                                        caption={myPosts[allposts][mine]['caption']}
+                                        img_url={myPosts[allposts][mine]['img_url']} 
+                                        img_url2={myPosts[allposts][mine]['img_url2']}                             
+                                    />)
+    }};
+    
 
     React.useEffect(() => {
         fetch('/get-logged-in-user')
@@ -33,6 +33,7 @@ const MyProfile = () => {
     return (
         <React.Fragment>
             Hello, {loggedInUser}
+            {allPosts}
         </React.Fragment>
     )
 }

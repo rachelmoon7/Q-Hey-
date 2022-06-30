@@ -271,23 +271,8 @@ def get_my_posts():
                 caption_image[post.post_id]['img_url'] = post.images[0].img_URL
                 caption_image[post.post_id]['img_url2'] = post.images[1].img_URL
             # print("!!! SERVER LINE 235", caption_image) 
-    # for friend_id in friends_ids:
-    #     #initialize empty value here to start fresh for each friend
-    #     caption_image = {}
-    #     #current_week_posts_obj is a list of post objects for each user [{post1 info}, {post2 info}]
-    #     current_week_posts_obj = crud.get_friend_posts_week(friend_id)
-        
-    #     #iterate thorugh posts object to get .images attribute of each post
-    #     for post in current_week_posts_obj:
-    #         caption_image[post.post_id] = {'caption': post.caption}
-    #         caption_image[post.post_id]['img_url'] = post.images[0].img_URL
-
-    #         if len(post.images) > 1:
-    #             caption_image[post.post_id]['img_url'] = post.images[0].img_URL
-    #             caption_image[post.post_id]['img_url2'] = post.images[1].img_URL
-    #         # print("!!! SERVER LINE 235", caption_image) 
                 
-    username = crud.get_username(friend_id)
+    username = crud.get_username(my_id)
     post_info[username] = caption_image
         
     print("-_-_-_-_-_-Server 275", post_info)
