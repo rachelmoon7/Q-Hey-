@@ -251,7 +251,7 @@ def whose_profile():
     username = session['username']
     return jsonify(username)
 
-    
+
 @app.route('/get-logged-in-user')
 def show_logged_in_user():
     """Return logged in user's username."""
@@ -312,9 +312,14 @@ def get_my_previous_posts():
     return jsonify(post_info)
 
 
-# @app.route('/delete-post', methods=["POST"])
-# def delete_post():
-#     """Delete the post """
+@app.route('/delete-post', methods=["POST"])
+def delete_post():
+    """Delete the post """
+    print("___SERVER318,", request.json)
+    post_id = request.json
+
+    crud.delete_post(post_id)
+    return jsonify('Post deleted')
 
 
 if __name__ == "__main__":

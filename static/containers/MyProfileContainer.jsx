@@ -11,7 +11,6 @@ const MyProfileContainer = () => {
   return (
     <div>
       <h2>Hey, {username}</h2>
-      <MyPostsThisWeek />
       <MyPreviousPosts />
     </div>
   );

@@ -17,7 +17,8 @@ const MyFriends = () => {
                 allPosts.push(<SinglePost username={friend} 
                                     caption={friendsPosts[friend][allposts]['caption']}
                                     img_url={friendsPosts[friend][allposts]['img_url']} 
-                                    img_url2={friendsPosts[friend][allposts]['img_url2']}                             
+                                    img_url2={friendsPosts[friend][allposts]['img_url2']}  
+                                    post_id={allposts}                           
                             />)};
     }
 

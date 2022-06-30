@@ -19,7 +19,8 @@ const MyPostsThisWeek = () => {
                 allPosts.push(<SinglePost username={allposts}
                                         caption={myPosts[allposts][mine]['caption']}
                                         img_url={myPosts[allposts][mine]['img_url']} 
-                                        img_url2={myPosts[allposts][mine]['img_url2']}                             
+                                        img_url2={myPosts[allposts][mine]['img_url2']}  
+                                        post_id={mine}                           
                                     />)
     }};
 

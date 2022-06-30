@@ -18,7 +18,8 @@ const MyPreviousPosts = () => {
                 allPosts.push(<SinglePost username={allposts}
                                         caption={previousPosts[allposts][mine]['caption']}
                                         img_url={previousPosts[allposts][mine]['img_url']} 
-                                        img_url2={previousPosts[allposts][mine]['img_url2']}                             
+                                        img_url2={previousPosts[allposts][mine]['img_url2']} 
+                                        post_id={mine}                               
                                     />)
     }};
 
@@ -32,7 +33,6 @@ const MyPreviousPosts = () => {
 
     return (
         <React.Fragment>
-            Hello, {loggedInUser}
             {allPosts}
         </React.Fragment>
     )
