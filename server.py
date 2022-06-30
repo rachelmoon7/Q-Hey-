@@ -237,10 +237,7 @@ def get_friends_posts():
 
 @app.route('/profile')
 def my_profile():
-    """Return page showing the details of a given user.
-
-    Show all info about a user. Also, provide a button to add user as a friend.
-    """
+    """Return page showing the details of a given user."""
  
     return render_template("profile.html")
     #div on profile.html which renders profiles jsx
@@ -276,6 +273,33 @@ def get_my_posts():
     post_info[username] = caption_image
         
     print("-_-_-_-_-_-Server 275", post_info)
+    return jsonify(post_info)
+
+
+@app.route('/get-my-previous-posts')
+def get_my_previous_posts():
+    """Retrieve all of my previous posts."""
+
+    post_info = {}
+
+    my_id = session["user_id"]
+    caption_image = {}
+    #current_week_posts_obj is a list of post objects for each user [{post1 info}, {post2 info}]
+    previous_posts_obj = crud.get_users_previous_posts(my_id)
+    # print("$$$$$server 292 post obj?", previous_posts_obj)
+    for post in previous_posts_obj:
+            caption_image[post.post_id] = {'caption': post.caption}
+            caption_image[post.post_id]['img_url'] = post.images[0].img_URL
+
+            if len(post.images) > 1:
+                caption_image[post.post_id]['img_url'] = post.images[0].img_URL
+                caption_image[post.post_id]['img_url2'] = post.images[1].img_URL
+            # print("!!! SERVER LINE 235", caption_image) 
+                
+    username = crud.get_username(my_id)
+    post_info[username] = caption_image
+        
+    # print("!@!@!@!@!@ Server 304", post_info)
     return jsonify(post_info)
 
 

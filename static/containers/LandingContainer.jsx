@@ -3,7 +3,7 @@ const LandingContainer = () => {
         <React.Fragment>
            <NewPost /> 
            <MyFriends />
-           <MyProfile />
+           <MyPostsThisWeek />
            <SinglePost />
         </React.Fragment>
     )

@@ -81,6 +81,12 @@ def accept_request(logged_in_user, potential_friend):
     potential_friend.followers.append(logged_in_user)
 
 
+def get_username(id):
+    """Retrieve the username of the user with id in argument."""
+
+    return User.query.filter(User.user_id == id).first().username
+
+
 def get_users_posts_week(user_id):
     """Retrieve list of friend's posts from current week."""
 
@@ -96,11 +102,18 @@ def get_users_posts_week(user_id):
     return friend_posts_current_week 
 
 
-def get_username(id):
-    """Retrieve the username of the user with id in argument."""
+def get_users_previous_posts(user_id):
+    """Retrieve list of all posts ever created by user."""
 
-    return User.query.filter(User.user_id == id).first().username
+    # previous_posts = Post.query.filter(Post.user_id == user_id).all()
+    # print("*** CRUD LINE 58 USERS POSTS:", friend_posts_all)
+    # friend_posts_current_week = []
+    # for post in friend_posts_all:
+    #     if post.get_week_num() == week_num:
+    #         friend_posts_current_week.append(post)
+    # # print("+++++CURRENT WEEK POSTS:", friend_posts_current_week)
 
+    return Post.query.filter(Post.user_id == user_id).all()   
 
 if __name__ == '__main__':
     from server import app

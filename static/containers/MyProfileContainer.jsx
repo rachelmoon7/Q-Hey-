@@ -3,7 +3,8 @@ const MyProfileContainer = () => {
 
   return (
     <div>
-      <MyProfile />
+      <MyPostsThisWeek />
+      <MyPreviousPosts />
     </div>
   );
 };
