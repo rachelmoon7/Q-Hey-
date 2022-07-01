@@ -3,7 +3,7 @@ const FriendRequest = (props) => {
     const [friend, setFriend] = React.useState('')
     const [active, setActive] = React.useState(true)
 
-    const handleClick = () => {
+    const handleAccept = () => {
         fetch('/accept-request', {
             method: 'POST',
             headers: { "Content-Type": "application/json" },
@@ -13,14 +13,33 @@ const FriendRequest = (props) => {
         .then((result) => {
             setActive(false)
         })
-        .then(window.location.reload(false))
+        .then(() => {
+            window.location.reload(false)
+        })
+    }
+
+    const handleDeny = () => {
+        console.log("hello!")
+        fetch('/deny-request', {
+            method: 'POST',
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ 'request_from': props.user_id })
+        })
+        .then((response) => response.json())
+        .then((result) => {
+            setActive(false)
+        })
+        .then(() => {
+            window.location.reload(false)
+        })
     }
     return (
         //if active is true = active ? // : is else
         active ?
         <React.Fragment>
-            <button type="submit" onClick={handleClick}>Accept</button>
+            <button type="submit" onClick={handleAccept}>Accept</button>
             <div>{props.name}</div>
+            <button type="submit" onClick={handleDeny}>Deny</button>
         </React.Fragment>
         : <div></div>
     )

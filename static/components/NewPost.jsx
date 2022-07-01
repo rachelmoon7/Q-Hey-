@@ -7,6 +7,9 @@ const NewPost = () => {
     const [img2, setImg2] = React.useState('');
     const [caption, setCaption] = React.useState('');
     const [entry, setEntry] = React.useState([]);
+    const [showChosenImage, setShowChosenImage] = React.useState(false);
+    const [showChosenImage2, setShowChosenImage2] = React.useState(false);
+
 
 
     const getCloudinaryLink = (file) => {
@@ -25,10 +28,12 @@ const NewPost = () => {
                 console.log("entering IF");
                 setImgURL(result.url);
                 setImg(result.url)
+                setShowChosenImage(true)
             } else {
                 console.log("ENTERING ELSE");
                 setImgURL2(result.url);
                 setImg2(result.url)
+                setShowChosenImage2(true)
             }
         });
     };
@@ -47,6 +52,9 @@ const NewPost = () => {
         .then((result) => {
             setEntry(result[0]);
         })
+        .then((result) => {
+            window.location.reload(false)
+        })
     };
 
    
@@ -55,7 +63,7 @@ const NewPost = () => {
             <input type="file" onChange={(e)=> {setShowAddAnother(true), getCloudinaryLink(e.target.files[0])} } ></input>         
               
             {showAddAnother ? 
-            <button onClick = {() => setShowImgForm2(true)}>Add 2nd photo</button>
+            <button onClick = {() => {setShowImgForm2(true), setShowAddAnother(false)}}>Add 2nd photo</button>
             : <div></div>
             }
             
@@ -64,15 +72,26 @@ const NewPost = () => {
             : <div></div>  
             }
 
+            {showChosenImage ?
+            <div>
             <div>Chosen image:</div>
             <div>
                 <img src={img}/>
             </div>
+            </div>
+            : <div></div>
+            }
+            
+            {showChosenImage2 ?
+            <div>
             <div>Chosen 2nd image:</div>
             <div>
                 <img src={img2}/>
             </div>
-            
+            </div>
+            : <div></div>
+            }
+        
             <div>
                 <input type="text" placeholder="Type caption here" onChange={(e) => setCaption(e.target.value)}></input>
             </div>

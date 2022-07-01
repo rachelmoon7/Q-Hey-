@@ -25,8 +25,11 @@ const NavBar = () => {
         .then((response) => response.json())
         .then((result) => {
             console.log("###", result)             
-        }
-    )}
+        })
+        .then((result) => {
+            window.location.reload(false)
+        })
+    }
     
 
     

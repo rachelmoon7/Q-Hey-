@@ -77,9 +77,14 @@ def accept_request(logged_in_user, potential_friend):
     """Accept request. """
 
     logged_in_user.followers.append(potential_friend)
-    logged_in_user.following.append(potential_friend)
     potential_friend.followers.append(logged_in_user)
 
+
+def deny_request(logged_in_user, potential_friend):
+    """Deny request."""
+
+    logged_in_user.followers.remove(potential_friend)
+    
 
 def get_username(id):
     """Retrieve the username of the user with id in argument."""

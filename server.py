@@ -174,6 +174,17 @@ def accept_request():
     return jsonify([{'friend': potential_friend.to_dict()}])
 
 
+@app.route('/deny-request', methods=["POST"])
+def deny_request():
+    """Deny friend request"""
+    logged_in_user = crud.get_user_by_id(session["user_id"])
+    potential_friend = crud.get_user_by_id(request.json['request_from'])
+
+    crud.deny_request(logged_in_user, potential_friend)
+    db.session.commit()
+    
+    return jsonify('Denial successful')
+
 @app.route('/myFriends')
 def show_friends_and_requests():
     """Show list of friends and any friend requests"""
@@ -189,8 +200,8 @@ def show_friends_and_requests():
 @app.route('/get-all-requests')
 def get_all_requests():
     """Get all friend requests"""
-
-    logged_in_user = crud.get_user_by_id(session["user_id"])  
+    logged_in_user = crud.get_user_by_id(session["user_id"]) 
+    print("@@@@SERVER FOLLOWERS:", logged_in_user.followers) 
     friend_requests = set(logged_in_user.followers) - set(logged_in_user.following)
     
     all_fr = []
