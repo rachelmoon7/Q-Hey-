@@ -1,4 +1,4 @@
-const NewPost = () => {
+const NewPost = (props) => {
     const [showImgForm2, setShowImgForm2] = React.useState(false);
     const [showAddAnother, setShowAddAnother] = React.useState(false);
     const [imgURL, setImgURL] = React.useState('');
@@ -9,9 +9,7 @@ const NewPost = () => {
     const [entry, setEntry] = React.useState([]);
     const [showChosenImage, setShowChosenImage] = React.useState(false);
     const [showChosenImage2, setShowChosenImage2] = React.useState(false);
-
-
-
+    
     const getCloudinaryLink = (file) => {
         const data = new FormData();
         data.append("file", file);
@@ -101,5 +99,3 @@ const NewPost = () => {
     )
 }
 
-// export default NewPost;
-// ReactDOM.render(NewPost, document.querySelector("#reactPostsContainer"));

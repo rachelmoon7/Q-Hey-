@@ -21,6 +21,7 @@ const MyProfilePosts = () => {
 
     return ( 
         <React.Fragment>
+            <NavBar />
             <h1> {username}'s Profile</h1>
            <ShowPosts thePosts={myProfilePosts} />
            <SinglePost />

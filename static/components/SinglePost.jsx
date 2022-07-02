@@ -19,10 +19,10 @@ const SinglePost = (props) => {
             body: JSON.stringify(postToDelete)
         })
         .then((response) => response.json())
-        .then((result) => {
-            if (result == "Delete successful") {
-                window.location.reload(false)
-        }})
+        // .then((result) => {
+        //     if (result == "Delete successful") {
+        //         window.location.reload(false)
+        // }})
     }
 
 

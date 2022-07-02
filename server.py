@@ -273,6 +273,65 @@ def show_logged_in_user():
     return jsonify(session['username'])
 
 
+
+
+
+@app.route('/get-my-profile-posts')
+def get_my_profile_posts():
+    """Retrieve all of my previous posts."""
+
+    post_info = {}
+
+    my_id = session["user_id"]
+    caption_image = {}
+    #current_week_posts_obj is a list of post objects for each user [{post1 info}, {post2 info}]
+    posts_obj = crud.get_users_previous_posts(my_id)
+    # print("$$$$$server 292 post obj?", posts_obj[0].post_id)
+    for post in posts_obj:
+            if len(post.images) > 1:
+                if post.caption == "":
+                    caption_image[post.post_id]['img_url'] = post.images[0].img_URL
+                    caption_image[post.post_id]['img_url2'] = post.images[1].img_URL
+                    caption_image[post.post_id]['post_date'] = post.post_date
+                    continue
+
+                caption_image[post.post_id] = {'caption': post.caption}
+                caption_image[post.post_id]['img_url'] = post.images[0].img_URL
+                caption_image[post.post_id]['img_url2'] = post.images[1].img_URL
+                caption_image[post.post_id]['post_date'] = post.post_date
+            elif len(post.images) == 1:
+                caption_image[post.post_id] = {'caption': post.caption}
+                caption_image[post.post_id]['img_url'] = post.images[0].img_URL
+                caption_image[post.post_id]['post_date'] = post.post_date
+            elif len(post.images) == 0:
+                caption_image[post.post_id] = {'caption': post.caption}
+                caption_image[post.post_id]['post_date'] = post.post_date
+                
+
+            # print("!!! SERVER LINE 235", caption_image) 
+                
+    username = crud.get_username(my_id)
+    post_info[username] = caption_image
+        
+    # print("!@!@!@!@!@ Server 304", post_info)
+    return jsonify(post_info)
+
+
+@app.route('/delete-post', methods=["POST"])
+def delete_post():
+    """Delete the post """
+    print("___SERVER318,", request.json)
+    post_id = request.json
+    print("+++++POST ID", post_id)
+    crud.delete_post(post_id)
+    return jsonify('Delete successful')
+
+
+if __name__ == "__main__":
+    connect_to_db(app)
+    # DebugToolbarExtension(app)
+    app.run(host="0.0.0.0", debug=True)
+
 # @app.route('/get-my-posts')
 # def get_my_posts():
 #     """Retrieve all posts for myself from current week to show in Landing Page."""
@@ -301,52 +360,3 @@ def show_logged_in_user():
         
 #     print("-_-_-_-_-_-Server 275", post_info)
 #     return jsonify(post_info)
-
-
-@app.route('/get-my-profile-posts')
-def get_my_previous_posts():
-    """Retrieve all of my previous posts."""
-
-    post_info = {}
-
-    my_id = session["user_id"]
-    caption_image = {}
-    #current_week_posts_obj is a list of post objects for each user [{post1 info}, {post2 info}]
-    previous_posts_obj = crud.get_users_previous_posts(my_id)
-    print("$$$$$server 292 post obj?", previous_posts_obj[0].post_id)
-    for post in previous_posts_obj:
-            if len(post.images) > 1:
-                caption_image[post.post_id] = {'caption': post.caption}
-                caption_image[post.post_id]['img_url'] = post.images[0].img_URL
-                caption_image[post.post_id]['img_url2'] = post.images[1].img_URL
-                caption_image[post.post_id]['post_date'] = post.post_date
-
-            
-            else:
-                caption_image[post.post_id] = {'caption': post.caption}
-                caption_image[post.post_id]['img_url'] = post.images[0].img_URL
-                caption_image[post.post_id]['post_date'] = post.post_date
-
-            # print("!!! SERVER LINE 235", caption_image) 
-                
-    username = crud.get_username(my_id)
-    post_info[username] = caption_image
-        
-    # print("!@!@!@!@!@ Server 304", post_info)
-    return jsonify(post_info)
-
-
-@app.route('/delete-post', methods=["POST"])
-def delete_post():
-    """Delete the post """
-    print("___SERVER318,", request.json)
-    post_id = request.json
-    print("+++++POST ID", post_id)
-    crud.delete_post(post_id)
-    return jsonify('Delete successful')
-
-
-if __name__ == "__main__":
-    connect_to_db(app)
-    # DebugToolbarExtension(app)
-    app.run(host="0.0.0.0", debug=True)

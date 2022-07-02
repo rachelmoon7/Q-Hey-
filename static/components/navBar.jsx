@@ -40,7 +40,8 @@ const NavBar = () => {
            <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav">       
+            <ul class="navbar-nav">
+            
                 <li class="nav-item">
                 <a class="nav-link" href="/profile" id="my-profile">My Profile</a>
                 </li>
