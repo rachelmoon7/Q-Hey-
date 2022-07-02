@@ -1,7 +1,7 @@
 const MyProfilePosts = (props) => {
     const [myProfilePosts, setMyProfilePosts] = React.useState([]);
     const [username, setUsername] = React.useState('');
-    const [afterDelete, setAfterDelete] = React.useState(false)
+    const [afterDelete, setAfterDelete] = React.useState('myprofile.jsx before update')
 
     React.useEffect(() => {
         fetch('/whose-profile')
@@ -20,15 +20,20 @@ const MyProfilePosts = (props) => {
         })
     }, []);
 
-    
+    const afterDeleteOnProfile = () => {
+        console.log("myprofile.jsx 24")
+        setAfterDelete('myprofile.jsx woohoo')
+    }
     return ( 
         <React.Fragment>
             <NavBar />
             <h1> {username}'s Profile</h1>
            <ShowPosts 
                 thePosts={myProfilePosts} 
+                afterDeleteOnProfile={afterDeleteOnProfile}
                 />
            <SinglePost />
+           {afterDelete}
         </React.Fragment>
     )
 }
