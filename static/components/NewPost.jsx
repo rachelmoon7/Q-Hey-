@@ -50,10 +50,9 @@ const NewPost = () => {
         })
         .then((response) => response.json())
         .then((result) => {
-            setEntry(result[0]);
-        })
-        .then((result) => {
-            window.location.reload(false)
+            // setEntry(result[0]);
+            //update props of parent props(result[0])
+            //what do i want to re
         })
     };
 
@@ -96,6 +95,7 @@ const NewPost = () => {
                 <input type="text" placeholder="Type caption here" onChange={(e) => setCaption(e.target.value)}></input>
             </div>
             <button onClick = {upload}>POST</button> 
+            
             
         </React.Fragment>
     )

@@ -211,9 +211,9 @@ def get_all_requests():
     return jsonify(all_fr)
 
     
-@app.route('/get-friends-posts')
+@app.route('/get-landing-posts')
 def get_friends_posts():
-    """Retrieve all posts for each friend from current week to show in Landing Page."""
+    """Retrieve all posts for logged_in_user and logged_in_user's friends from current week to show in Landing Page."""
     #declare empty dictionary for {friend_id: {post_id: {caption: caption, post_date: post_date, img_url:img_url}}}
     post_info = {}
 
@@ -222,7 +222,7 @@ def get_friends_posts():
     #list of my friends objects 
     friends = list(set(logged_in_user.followers) & set(logged_in_user.following))
     friends_ids = [obj.user_id for obj in friends]
-
+    friends_ids.append(logged_in_user.user_id)
     for friend_id in friends_ids:
         #initialize empty value here to start fresh for each friend
         caption_image = {}
@@ -233,16 +233,19 @@ def get_friends_posts():
         for post in current_week_posts_obj:
             caption_image[post.post_id] = {'caption': post.caption}
             caption_image[post.post_id]['img_url'] = post.images[0].img_URL
+            caption_image[post.post_id]['post_date'] = post.post_date
 
             if len(post.images) > 1:
                 caption_image[post.post_id]['img_url'] = post.images[0].img_URL
                 caption_image[post.post_id]['img_url2'] = post.images[1].img_URL
-            # print("!!! SERVER LINE 235", caption_image) 
+                caption_image[post.post_id]['post_date'] = post.post_date
+
+            print("!!! SERVER LINE 243", caption_image) 
                 
         username = crud.get_username(friend_id)
         post_info[username] = caption_image
         
-    # print("-_-_-_-_-_-Server 275", post_info)
+    print("-_-_-_-_-_-Server 275", post_info)
     return jsonify(post_info)
 
 
@@ -270,33 +273,37 @@ def show_logged_in_user():
     return jsonify(session['username'])
 
 
-@app.route('/get-my-posts')
-def get_my_posts():
-    """Retrieve all posts for myself from current week to show in Landing Page."""
-    #declare empty dictionary for {friend_id: {post_id: {caption: caption, post_date: post_date, img_url:img_url}}}
-    post_info = {}
+# @app.route('/get-my-posts')
+# def get_my_posts():
+#     """Retrieve all posts for myself from current week to show in Landing Page."""
+#     #declare empty dictionary for {friend_id: {post_id: {caption: caption, post_date: post_date, img_url:img_url}}}
+#     post_info = {}
 
-    my_id = session["user_id"]
-    caption_image = {}
-    #current_week_posts_obj is a list of post objects for each user [{post1 info}, {post2 info}]
-    current_week_posts_obj = crud.get_users_posts_week(my_id)
-    for post in current_week_posts_obj:
-            caption_image[post.post_id] = {'caption': post.caption}
-            caption_image[post.post_id]['img_url'] = post.images[0].img_URL
+#     my_id = session["user_id"]
+#     caption_image = {}
+#     #current_week_posts_obj is a list of post objects for each user [{post1 info}, {post2 info}]
+#     current_week_posts_obj = crud.get_users_posts_week(my_id)
+#     for post in current_week_posts_obj:
+#             caption_image[post.post_id] = {'caption': post.caption}
+#             caption_image[post.post_id]['img_url'] = post.images[0].img_URL
+#             caption_image[post.post_id]['post_date'] = post.post_date
 
-            if len(post.images) > 1:
-                caption_image[post.post_id]['img_url'] = post.images[0].img_URL
-                caption_image[post.post_id]['img_url2'] = post.images[1].img_URL
-            # print("!!! SERVER LINE 235", caption_image) 
+
+#             if len(post.images) > 1:
+#                 caption_image[post.post_id]['img_url'] = post.images[0].img_URL
+#                 caption_image[post.post_id]['img_url2'] = post.images[1].img_URL
+#                 caption_image[post.post_id]['post_date'] = post.post_date
+
+#             # print("!!! SERVER LINE 235", caption_image) 
                 
-    username = crud.get_username(my_id)
-    post_info[username] = caption_image
+#     username = crud.get_username(my_id)
+#     post_info[username] = caption_image
         
-    print("-_-_-_-_-_-Server 275", post_info)
-    return jsonify(post_info)
+#     print("-_-_-_-_-_-Server 275", post_info)
+#     return jsonify(post_info)
 
 
-@app.route('/get-my-previous-posts')
+@app.route('/get-my-profile-posts')
 def get_my_previous_posts():
     """Retrieve all of my previous posts."""
 
@@ -312,10 +319,14 @@ def get_my_previous_posts():
                 caption_image[post.post_id] = {'caption': post.caption}
                 caption_image[post.post_id]['img_url'] = post.images[0].img_URL
                 caption_image[post.post_id]['img_url2'] = post.images[1].img_URL
+                caption_image[post.post_id]['post_date'] = post.post_date
+
             
             else:
                 caption_image[post.post_id] = {'caption': post.caption}
                 caption_image[post.post_id]['img_url'] = post.images[0].img_URL
+                caption_image[post.post_id]['post_date'] = post.post_date
+
             # print("!!! SERVER LINE 235", caption_image) 
                 
     username = crud.get_username(my_id)

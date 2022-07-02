@@ -32,6 +32,7 @@ const SinglePost = (props) => {
                 {props.username} caption: {props.caption}
                 <img src={props.img_url} />
                 <img src={props.img_url2} />
+                posted date: {props.post_date}
                 
             </div>
 
