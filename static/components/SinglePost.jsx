@@ -2,6 +2,7 @@ const SinglePost = (props) => {
     const [loggedInUser, setLoggedInUser] = React.useState(false);
     const [postToDelete, setPostToDelete] = React.useState('');
     const [showConfirmDelete, setShowConfirmDelete] = React.useState(false);
+    const [deleteResult, setDeleteResult] = React.useState('');
 
     React.useEffect(() => {
         fetch('/get-logged-in-user')
@@ -19,10 +20,12 @@ const SinglePost = (props) => {
             body: JSON.stringify(postToDelete)
         })
         .then((response) => response.json())
-        // .then((result) => {
-        //     if (result == "Delete successful") {
-        //         window.location.reload(false)
-        // }})
+        .then((result) => {
+            console.log("DELETE RESULT:", result)
+            if (result == "Delete successful") {
+                props.handleAfterDelete(result)
+            }
+        })
     }
 
 
@@ -37,12 +40,12 @@ const SinglePost = (props) => {
             </div>
 
             {loggedInUser==props.username ? 
-                <button onClick = {() => {setPostToDelete(props.post_id), setShowConfirmDelete(true)}}>Delete</button>
+                <button onClick={() => {setPostToDelete(props.post_id), setShowConfirmDelete(true)}}>Delete</button>
                 : <div></div>
             }
 
             {showConfirmDelete ?
-                <button onClick = {deletePost}>Confirm Delete</button>
+                <button key={deleteResult} onClick={deletePost}>Confirm Delete</button>
                 : <div></div>
             }           
         </React.Fragment>

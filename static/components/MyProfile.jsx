@@ -1,6 +1,7 @@
-const MyProfilePosts = () => {
+const MyProfilePosts = (props) => {
     const [myProfilePosts, setMyProfilePosts] = React.useState([]);
     const [username, setUsername] = React.useState('');
+    const [afterDelete, setAfterDelete] = React.useState(false)
 
     React.useEffect(() => {
         fetch('/whose-profile')
@@ -17,13 +18,16 @@ const MyProfilePosts = () => {
             console.log("**:", result)
             setMyProfilePosts(result)
         })
-    }, []);    
+    }, []);
 
+    
     return ( 
         <React.Fragment>
             <NavBar />
             <h1> {username}'s Profile</h1>
-           <ShowPosts thePosts={myProfilePosts} />
+           <ShowPosts 
+                thePosts={myProfilePosts} 
+                />
            <SinglePost />
         </React.Fragment>
     )
