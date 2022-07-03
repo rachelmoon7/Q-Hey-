@@ -2,7 +2,7 @@ const SinglePost = (props) => {
     const [loggedInUser, setLoggedInUser] = React.useState(false);
     const [postToDelete, setPostToDelete] = React.useState('');
     const [showConfirmDelete, setShowConfirmDelete] = React.useState(false);
-    const [deleteResult, setDeleteResult] = React.useState('');
+    // const [deleteResult, setDeleteResult] = React.useState('');
 
     React.useEffect(() => {
         fetch('/get-logged-in-user')
@@ -24,6 +24,8 @@ const SinglePost = (props) => {
             console.log("DELETE RESULT:", result)
             if (result == "Delete successful") {
                 props.handleAfterDelete(result)
+                //setting showConfirmDelete back to false so it doesn't stay true for next post 
+                setShowConfirmDelete(false)
             }
         })
     }
@@ -35,8 +37,7 @@ const SinglePost = (props) => {
                 {props.username} caption: {props.caption}
                 <img src={props.img_url} />
                 <img src={props.img_url2} />
-                posted date: {props.post_date}
-                
+                posted date: {props.post_date}   
             </div>
 
             {loggedInUser==props.username ? 
@@ -45,7 +46,7 @@ const SinglePost = (props) => {
             }
 
             {showConfirmDelete ?
-                <button key={deleteResult} onClick={deletePost}>Confirm Delete</button>
+                <button onClick={deletePost}>Confirm Delete</button>
                 : <div></div>
             }           
         </React.Fragment>

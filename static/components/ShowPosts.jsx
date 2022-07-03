@@ -7,10 +7,12 @@ const ShowPosts = (props) => {
     // console.log("PROPS.thePosts:", props.thePosts)
 
     const afterDelete = () => {
-        console.log("called callbackfun 24**")
-        setUpdatedPostsAfterDelete("afterDelete")
-        console.log("SHOWPOSTS 12 PROPS", props)
-        props.afterDeleteOnProfile()
+        // setUpdatedPostsAfterDelete("afterDelete")
+        console.log("SHOWPOSTS 12 PROPS", props);
+        if (props.handleAfterDeleteOnProfile) {
+            props.handleAfterDeleteOnProfile();
+        }
+        props.handleAfterDeleteOnLanding();
     }
 
     const allPosts = []
@@ -30,7 +32,6 @@ const ShowPosts = (props) => {
     return (
         <React.Fragment>
             {allPosts}
-            {updatedPostsAfterDelete}
         </React.Fragment>
     )
 }
