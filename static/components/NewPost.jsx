@@ -48,9 +48,13 @@ const NewPost = (props) => {
         })
         .then((response) => response.json())
         .then((result) => {
+            // console.log(result)
             // setEntry(result[0]);
             //update props of parent props(result[0])
             //what do i want to re
+            props.handleafterPosting()
+            console.log("props:", props)
+
         })
     };
 

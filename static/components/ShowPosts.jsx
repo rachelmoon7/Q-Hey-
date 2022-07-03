@@ -1,8 +1,5 @@
 const ShowPosts = (props) => {
 
-    const [updatedPostsAfterDelete, setUpdatedPostsAfterDelete] = React.useState('beforeDelete');
-
-    const [posts, setPosts] = React.useState(props.thePosts);
     // console.log("PROPS:", props)
     // console.log("PROPS.thePosts:", props.thePosts)
 
@@ -15,6 +12,10 @@ const ShowPosts = (props) => {
         props.handleAfterDeleteOnLanding();
     }
 
+    const newPost = () => {
+        props.newPost();
+    }
+
     const allPosts = []
     for (const [user, allUserPosts] of Object.entries(props.thePosts)) {
         console.log("USER:", user)
@@ -25,7 +26,8 @@ const ShowPosts = (props) => {
                                           img_url2={postInfo['img_url2']} 
                                           post_id={postID} 
                                           post_date={postInfo['post_date']} 
-                                          handleAfterDelete={afterDelete}                
+                                          handleAfterDelete={afterDelete}
+                                          handleNewPost={newPost}                
                                 />)
     }};
 
