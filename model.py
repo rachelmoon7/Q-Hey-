@@ -32,7 +32,8 @@ class User(db.Model):
     password = db.Column(db.String, nullable=False)
 
     # self.posts (posts attribute) was given to us by backref in class Post
-
+    # self.comments (comments attribute) was given to us by backref in class Comment
+    # self.reactions (reactions attribute) was given to us by backref in class Reaction
 
     #c is sqlalchemy attribute for a column so friend.c.f1-id = column in friend table with f1_id id 
     #backref gives us a free attribute, so User has free attribute, followers 
@@ -59,8 +60,6 @@ class User(db.Model):
                 'username': self.username                 
                 }
 
-
-
     def __repr__(self):
         return f'<User user_id={self.user_id} email={self.email}>'
 
@@ -77,6 +76,9 @@ class Post(db.Model):
     question_id = db.Column(db.Integer, db.ForeignKey("questions.question_id"), nullable=False)
     post_date = db.Column(db.Date)
     caption = db.Column(db.String)
+    
+    # self.comments (comments attribute) was given to us by backref in class Comment
+    # self.reactions (reactions attribute) was given to us by backref in class Reaction
     
     user = db.relationship("User", backref="posts")
     question = db.relationship("Question", backref="posts")
@@ -139,6 +141,39 @@ class Question(db.Model):
 
     def __repr__(self):
         return f'<Question question_id={self.question_id}>'
+
+
+# class Comment(db.Model):
+#     """A comment on a post."""
+
+#     __tablename__ = "comments"
+
+#     comment_id = db.Column(db.Integer,
+#                         autoincrement=True,
+#                         primary_key=True)
+#     post_id = db.Column(db.Integer, db.ForeignKey("posts.post_id"), nullable=False)
+#     user_id = db.Column(db.Integer, db.ForeignKey("users.user_id"), nullable=False)
+#     text = db.Column(db.String)
+#     comment_date = db.Column(db.Date)
+
+#     post = db.relationship("Post", back_populates="comments")
+#     user = db.relationship("User", back_populates="comments")
+
+
+# class Reaction(db.Model):
+#     """A reaction to a post."""
+
+#     __tablename__ = "reactions"
+
+#     reaction_id = db.Column(db.Integer,
+#                         autoincrement=True,
+#                         primary_key=True)
+#     post_id = db.Column(db.Integer, db.ForeignKey("posts.post_id"), nullable=False)
+#     user_id = db.Column(db.Integer, db.ForeignKey("users.user_id"), nullable=False)
+#     reaction_type = db.Column(db.String)
+
+#     post = db.relationship("Post", back_populates="reactions")
+#     user = db.relationship("User", back_populates="reactions")
 
 
 def connect_to_db(flask_app, db_uri="postgresql:///project", echo=True):

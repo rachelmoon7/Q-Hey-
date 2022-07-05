@@ -22,6 +22,7 @@ const SinglePost = (props) => {
         .then((response) => response.json())
         .then((result) => {
             console.log("DELETE RESULT:", result)
+            console.log("SINGLEPOST'S PROP:", props)
             if (result == "Delete successful") {
                 props.handleAfterDelete(result)
                 //setting showConfirmDelete back to false so it doesn't stay true for next post 
@@ -30,6 +31,9 @@ const SinglePost = (props) => {
         })
     }
 
+    // React.useEffect(() => {
+    //     props.handleNewPost()
+    // }, [props.caption])
 
     return (
         <React.Fragment>
@@ -38,6 +42,7 @@ const SinglePost = (props) => {
                 <img src={props.img_url} />
                 <img src={props.img_url2} />
                 posted date: {props.post_date}   
+      
             </div>
 
             {loggedInUser==props.username ? 

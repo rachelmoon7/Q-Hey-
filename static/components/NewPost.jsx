@@ -32,12 +32,12 @@ const NewPost = (props) => {
                 setImgURL2(result.url);
                 setImg2(result.url)
                 setShowChosenImage2(true)
+                setCaption('')
             }
         });
     };
 
-    const upload = () => {
-        
+    const upload = () => {    
         fetch('/post-form-data', {
             method:'POST',
             headers: { "Content-Type": "application/json" },
@@ -48,12 +48,23 @@ const NewPost = (props) => {
         })
         .then((response) => response.json())
         .then((result) => {
-            // console.log(result)
+            console.log("NEWPOST RESULT:", result);
             // setEntry(result[0]);
             //update props of parent props(result[0])
             //what do i want to re
-            props.handleafterPosting()
-            console.log("props:", props)
+            if (props.handleAfterNewPost) {
+                console.log("ENTERING IF AFTER NEWPOST");
+                props.handleAfterNewPost(result);
+                setCaption('');
+                setImgURL('');
+                setImg('')
+                setShowChosenImage(false);
+                setImgURL2('');
+                setImg2('')
+                setShowChosenImage2(false)
+                
+            }            
+            // console.log("props:", props)
 
         })
     };
@@ -64,41 +75,40 @@ const NewPost = (props) => {
             <input type="file" onChange={(e)=> {setShowAddAnother(true), getCloudinaryLink(e.target.files[0])} } ></input>         
               
             {showAddAnother ? 
-            <button onClick = {() => {setShowImgForm2(true), setShowAddAnother(false)}}>Add 2nd photo</button>
-            : <div></div>
+                <button onClick = {() => {setShowImgForm2(true), setShowAddAnother(false)}}>Add 2nd photo</button>
+                : <div></div>
             }
             
            {showImgForm2 ? 
-            <input type="file" onChange={(e)=> {getCloudinaryLink(e.target.files[0])}}></input>         
-            : <div></div>  
+                <input type="file" onChange={(e)=> {getCloudinaryLink(e.target.files[0])}}></input>         
+                : <div></div>  
             }
 
             {showChosenImage ?
-            <div>
-            <div>Chosen image:</div>
-            <div>
-                <img src={img}/>
-            </div>
-            </div>
-            : <div></div>
+                <div>
+                <div>Chosen image:</div>
+                <div>
+                    <img src={img}/>
+                </div>
+                </div>
+                : <div></div>
             }
             
             {showChosenImage2 ?
-            <div>
-            <div>Chosen 2nd image:</div>
-            <div>
-                <img src={img2}/>
-            </div>
-            </div>
-            : <div></div>
+                <div>
+                    <div>Chosen 2nd image:</div>
+                <div>
+                    <img src={img2}/>
+                </div>
+                </div>
+                : <div></div>
             }
         
             <div>
                 <input type="text" placeholder="Type caption here" onChange={(e) => setCaption(e.target.value)}></input>
             </div>
+
             <button onClick = {upload}>POST</button> 
-            
-            
         </React.Fragment>
     )
 }

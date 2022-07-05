@@ -1,6 +1,7 @@
 const LandingPosts = (props) => {
     const [allLandingPosts, setAllLandingPosts] = React.useState([]);
-    const [beforePost, setBeforePost] = React.useState('beforepost')
+    const [beforePost, setBeforePost] = React.useState('beforepost');
+    const[updatedPosts, setUpdatedPosts] = React.useState([]);
 
     React.useEffect(() => {
         fetch('/get-landing-posts')
@@ -18,31 +19,41 @@ const LandingPosts = (props) => {
         .then((response) => response.json())
         .then((result) => {
             // console.log("**:", result)
+            // setAllLandingPosts(prevState => {[...prevState, result]})
             setAllLandingPosts(result)
         })
     }
 
-    const afterPosting = () => {
+
+    const afterNewPost = (result) => {
+        console.log("LandingPost afterNewPost is called")
+        setBeforePost('after post')
         fetch('/get-landing-posts')
         .then((response) => response.json())
         .then((result) => {
             // console.log("**:", result)
-            setBeforePost('after post')
-            setAllLandingPosts(result)
+            setUpdatedPosts(result)
         })
     }
+    // React.useEffect(() => {
+    //     fetch('/get-landing-posts')
+    //     .then((response) => response.json())
+    //     .then((result) => {
+    //         console.log("LANDINGPOST 2ND USEEFFECT")
+    //         setAllLandingPosts(result)
+    //     })
+    // }, [beforePost]); 
     return ( 
         <React.Fragment>
             <NewPost 
-                setAllLandingPosts={setAllLandingPosts}
-                handleafterPosting={afterPosting}
+                // setAllLandingPosts={setAllLandingPosts}
+                handleAfterNewPost={afterNewPost}
                 />   
             <ShowPosts 
                 thePosts={allLandingPosts} 
                 handleAfterDeleteOnLanding={afterDeleteOnLanding}
-                handleAfterPosting={afterPosting}
+                theUpdatedPosts={updatedPosts}
                 />
-            <SinglePost />
             {beforePost}
         </React.Fragment>
     )

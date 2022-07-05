@@ -214,7 +214,7 @@ def get_all_requests():
 @app.route('/get-landing-posts')
 def get_friends_posts():
     """Retrieve all posts for logged_in_user and logged_in_user's friends from current week to show in Landing Page."""
-    #declare empty dictionary for {friend_id: {post_id: {caption: caption, post_date: post_date, img_url:img_url}}}
+
     post_info = {}
 
     logged_in_user = crud.get_user_by_id(session["user_id"])

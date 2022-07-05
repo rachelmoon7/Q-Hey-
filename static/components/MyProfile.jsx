@@ -40,8 +40,6 @@ const MyProfilePosts = (props) => {
                 thePosts={myProfilePosts} 
                 handleAfterDeleteOnProfile={afterDeleteOnProfile}
                 />
-           <SinglePost />
-           {/* {afterDelete} */}
         </React.Fragment>
     )
 }
