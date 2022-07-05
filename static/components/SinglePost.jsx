@@ -31,10 +31,6 @@ const SinglePost = (props) => {
         })
     }
 
-    // React.useEffect(() => {
-    //     props.handleNewPost()
-    // }, [props.caption])
-
     return (
         <React.Fragment>
             <div>

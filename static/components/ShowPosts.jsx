@@ -1,6 +1,6 @@
 const ShowPosts = (props) => {
 
-    // console.log("PROPS:", props)
+    // console.log("typeof PROPS:", typeof props.theUpdatedPosts)
     // console.log("PROPS.thePosts:", props.thePosts)
 
     const afterDelete = () => {

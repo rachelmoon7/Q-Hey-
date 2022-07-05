@@ -9,6 +9,7 @@ const NewPost = (props) => {
     const [entry, setEntry] = React.useState([]);
     const [showChosenImage, setShowChosenImage] = React.useState(false);
     const [showChosenImage2, setShowChosenImage2] = React.useState(false);
+    const [chooseFile, setChooseFile] = React.useState('');
     
     const getCloudinaryLink = (file) => {
         const data = new FormData();
@@ -55,27 +56,25 @@ const NewPost = (props) => {
             if (props.handleAfterNewPost) {
                 console.log("ENTERING IF AFTER NEWPOST");
                 props.handleAfterNewPost(result);
-                setCaption('');
                 setImgURL('');
                 setImg('')
                 setShowChosenImage(false);
                 setImgURL2('');
                 setImg2('')
                 setShowChosenImage2(false)
-                
+                setCaption('');
+                setChooseFile(null);
             }            
-            // console.log("props:", props)
-
         })
     };
 
    
     return (
         <React.Fragment> 
-            <input type="file" onChange={(e)=> {setShowAddAnother(true), getCloudinaryLink(e.target.files[0])} } ></input>         
+            <input type="file" value = {chooseFile} onChange={(e)=> {setShowAddAnother(true), getCloudinaryLink(e.target.files[0])}}></input>          
               
             {showAddAnother ? 
-                <button onClick = {() => {setShowImgForm2(true), setShowAddAnother(false)}}>Add 2nd photo</button>
+                <button onClick={() => {setShowImgForm2(true), setShowAddAnother(false)}}>Add 2nd photo</button>
                 : <div></div>
             }
             
@@ -86,10 +85,10 @@ const NewPost = (props) => {
 
             {showChosenImage ?
                 <div>
-                <div>Chosen image:</div>
-                <div>
-                    <img src={img}/>
-                </div>
+                    <div>Chosen image:</div>
+                    <div>
+                        <img src={img}/>
+                    </div>
                 </div>
                 : <div></div>
             }
@@ -97,19 +96,19 @@ const NewPost = (props) => {
             {showChosenImage2 ?
                 <div>
                     <div>Chosen 2nd image:</div>
-                <div>
-                    <img src={img2}/>
-                </div>
+                    <div>
+                        <img src={img2}/>
+                    </div>
                 </div>
                 : <div></div>
             }
         
             <div>
-                <input type="text" placeholder="Type caption here" onChange={(e) => setCaption(e.target.value)}></input>
+                <input type="text" placeholder="Type caption here" value = {caption} onChange={(e) => setCaption(e.target.value)}></input>
             </div>
 
             <button onClick = {upload}>POST</button> 
         </React.Fragment>
-    )
+    );
 }
 
