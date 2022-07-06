@@ -101,7 +101,6 @@ def process_form():
     img_url = request.json['img1']  
     print("(((((LINE 101??", img_url)
 
-    
     user_id = session["user_id"]
     print("LINE 150: CURRENT USER POSTING:", user_id)
 
@@ -127,7 +126,9 @@ def process_form():
 
         return jsonify([{'new_post': new_post.to_dict(), 'new_image': new_image.to_dict(), 'new_image_2': new_image_2.to_dict()}])
     
-    return jsonify([{'new_post': new_post.to_dict(), 'new_image': new_image.to_dict()}])
+    result = get_landing_posts()
+    # print("SERVER.PY REULST 129", type(result))
+    return result
 
 
 @app.route('/get-search-result', methods=["POST"])
@@ -194,7 +195,7 @@ def show_friends_and_requests():
 
     my_friends = set(logged_in_user.following) & set(logged_in_user.followers)
     
-    return render_template("myfriends.html", logged_in_user=logged_in_user, requested=requested, my_friends=my_friends)
+    return render_template("myfriends.html",                    logged_in_user=logged_in_user, requested=requested, my_friends=my_friends)
 
 
 @app.route('/get-all-requests')
@@ -212,7 +213,7 @@ def get_all_requests():
 
     
 @app.route('/get-landing-posts')
-def get_friends_posts():
+def get_landing_posts():
     """Retrieve all posts for logged_in_user and logged_in_user's friends from current week to show in Landing Page."""
 
     post_info = {}

@@ -1,7 +1,7 @@
 const LandingPosts = (props) => {
     const [allLandingPosts, setAllLandingPosts] = React.useState([]);
-    const [beforePost, setBeforePost] = React.useState('beforepost');
-    const [updatedPosts, setUpdatedPosts] = React.useState([]);
+    // const [beforePost, setBeforePost] = React.useState('beforepost');
+    // const [updatedPosts, setUpdatedPosts] = React.useState([]);
 
     React.useEffect(() => {
         fetch('/get-landing-posts')
@@ -27,7 +27,7 @@ const LandingPosts = (props) => {
 
     const afterNewPost = (result) => {
         console.log("LandingPost afterNewPost is called");
-        setBeforePost('after post');
+        // setBeforePost('after post');
         fetch('/get-landing-posts')
         .then((response) => response.json())
         .then((result) => {
@@ -36,18 +36,21 @@ const LandingPosts = (props) => {
         })
     }
 
+    console.log("rendering LandingPosts.jsx")
+
     return ( 
         <React.Fragment>
             <NewPost 
-                // setAllLandingPosts={setAllLandingPosts}
-                handleAfterNewPost={afterNewPost}
+                setAllLandingPosts={setAllLandingPosts}
+                // handleAfterNewPost={afterNewPost}
+                
             />   
             <ShowPosts 
                 thePosts={allLandingPosts} 
                 handleAfterDeleteOnLanding={afterDeleteOnLanding}
-                theUpdatedPosts={updatedPosts}
+                // theUpdatedPosts={updatedPosts}
             />
-            {beforePost}
+            {/* {beforePost} */}
         </React.Fragment>
     )
 }
