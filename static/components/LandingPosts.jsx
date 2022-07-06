@@ -10,18 +10,7 @@ const LandingPosts = (props) => {
         })
     }, []);    
 
-    const afterDeleteOnLanding = () => {
-        console.log("landingposts.jsx 15")
-        //doing another fetch request to get fresh set of data when this function is called since setting state doesn't rerender parent
-        fetch('/get-landing-posts')
-        .then((response) => response.json())
-        .then((result) => {
-            // console.log("**:", result)
-            setAllLandingPosts(result)
-        })
-    }
-
-    console.log("rendering LandingPosts.jsx")
+    // console.log("rendering LandingPosts.jsx")
 
     return ( 
         <React.Fragment>

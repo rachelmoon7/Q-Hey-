@@ -2,6 +2,8 @@ const SinglePost = (props) => {
     const [loggedInUser, setLoggedInUser] = React.useState(false);
     const [postToDelete, setPostToDelete] = React.useState('');
     const [showConfirmDelete, setShowConfirmDelete] = React.useState(false);
+    const [showCommentBox, setShowCommentBox] = React.useState(false);
+    const [comment, setComment] = React.useState ('');
 
     React.useEffect(() => {
         fetch('/get-logged-in-user')
@@ -32,6 +34,21 @@ const SinglePost = (props) => {
         })
     }
 
+    const optionToComment = () => {
+        setShowCommentBox(true)
+    }
+
+    const addComment = () => {
+        fetch('/add-comment', {
+                    method: 'POST',
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ comment })
+                })
+        .then((response) => response.json())
+        .then((result) => {
+            console.log(result)
+        })
+    }
     return (
         <React.Fragment>
             <div>
@@ -49,7 +66,22 @@ const SinglePost = (props) => {
             {showConfirmDelete ?
                 <button onClick={deletePost}>Confirm Delete</button>
                 : <div></div>
-            }           
+            }
+
+            <button onClick={optionToComment}>Comment</button>   
+
+            {showCommentBox ? 
+                <div>
+                    <input type="text" 
+                            placeholder="Add a comment"
+                            onChange={(e) => setComment(e.target.value)}>
+                    </input>
+                    <input type="submit" onClick={addComment}></input>
+                </div>
+                : <div></div>
+            }        
+
         </React.Fragment>
     )
 }
+//send comment state variable into fetch post request to server and add to database, create add comment funciton in crud

@@ -326,9 +326,17 @@ def delete_post():
     post_id = request.json
     print("+++++POST ID", post_id)
     crud.delete_post(post_id)
-    
+
     result = get_landing_posts()
     return result
+
+
+@app.route('/add-comment', methods=["POST"])
+def add_comment():
+    """Add a comment to a post."""
+    #get post_id from singlpost and create crud function 
+    pass
+
 
 
 if __name__ == "__main__":
