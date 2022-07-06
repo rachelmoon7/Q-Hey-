@@ -26,6 +26,7 @@ const MyProfilePosts = (props) => {
            <ShowPosts 
                 thePosts={myProfilePosts} 
                 setMyProfilePosts={setMyProfilePosts}
+                deleteOnProfile={true}
                 />
         </React.Fragment>
     )

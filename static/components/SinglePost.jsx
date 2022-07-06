@@ -14,26 +14,53 @@ const SinglePost = (props) => {
         })
     }, []);
 
+    // const deletePost = () => {
+    //     fetch('/delete-post', {
+    //         method:'POST',
+    //         headers: { "Content-Type": "application/json" },
+    //         body: JSON.stringify(postToDelete)
+    //     })
+    //     .then((response) => response.json())
+    //     .then((result) => {
+    //         // console.log("DELETE RESULT:", result)
+    //         console.log("SINGLEPOST'S PROP:", props)
+    //         // console.log("type of landing'S PROP:", typeof props.setAllLandingPosts)
+    //         setShowConfirmDelete(false)
+    //         if (!props.setAllLandingPosts) {
+    //             props.setMyProfilePosts(result);
+    //         } else {
+    //             props.setAllLandingPosts(result)
+    //         }
+    //     })
+    // }
+    console.log("singlepost props:", props)
     const deletePost = () => {
         fetch('/delete-post', {
-            method:'POST',
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify(postToDelete)
-        })
+                    method:'POST',
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify(postToDelete)
+                })
         .then((response) => response.json())
         .then((result) => {
             // console.log("DELETE RESULT:", result)
-            // console.log("SINGLEPOST'S PROP:", props)
+            console.log("SINGLEPOST'S PROP:", props)
             // console.log("type of landing'S PROP:", typeof props.setAllLandingPosts)
             setShowConfirmDelete(false)
             if (!props.setAllLandingPosts) {
-                props.setMyProfilePosts(result);
+                fetch('/get-my-profile-posts')
+                .then((response) => response.json())
+                .then((result) => {
+                    props.setMyProfilePosts(result);
+                })
             } else {
-                props.setAllLandingPosts(result)
+                fetch('/get-landing-posts')
+                .then((response) => response.json())
+                .then((result) => {
+                    props.setAllLandingPosts(result)
+                })
             }
         })
     }
-
     const optionToComment = () => {
         setShowCommentBox(true)
     }

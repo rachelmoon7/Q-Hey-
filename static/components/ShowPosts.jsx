@@ -31,6 +31,8 @@ const ShowPosts = (props) => {
                                           post_date={postInfo['post_date']} 
                                           setAllLandingPosts={props.setAllLandingPosts}
                                           setMyProfilePosts={props.setMyProfilePosts}
+                                          deleteOnLanding={props.deleteOnLanding}
+                                          deleteOnProfile={props.deleteOnProfile}
                                 />)
     }};
 
