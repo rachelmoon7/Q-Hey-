@@ -24,7 +24,7 @@ const SinglePost = (props) => {
             console.log("DELETE RESULT:", result)
             console.log("SINGLEPOST'S PROP:", props)
             console.log("type of landing'S PROP:", typeof props.setAllLandingPosts)
-
+            setShowConfirmDelete(false)
             if (!props.setAllLandingPosts) {
                 props.setMyProfilePosts(result);
             } else {
