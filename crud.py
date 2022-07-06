@@ -123,6 +123,13 @@ def delete_post(post_id):
     db.session.commit()
     
 
+def create_comment(post_id, user_id, text):
+    """Create a comment."""
+
+    comment = Comment(post_id=post_id, user_id=user_id, text=text)
+
+    return comment
+
 
 if __name__ == '__main__':
     from server import app

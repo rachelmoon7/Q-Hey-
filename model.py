@@ -143,37 +143,37 @@ class Question(db.Model):
         return f'<Question question_id={self.question_id}>'
 
 
-# class Comment(db.Model):
-#     """A comment on a post."""
+class Comment(db.Model):
+    """A comment on a post."""
 
-#     __tablename__ = "comments"
+    __tablename__ = "comments"
 
-#     comment_id = db.Column(db.Integer,
-#                         autoincrement=True,
-#                         primary_key=True)
-#     post_id = db.Column(db.Integer, db.ForeignKey("posts.post_id"), nullable=False)
-#     user_id = db.Column(db.Integer, db.ForeignKey("users.user_id"), nullable=False)
-#     text = db.Column(db.String)
-#     comment_date = db.Column(db.Date)
+    comment_id = db.Column(db.Integer,
+                        autoincrement=True,
+                        primary_key=True)
+    post_id = db.Column(db.Integer, db.ForeignKey("posts.post_id"), nullable=False)
+    user_id = db.Column(db.Integer, db.ForeignKey("users.user_id"), nullable=False)
+    text = db.Column(db.String)
+    comment_date = db.Column(db.Date)
 
-#     post = db.relationship("Post", back_populates="comments")
-#     user = db.relationship("User", back_populates="comments")
+    post = db.relationship("Post", backref="comments")
+    user = db.relationship("User", backref="comments")
 
 
-# class Reaction(db.Model):
-#     """A reaction to a post."""
+class Reaction(db.Model):
+    """A reaction to a post."""
 
-#     __tablename__ = "reactions"
+    __tablename__ = "reactions"
 
-#     reaction_id = db.Column(db.Integer,
-#                         autoincrement=True,
-#                         primary_key=True)
-#     post_id = db.Column(db.Integer, db.ForeignKey("posts.post_id"), nullable=False)
-#     user_id = db.Column(db.Integer, db.ForeignKey("users.user_id"), nullable=False)
-#     reaction_type = db.Column(db.String)
+    reaction_id = db.Column(db.Integer,
+                        autoincrement=True,
+                        primary_key=True)
+    post_id = db.Column(db.Integer, db.ForeignKey("posts.post_id"), nullable=False)
+    user_id = db.Column(db.Integer, db.ForeignKey("users.user_id"), nullable=False)
+    reaction_type = db.Column(db.String)
 
-#     post = db.relationship("Post", back_populates="reactions")
-#     user = db.relationship("User", back_populates="reactions")
+    post = db.relationship("Post", backref="reactions")
+    user = db.relationship("User", backref="reactions")
 
 
 def connect_to_db(flask_app, db_uri="postgresql:///project", echo=True):

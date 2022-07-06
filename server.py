@@ -303,10 +303,10 @@ def get_my_profile_posts():
 
 @app.route('/delete-post', methods=["POST"])
 def delete_post():
-    """Delete the post """
-    print("___SERVER318,", request.json)
+    """Delete the post and return all posts for respective pages: Landing/Profile."""
+    # print("___SERVER318,", request.json)
     post_id = request.json['postToDelete']
-    print("+++++POST ID", post_id)
+    # print("+++++POST ID", post_id)
     crud.delete_post(post_id)
 
     if request.json['deleteOrigin'] == False:
