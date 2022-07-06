@@ -234,15 +234,14 @@ def get_landing_posts():
         #iterate thorugh posts object to get .images attribute of each post
         for post in current_week_posts_obj:
             caption_image[post.post_id] = {'caption': post.caption}
-            caption_image[post.post_id]['img_url'] = post.images[0].img_URL
             caption_image[post.post_id]['post_date'] = post.post_date
 
-            if len(post.images) > 1:
+            if len(post.images) > 0:
                 caption_image[post.post_id]['img_url'] = post.images[0].img_URL
-                caption_image[post.post_id]['img_url2'] = post.images[1].img_URL
-                caption_image[post.post_id]['post_date'] = post.post_date
+                if len(post.images) > 1:
+                    caption_image[post.post_id]['img_url2'] = post.images[1].img_URL
 
-            print("!!! SERVER LINE 243", caption_image) 
+            # print("!!! SERVER LINE 243", caption_image) 
                 
         username = crud.get_username(friend_id)
         post_info[username] = caption_image
@@ -287,25 +286,13 @@ def get_my_profile_posts():
     posts_obj = crud.get_users_previous_posts(my_id)
     # print("$$$$$server 292 post obj?", posts_obj[0].post_id)
     for post in posts_obj:
-            if len(post.images) > 1:
-                if post.caption == "":
-                    caption_image[post.post_id]['img_url'] = post.images[0].img_URL
-                    caption_image[post.post_id]['img_url2'] = post.images[1].img_URL
-                    caption_image[post.post_id]['post_date'] = post.post_date
-                    continue
+            caption_image[post.post_id] = {'caption': post.caption}
+            caption_image[post.post_id]['post_date'] = post.post_date
 
-                caption_image[post.post_id] = {'caption': post.caption}
+            if len(post.images) > 0:
                 caption_image[post.post_id]['img_url'] = post.images[0].img_URL
-                caption_image[post.post_id]['img_url2'] = post.images[1].img_URL
-                caption_image[post.post_id]['post_date'] = post.post_date
-            elif len(post.images) == 1:
-                caption_image[post.post_id] = {'caption': post.caption}
-                caption_image[post.post_id]['img_url'] = post.images[0].img_URL
-                caption_image[post.post_id]['post_date'] = post.post_date
-            elif len(post.images) == 0:
-                caption_image[post.post_id] = {'caption': post.caption}
-                caption_image[post.post_id]['post_date'] = post.post_date
-            # print("!!! SERVER LINE 235", caption_image) 
+                if len(post.images) > 1:
+                    caption_image[post.post_id]['img_url2'] = post.images[1].img_URL
                 
     username = crud.get_username(my_id)
     post_info[username] = caption_image
@@ -318,9 +305,14 @@ def get_my_profile_posts():
 def delete_post():
     """Delete the post """
     print("___SERVER318,", request.json)
-    post_id = request.json
+    post_id = request.json['postToDelete']
     print("+++++POST ID", post_id)
     crud.delete_post(post_id)
+
+    if request.json['deleteOrigin'] == False:
+        return get_landing_posts()
+    elif request.json['deleteOrigin'] == True:
+        return get_my_profile_posts()
 
     return jsonify("Delete successful!")
 

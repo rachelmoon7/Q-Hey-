@@ -3,7 +3,8 @@ const SinglePost = (props) => {
     const [postToDelete, setPostToDelete] = React.useState('');
     const [showConfirmDelete, setShowConfirmDelete] = React.useState(false);
     const [showCommentBox, setShowCommentBox] = React.useState(false);
-    const [comment, setComment] = React.useState ('');
+    const [comment, setComment] = React.useState('');
+    const [deleteOrigin, setDeleteOrigin] = React.useState('');
 
     React.useEffect(() => {
         fetch('/get-logged-in-user')
@@ -34,11 +35,12 @@ const SinglePost = (props) => {
     //     })
     // }
     console.log("singlepost props:", props)
+
     const deletePost = () => {
         fetch('/delete-post', {
                     method:'POST',
                     headers: { "Content-Type": "application/json" },
-                    body: JSON.stringify(postToDelete)
+                    body: JSON.stringify({ postToDelete, deleteOrigin })
                 })
         .then((response) => response.json())
         .then((result) => {
@@ -47,18 +49,10 @@ const SinglePost = (props) => {
             // console.log("type of landing'S PROP:", typeof props.setAllLandingPosts)
             setShowConfirmDelete(false)
             if (!props.setAllLandingPosts) {
-                fetch('/get-my-profile-posts')
-                .then((response) => response.json())
-                .then((result) => {
                     props.setMyProfilePosts(result);
-                })
-            } else {
-                fetch('/get-landing-posts')
-                .then((response) => response.json())
-                .then((result) => {
+                } else {
                     props.setAllLandingPosts(result)
-                })
-            }
+                }
         })
     }
     const optionToComment = () => {
@@ -86,7 +80,7 @@ const SinglePost = (props) => {
             </div>
 
             {loggedInUser==props.username ? 
-                <button onClick={() => {setPostToDelete(props.post_id), setShowConfirmDelete(true)}}>Delete</button>
+                <button onClick={() => {setPostToDelete(props.post_id), setDeleteOrigin(props.deleteOnProfile), setShowConfirmDelete(true)}}>Delete</button>
                 : <div></div>
             }
 

@@ -20,7 +20,7 @@ const LandingPosts = (props) => {
             <ShowPosts 
                 thePosts={allLandingPosts} 
                 setAllLandingPosts={setAllLandingPosts}
-                deleteOnLanding={true}
+                deleteOnProfile={false}
             />
         </React.Fragment>
     )
