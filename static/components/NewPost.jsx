@@ -11,8 +11,8 @@ const NewPost = (props) => {
     const [showChosenImage2, setShowChosenImage2] = React.useState(false);
     const [chooseFile, setChooseFile] = React.useState('');
     
-    console.log("rendering NewPost.jsx")
-    console.log(caption)
+    // console.log("rendering NewPost.jsx")
+    // console.log(caption)
 
     const getCloudinaryLink = (file) => {
         const data = new FormData();

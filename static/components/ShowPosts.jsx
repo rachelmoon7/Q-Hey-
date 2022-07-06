@@ -24,7 +24,7 @@ const ShowPosts = (props) => {
     console.log("showPosts props:", props)
     for (const [user, allUserPosts] of Object.entries(props.thePosts)) {
         console.log("USER:", user)
-        // console.log("allLandingPosts after NEWPOST:", props.thePosts)
+        console.log("allLandingPosts  after NEWPOST:", props.thePosts)
         for (const [postID, postInfo] of Object.entries(allUserPosts)) {
                 allPosts.push(<SinglePost username={user}
                                           caption={postInfo['caption']}

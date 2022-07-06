@@ -99,11 +99,11 @@ def process_form():
     """Process the form"""
 
     img_url = request.json['img1']  
-    print("(((((LINE 101??", img_url)
+    # print("(((((LINE 101??", img_url)
 
     user_id = session["user_id"]
-    print("LINE 150: CURRENT USER POSTING:", user_id)
-
+    # print("LINE 150: CURRENT USER POSTING:", user_id)
+    print("???????server from post request:", request.json)
     question_id = datetime.now().isocalendar().week
     post_date = datetime.now()
     caption = request.json["caption"]
@@ -117,17 +117,18 @@ def process_form():
     db.session.commit()
 
     if request.json['img2']:
-
+        print("SERVER IMG2 EXISTS ENTERING IF")
         img_url_2 = request.json['img2']   
         new_image_2 = crud.create_image(new_post.post_id, img_url_2)
         
         db.session.add(new_image_2)
         db.session.commit()
 
-        return jsonify([{'new_post': new_post.to_dict(), 'new_image': new_image.to_dict(), 'new_image_2': new_image_2.to_dict()}])
+        result = get_landing_posts()
+        return result
     
     result = get_landing_posts()
-    # print("SERVER.PY REULST 129", type(result))
+    print("*(*(*( SERVER.PY REULST 129", result)
     return result
 
 
