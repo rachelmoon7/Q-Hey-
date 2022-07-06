@@ -1,7 +1,6 @@
 const MyProfilePosts = (props) => {
     const [myProfilePosts, setMyProfilePosts] = React.useState([]);
     const [username, setUsername] = React.useState('');
-    // const [afterDelete, setAfterDelete] = React.useState('myprofile.jsx before update')
 
     React.useEffect(() => {
         fetch('/whose-profile')
@@ -19,18 +18,6 @@ const MyProfilePosts = (props) => {
             setMyProfilePosts(result)
         })
     }, []);
-
-    // const afterDeleteOnProfile = () => {
-    //     console.log("myprofile.jsx 24")
-    //     // setAfterDelete('myprofile.jsx')-setting state did not rerender this component** so,
-    //     //doing another fetch request to get fresh set of data when this function is called
-    //     fetch('/get-my-profile-posts')
-    //     .then((response) => response.json())
-    //     .then((result) => {
-    //         console.log("**:", result)
-    //         setMyProfilePosts(result)
-    //     })
-    // }
 
     return ( 
         <React.Fragment>

@@ -10,6 +10,8 @@ const NewPost = (props) => {
     const [showChosenImage, setShowChosenImage] = React.useState(false);
     const [showChosenImage2, setShowChosenImage2] = React.useState(false);
     const [chooseFile, setChooseFile] = React.useState('');
+    const [chooseFile2, setChooseFile2] = React.useState('1');
+
     
     // console.log("rendering NewPost.jsx")
     // console.log(caption)
@@ -57,6 +59,7 @@ const NewPost = (props) => {
             // if (props.handleAfterNewPost) {
             //     console.log("ENTERING IF AFTER NEWPOST");
             //     props.handleAfterNewPost(result);
+            setShowImgForm2(false);
             setImgURL('');
             setImg('')
             setShowChosenImage(false);
@@ -64,8 +67,9 @@ const NewPost = (props) => {
             setImg2('')
             setShowChosenImage2(false)
             setCaption('');
-            setChooseFile(null)
-            setShowImgForm2(false)
+            setChooseFile(null);
+            setChooseFile2(null);
+
             // setShowAddAnother(false)
             // }            
         })
@@ -75,15 +79,15 @@ const NewPost = (props) => {
    //when key is changed, re-renders input tag (line 78)
     return (
         <React.Fragment> 
-            <form id="choose-file">
-                <input 
-                    type="file" key={chooseFile} onChange={(e)=> {
-                                                                setShowAddAnother(true);
-                                                                getCloudinaryLink(e.target.files[0]); 
-                                                                }
-                                                            } >
-                </input>          
-            </form>  
+
+            <input 
+                type="file" key={chooseFile} onChange={(e)=> {
+                                                            setShowAddAnother(true);
+                                                            getCloudinaryLink(e.target.files[0]); 
+                                                            }
+                                                    } >
+            </input>          
+
 
             {showAddAnother ? 
                 <button onClick={() => {setShowImgForm2(true), setShowAddAnother(false)}}>Add 2nd photo</button>
@@ -91,7 +95,7 @@ const NewPost = (props) => {
             }
             
            {showImgForm2 ? 
-                <input type="file" key={chooseFile} onChange={(e)=> {getCloudinaryLink(e.target.files[0])}}></input>         
+                <input type="file" key={chooseFile2} onChange={(e)=> {getCloudinaryLink(e.target.files[0])}}></input>         
                 : <div></div>  
             }
 
@@ -123,12 +127,3 @@ const NewPost = (props) => {
         </React.Fragment>
     );
 }
-
-// <input 
-//                     type="file" onChange={(e)=> {
-//                                                 setShowAddAnother(true), 
-//                                                 getCloudinaryLink(e.target.files[0]); 
-//                                                 console.log("??", e.target.files[0].name);
-//                                                 }
-//                                         } >
-//                 </input> 

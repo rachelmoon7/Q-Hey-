@@ -2,7 +2,6 @@ const SinglePost = (props) => {
     const [loggedInUser, setLoggedInUser] = React.useState(false);
     const [postToDelete, setPostToDelete] = React.useState('');
     const [showConfirmDelete, setShowConfirmDelete] = React.useState(false);
-    // const [deleteResult, setDeleteResult] = React.useState('');
 
     React.useEffect(() => {
         fetch('/get-logged-in-user')
@@ -21,17 +20,15 @@ const SinglePost = (props) => {
         })
         .then((response) => response.json())
         .then((result) => {
-            console.log("DELETE RESULT:", result)
-            console.log("SINGLEPOST'S PROP:", props)
-            console.log("type of landing'S PROP:", typeof props.setAllLandingPosts)
+            // console.log("DELETE RESULT:", result)
+            // console.log("SINGLEPOST'S PROP:", props)
+            // console.log("type of landing'S PROP:", typeof props.setAllLandingPosts)
             setShowConfirmDelete(false)
             if (!props.setAllLandingPosts) {
                 props.setMyProfilePosts(result);
             } else {
                 props.setAllLandingPosts(result)
             }
-            // props.setAllLandingPosts(result)
-            // props.setMyProfilePosts(result)
         })
     }
 
@@ -42,7 +39,6 @@ const SinglePost = (props) => {
                 <img src={props.img_url} />
                 <img src={props.img_url2} />
                 posted date: {props.post_date}   
-      
             </div>
 
             {loggedInUser==props.username ? 
