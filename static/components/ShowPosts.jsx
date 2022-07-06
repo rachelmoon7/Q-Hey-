@@ -15,13 +15,10 @@ const ShowPosts = (props) => {
         }
     }
 
-    // const newPost = () => {
-    //     props.handleAfterNewPost();
-    // }
-
     const allPosts = []
     // console.log("ShowPosts props.thePosts:", props.thePosts)
     console.log("showPosts props:", props)
+    
     for (const [user, allUserPosts] of Object.entries(props.thePosts)) {
         console.log("USER:", user)
         console.log("allLandingPosts  after NEWPOST:", props.thePosts)
@@ -32,10 +29,13 @@ const ShowPosts = (props) => {
                                           img_url2={postInfo['img_url2']} 
                                           post_id={postID} 
                                           post_date={postInfo['post_date']} 
-                                          handleAfterDelete={afterDelete}
+                                          setAllLandingPosts={props.setAllLandingPosts}
+                                          setMyProfilePosts={props.setMyProfilePosts}
                                         //   handleNewPost={newPost}        
                                 />)
     }};
+
+
     // if (props.theUpdatedPosts.length == 0) {
     //     for (const [user, allUserPosts] of Object.entries(props.thePosts)) {
     //     console.log("USER:", user)

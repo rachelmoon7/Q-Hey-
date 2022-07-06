@@ -20,17 +20,17 @@ const MyProfilePosts = (props) => {
         })
     }, []);
 
-    const afterDeleteOnProfile = () => {
-        console.log("myprofile.jsx 24")
-        // setAfterDelete('myprofile.jsx')-setting state did not rerender this component** so,
-        //doing another fetch request to get fresh set of data when this function is called
-        fetch('/get-my-profile-posts')
-        .then((response) => response.json())
-        .then((result) => {
-            console.log("**:", result)
-            setMyProfilePosts(result)
-        })
-    }
+    // const afterDeleteOnProfile = () => {
+    //     console.log("myprofile.jsx 24")
+    //     // setAfterDelete('myprofile.jsx')-setting state did not rerender this component** so,
+    //     //doing another fetch request to get fresh set of data when this function is called
+    //     fetch('/get-my-profile-posts')
+    //     .then((response) => response.json())
+    //     .then((result) => {
+    //         console.log("**:", result)
+    //         setMyProfilePosts(result)
+    //     })
+    // }
 
     return ( 
         <React.Fragment>
@@ -38,7 +38,7 @@ const MyProfilePosts = (props) => {
             <h1> {username}'s Profile</h1>
            <ShowPosts 
                 thePosts={myProfilePosts} 
-                handleAfterDeleteOnProfile={afterDeleteOnProfile}
+                setMyProfilePosts={setMyProfilePosts}
                 />
         </React.Fragment>
     )

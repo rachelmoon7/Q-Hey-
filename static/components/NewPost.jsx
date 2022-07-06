@@ -65,7 +65,8 @@ const NewPost = (props) => {
             setShowChosenImage2(false)
             setCaption('');
             setChooseFile(null)
-            setShowAddAnother(false)
+            setShowImgForm2(false)
+            // setShowAddAnother(false)
             // }            
         })
 

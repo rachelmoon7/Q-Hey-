@@ -47,9 +47,12 @@ const LandingPosts = (props) => {
             />   
             <ShowPosts 
                 thePosts={allLandingPosts} 
-                handleAfterDeleteOnLanding={afterDeleteOnLanding}
+                setAllLandingPosts={setAllLandingPosts}
+                // setAllLandingPosts={setAllLandingPosts}
+                // handleAfterDeleteOnLanding={afterDeleteOnLanding}
                 // theUpdatedPosts={updatedPosts}
             />
+            
             {/* {beforePost} */}
         </React.Fragment>
     )

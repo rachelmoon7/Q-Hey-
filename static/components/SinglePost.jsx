@@ -23,11 +23,15 @@ const SinglePost = (props) => {
         .then((result) => {
             console.log("DELETE RESULT:", result)
             console.log("SINGLEPOST'S PROP:", props)
-            if (result == "Delete successful") {
-                props.handleAfterDelete(result)
-                //setting showConfirmDelete back to false so it doesn't stay true for next post 
-                setShowConfirmDelete(false)
+            console.log("type of landing'S PROP:", typeof props.setAllLandingPosts)
+
+            if (!props.setAllLandingPosts) {
+                props.setMyProfilePosts(result);
+            } else {
+                props.setAllLandingPosts(result)
             }
+            // props.setAllLandingPosts(result)
+            // props.setMyProfilePosts(result)
         })
     }
 

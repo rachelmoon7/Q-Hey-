@@ -326,7 +326,9 @@ def delete_post():
     post_id = request.json
     print("+++++POST ID", post_id)
     crud.delete_post(post_id)
-    return jsonify('Delete successful')
+    
+    result = get_landing_posts()
+    return result
 
 
 if __name__ == "__main__":
