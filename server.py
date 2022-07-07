@@ -320,10 +320,32 @@ def delete_post():
 @app.route('/add-comment', methods=["POST"])
 def add_comment():
     """Add a comment to a post."""
-    #get post_id from singlpost and create crud function 
-    pass
+    print("got to server add-comment fcn")
+    post_id = request.json['postToComment']
+    user_id = session["user_id"]
+    text = request.json['comment']
+    comment_date = datetime.now()
+
+    comment = crud.create_comment(post_id, user_id, text, comment_date)
+    db.session.add(comment)
+    db.session.commit()
+
+    return jsonify('Comment added!')
 
 
+@app.route('/get-all-comments', methods=["POST"])
+def get_all_comments():
+    """Retrieves all comments and its user's username for post."""
+    print("$$$$SERVER GETALLCOMMENTS request.json", request.json)
+    post_id = request.json
+    # all_comments = crud.get_post_comments(post_id)
+    post = crud.get_post_by_post_id(post_id)
+    # print("@@server post to comment on", post)
+    # print("^^^post'scomments", post.comments)
+    all_comments = [comment.to_dict() for comment in post.comments]
+
+    print("___SERVER all_comments:", all_comments)
+    return jsonify(all_comments)
 
 if __name__ == "__main__":
     connect_to_db(app)

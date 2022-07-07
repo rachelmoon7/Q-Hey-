@@ -1,5 +1,5 @@
 """CRUD operations."""
-from model import db, User, Post, Image, Question, connect_to_db
+from model import db, User, Post, Image, Question, Comment, Image, connect_to_db
 from datetime import datetime
 import asyncio
 
@@ -123,12 +123,23 @@ def delete_post(post_id):
     db.session.commit()
     
 
-def create_comment(post_id, user_id, text):
+def create_comment(post_id, user_id, text, comment_date):
     """Create a comment."""
 
-    comment = Comment(post_id=post_id, user_id=user_id, text=text)
-
+    comment = Comment(post_id=post_id, user_id=user_id, text=text, comment_date=comment_date)
+    
     return comment
+
+
+# def get_post_comments(post_id):
+#     """Retrieve all comments for a post."""
+
+#     return Comment.query.filter(Comment.post_id == post_id).all()
+
+def get_post_by_post_id(post_id):
+    """Get post by post_id."""
+
+    return Post.query.filter(Post.post_id == post_id).first()
 
 
 if __name__ == '__main__':

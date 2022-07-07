@@ -2,9 +2,12 @@ const SinglePost = (props) => {
     const [loggedInUser, setLoggedInUser] = React.useState(false);
     const [postToDelete, setPostToDelete] = React.useState('');
     const [showConfirmDelete, setShowConfirmDelete] = React.useState(false);
+    const [postToComment, setPostToComment] = React.useState('');
     const [showCommentBox, setShowCommentBox] = React.useState(false);
     const [comment, setComment] = React.useState('');
     const [deleteOrigin, setDeleteOrigin] = React.useState('');
+    const [newComment, setNewComment] = React.useState('');
+    const [allCommentsInfo, setAllCommentsInfo] = React.useState([]);
 
     React.useEffect(() => {
         fetch('/get-logged-in-user')
@@ -15,7 +18,20 @@ const SinglePost = (props) => {
         })
     }, []);
 
-    console.log("singlepost props:", props)
+    React.useEffect(() => {
+        fetch('/get-all-comments', {
+            method: 'POST',
+            headers: { "Content-Type": "application/json"},
+            body: JSON.stringify(props.post_id)
+        })
+        .then((response) => response.json())
+        .then((result) => {
+            console.log("getallcomments result:", result)
+            setAllCommentsInfo(result)
+        })
+    }, []);
+
+    // console.log("singlepost props:", props)
 
     const deletePost = () => {
         fetch('/delete-post', {
@@ -36,21 +52,29 @@ const SinglePost = (props) => {
                 }
         })
     }
-    const optionToComment = () => {
-        setShowCommentBox(true)
-    }
+
+    // const optToComment = () => {
+    //     setShowCommentBox(true);
+    //     setPostToComment(props.post_id);
+    // }
 
     const addComment = () => {
         fetch('/add-comment', {
                     method: 'POST',
                     headers: { "Content-Type": "application/json" },
-                    body: JSON.stringify({ comment })
+                    body: JSON.stringify({ postToComment, comment })
                 })
         .then((response) => response.json())
         .then((result) => {
-            console.log(result)
+            console.log("addcomment result to siinglepost", result)
+            console.log("addcomment result[0]", result[0]['comment'])
+            setNewComment(result[0]['comment'])
         })
     }
+
+    const allComments = []
+
+
     return (
         <React.Fragment>
             <div>
@@ -66,11 +90,11 @@ const SinglePost = (props) => {
             }
 
             {showConfirmDelete ?
-                <button onClick={deletePost}>Confirm Delete</button>
+                <button onClick={() => {deletePost}}>Confirm Delete</button>
                 : <div></div>
             }
 
-            <button onClick={optionToComment}>Comment</button>   
+            <button onClick={() => {setShowCommentBox(true); setPostToComment(props.post_id)}}>Comment</button>   
 
             {showCommentBox ? 
                 <div>
@@ -78,10 +102,15 @@ const SinglePost = (props) => {
                             placeholder="Add a comment"
                             onChange={(e) => setComment(e.target.value)}>
                     </input>
-                    <input type="submit" onClick={addComment}></input>
+                    <button type="submit" onClick={addComment}>Save</button>
                 </div>
                 : <div></div>
-            }        
+            } 
+
+            {allComments}
+
+            {/* <Comment username={username}
+                    text={text}/>        */}
 
         </React.Fragment>
     )

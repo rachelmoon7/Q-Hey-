@@ -3,18 +3,6 @@ const ShowPosts = (props) => {
     // console.log("typeof PROPS:", typeof props.theUpdatedPosts)
     // console.log("PROPS.thePosts:", props.thePosts)
 
-    const afterDelete = () => {
-        // setUpdatedPostsAfterDelete("afterDelete")
-        console.log("SHOWPOSTS 12 PROPS", props);
-        if (props.handleAfterDeleteOnProfile) {
-            props.handleAfterDeleteOnProfile();
-        }
-        else if (props.handleAfterDeleteOnLanding) {
-            props.handleAfterDeleteOnLanding();
-
-        }
-    }
-
     const allPosts = []
     // console.log("ShowPosts props.thePosts:", props.thePosts)
     console.log("showPosts props:", props)
@@ -35,7 +23,6 @@ const ShowPosts = (props) => {
                                           deleteOnProfile={props.deleteOnProfile}
                                 />)
     }};
-
 
     return (
         <React.Fragment>

@@ -159,6 +159,19 @@ class Comment(db.Model):
     post = db.relationship("Post", backref="comments")
     user = db.relationship("User", backref="comments")
 
+    def to_dict(self):
+        """Convert python object to dictionary"""
+
+        return {'comment_id': self.comment_id,
+                'post_id': self.post_id, 
+                'user_id': self.user_id, 
+                'text': self.text,
+                'comment_date': self.comment_date                 
+                }
+
+    def __repr__(self):
+        return f'<Comment comment_id={self.comment_id} post_id={self.post_id} user_id={self.user_id} text={self.text}>'
+
 
 class Reaction(db.Model):
     """A reaction to a post."""
@@ -174,6 +187,18 @@ class Reaction(db.Model):
 
     post = db.relationship("Post", backref="reactions")
     user = db.relationship("User", backref="reactions")
+    
+    def to_dict(self):
+        """Convert python object to dictionary"""
+
+        return {'reaction_id': self.reaction_id,
+                'post_id': self.post_id, 
+                'user_id': self.user_id, 
+                'reaction_type': self.reaction_type
+                }
+
+    def __repr__(self):
+        return f'<Reaction reaction_id={self.reaction_id} post_id={self.post_id} user_id={self.user_id} reaction_type={self.reaction_type}>'
 
 
 def connect_to_db(flask_app, db_uri="postgresql:///project", echo=True):
