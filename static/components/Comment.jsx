@@ -1,14 +1,15 @@
 const Comment = (props) => {
-    const [comment, setComment] = React.useState('');
+    // const [comment, setComment] = React.useState('');
     console.log("comment props", props)
     
-    // React.useEffect(() =>{
-    //     setComment(props.newComment['newComment']);
-
-    // }, []);
+    React.useEffect(() => {
+        console.log("ENTERING COMMENTS COMPONENT")
+    }, [])
 
    
-    // return (
-        // {props.text}
-    // )
+    return (
+        <React.Fragment>
+            comments: {props.text} on {props.comment_date}
+        </React.Fragment>
+    )
 }

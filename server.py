@@ -343,7 +343,7 @@ def get_all_comments():
     # print("@@server post to comment on", post)
     # print("^^^post'scomments", post.comments)
     all_comments = [comment.to_dict() for comment in post.comments]
-
+    # username = crud.get_username(my_id)
     print("___SERVER all_comments:", all_comments)
     return jsonify(all_comments)
 
