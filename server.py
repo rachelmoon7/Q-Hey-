@@ -344,7 +344,10 @@ def get_all_comments():
     # print("^^^post'scomments", post.comments)
     all_comments = [comment.to_dict() for comment in post.comments]
     # username = crud.get_username(my_id)
-    print("___SERVER all_comments:", all_comments)
+    for i in range(len(all_comments)):
+        all_comments[i]['username'] = crud.get_user_by_id(all_comments[i]['user_id']).username
+    # print("___SERVER all_comments:", all_comments)
+
     return jsonify(all_comments)
 
 if __name__ == "__main__":

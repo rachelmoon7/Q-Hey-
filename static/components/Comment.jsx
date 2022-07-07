@@ -10,7 +10,7 @@ const Comment = (props) => {
    
     return (
         <div class="comment-div-1">
-            comments: {props.text} on {props.comment_date}
+            {props.username} comments: {props.text} on {props.comment_date}
         </div>
     )
 }

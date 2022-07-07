@@ -34,9 +34,8 @@ const SinglePost = (props) => {
 
             for (const [each_comment, comment_info] of Object.entries(result)) {
                 //blocker: comment component not showing in browser but console.log ok 
-                const comment_date = comment_info['comment_date'];
-                console.log("comment_info", comment_info['text']);
-                setAllComments(prevState => [...prevState, <Comment 
+                console.log("comment_info", comment_info);
+                setAllComments(prevState => [...prevState, <Comment username={comment_info['username']}
                                                                     comment_date={comment_info['comment_date']}
                                                                     text={comment_info['text']}
 
