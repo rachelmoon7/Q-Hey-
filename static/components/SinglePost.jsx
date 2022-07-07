@@ -7,7 +7,7 @@ const SinglePost = (props) => {
     const [comment, setComment] = React.useState('');
     const [deleteOrigin, setDeleteOrigin] = React.useState('');
     const [newComment, setNewComment] = React.useState('');
-    const [allCommentsInfo, setAllCommentsInfo] = React.useState([]);
+    const [allComments, setAllComments] = React.useState([]);
 
     React.useEffect(() => {
         fetch('/get-logged-in-user')
@@ -18,7 +18,7 @@ const SinglePost = (props) => {
         })
     }, []);
 
-    const allComments = []
+
 
     React.useEffect(() => {
         fetch('/get-all-comments', {
@@ -28,52 +28,25 @@ const SinglePost = (props) => {
         })
         .then((response) => response.json())
         .then((result) => {
-            // console.log("getallcomments result text:", result)
+            console.log("getallcomments result text:", result)
             // console.log("typeof passing in:", typeof result[0]['comment_date'])
             // console.log("typeof passing this too:", typeof result[0]['text'])
 
-            // setAllCommentsInfo(result);
-            for (let i=0; i < result.length; i+=1) {
+            for (const [each_comment, comment_info] of Object.entries(result)) {
                 //blocker: comment component not showing in browser but console.log ok 
-                allComments.push(<Comment comment_date={result[i]['comment_date']}
-                                            text={result[i]['text']} />)
+                const comment_date = comment_info['comment_date'];
+                console.log("comment_info", comment_info['text']);
+                setAllComments(prevState => [...prevState, <Comment 
+                                                                    comment_date={comment_info['comment_date']}
+                                                                    text={comment_info['text']}
+
+                        />])
             }
         })
-        .then(() => {console.log('******', allComments)})
     }, []);
 
+    // console.log("a-l-l-c-o-m-m-e-n-t-s", allComments);
 
-
-    // const tester = () => {
-
-    
-    //     fetch('/get-all-comments', {
-    //         method: 'POST',
-    //         headers: { "Content-Type": "application/json"},
-    //         body: JSON.stringify(props.post_id)
-    //     })
-    //     .then((response) => response.json())
-    //     .then((result) => {
-    //         // console.log("getallcomments result text:", result)
-    //         // console.log("typeof passing in:", typeof result[0]['comment_date'])
-    //         // console.log("typeof passing this too:", typeof result[0]['text'])
-
-    //         // setAllCommentsInfo(result);
-    //         // for (let i=0; i < result.length; i+=1) {
-    //         //     allComments.push(<Comment comment_date={result[i]['comment_date']}
-    //         //                                 text={result[i]['text']} />)
-    //         // }
-    //         for (let i=0; i < result.length; i+=1) {
-    //             allComments.push(<Comment comment_date={"7/6"}
-    //                                         text={"i+1"} />)
-    //         }
-    //     })
-    //     .then(() => {console.log('******', allComments)})
-    // }
-    // console.log("singlepost props:", props)
-    // React.useEffect(() => {
-    //     tester();
-    // }, [])
 
     const deletePost = () => {
         fetch('/delete-post', {
@@ -145,10 +118,10 @@ const SinglePost = (props) => {
                 </div>
                 : <div></div>
             } 
-            
-            {allComments}
-            
+            <div id="all-comments">
+                {allComments}
+            </div>
+                      
         </React.Fragment>
     )
 }
-//send comment state variable into fetch post request to server and add to database, create add comment funciton in crud
