@@ -75,11 +75,6 @@ const SinglePost = (props) => {
         })
     }
 
-    // const optToComment = () => {
-    //     setShowCommentBox(true);
-    //     setPostToComment(props.post_id);
-    // }
-
     const addComment = () => {
         fetch('/add-comment', {
                     method: 'POST',
@@ -99,7 +94,6 @@ const SinglePost = (props) => {
                                                                     setAfterDeletedComment={setAfterDeletedComment}
                                                                     setAllComments={setAllComments}
                                                                     afterDeletedComment={afterDeletedComment}
-
                         />]);
             setComment('');
         })
@@ -120,7 +114,7 @@ const SinglePost = (props) => {
             }
 
             {showConfirmDelete ?
-                <button onClick={() => {deletePost}}>Confirm Delete</button>
+                <button onClick={deletePost}>Confirm Delete</button>
                 : <div></div>
             }
 
