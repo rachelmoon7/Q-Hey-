@@ -369,32 +369,31 @@ def get_all_comments():
 def delete_comment():
     """Delete a comment."""
     print("++++++", request.json)
-    comment_to_delete = request.json['comment']
+
+    comment_to_delete = request.json
     crud.delete_comment(comment_to_delete)
     
-    post_id = request.json['post_id']
-    # print("**********SERVER CALLBACK RESULT", get_comments_for_post_id(post_id))
-    return jsonify('DeletedComment')
+    return jsonify('Deleted Comment')
 
 
-def get_comments_for_post_id(post_id):
-    """Helper function to get all comments for a post.""" 
-    post = crud.get_post_by_post_id(post_id)
-    #create array by iterating through comments attribute of a post
-    all_comments = [comment.to_dict() for comment in post.comments]
+# def get_comments_for_post_id(post_id):
+#     """Helper function to get all comments for a post.""" 
+#     post = crud.get_post_by_post_id(post_id)
+#     #create array by iterating through comments attribute of a post
+#     all_comments = [comment.to_dict() for comment in post.comments]
 
-    for i in range(len(all_comments)):
-        # adding username to each comment info dictionary
-        all_comments[i]['username'] = crud.get_user_by_id(all_comments[i]['user_id']).username
-        # adding boolean value to each comment info dictionary to see if comment belongs to logged in user
-        if session['username'] == all_comments[i]['username']:
-            all_comments[i]['delete_option'] = True
-        else:
-            all_comments[i]['delete_option'] = False
+#     for i in range(len(all_comments)):
+#         # adding username to each comment info dictionary
+#         all_comments[i]['username'] = crud.get_user_by_id(all_comments[i]['user_id']).username
+#         # adding boolean value to each comment info dictionary to see if comment belongs to logged in user
+#         if session['username'] == all_comments[i]['username']:
+#             all_comments[i]['delete_option'] = True
+#         else:
+#             all_comments[i]['delete_option'] = False
 
-    print("___SERVER all_comments:", all_comments)
+#     print("___SERVER all_comments:", all_comments)
 
-    return jsonify(all_comments)
+#     return jsonify(all_comments)
 
 
 if __name__ == "__main__":

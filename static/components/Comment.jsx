@@ -7,7 +7,7 @@ const Comment = (props) => {
         fetch('/delete-comment', {
             method:'POST',
             headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ 'comment': commentToDelete, 'post_id': props.postID })
+            body: JSON.stringify( commentToDelete )
             })
         .then((response) => response.json())
         .then((result) => {
