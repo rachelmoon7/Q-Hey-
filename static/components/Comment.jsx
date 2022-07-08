@@ -1,16 +1,38 @@
 const Comment = (props) => {
-    // const [comment, setComment] = React.useState('');
-    console.log("comment props", props);
-    console.log("ENTERING COMMENTS COMPONENT");
+   const [commentToDelete, setCommentToDelete] = React.useState('');
+   const [showConfirmDelete, setShowConfirmDelete] = React.useState(false);
     
-    // React.useEffect(() => {
-    //     console.log("ENTERING COMMENTS COMPONENT")
-    // }, [])
 
-   
+    const deleteComment = () => {
+        console.log("CALLING DELETECOMMENT FUNCTION IN COMMENT")
+        fetch('/delete-comment', {
+            method:'POST',
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({commentToDelete})
+            })
+        .then((response) => response.json())
+        .then((result) => {
+    // console.log("DELETE RESULT:", result)
+            setShowConfirmDelete(false)
+           
+        })
+   }
+
     return (
-        <div class="comment-div-1">
-            {props.username} comments: {props.text} on {props.comment_date}
-        </div>
+        <React.Fragment>
+            <div class="comment-div-1">
+                {props.username} comments: {props.text} on {props.commentDate} 
+            </div>
+
+            {props.deleteOption ?
+                <button onClick={() => {setCommentToDelete(props.commentID), setShowConfirmDelete(true)}}>Delete</button>
+                : <div></div>
+            }
+
+            {showConfirmDelete ?
+                <button onClick={deleteComment}>Confirm Delete</button>
+                : <div></div>
+            }
+        </React.Fragment>
     )
 }

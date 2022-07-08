@@ -320,35 +320,80 @@ def delete_post():
 @app.route('/add-comment', methods=["POST"])
 def add_comment():
     """Add a comment to a post."""
-    print("got to server add-comment fcn")
+    # print("got to server add-comment fcn")
     post_id = request.json['postToComment']
     user_id = session["user_id"]
     text = request.json['comment']
     comment_date = datetime.now()
-
-    comment = crud.create_comment(post_id, user_id, text, comment_date)
-    db.session.add(comment)
+    # print("__request__", request.json)
+    # print("---post_id", post_id)
+    # print("!!text", text)
+    comment_obj = crud.create_comment(post_id, user_id, text, comment_date)
+    db.session.add(comment_obj)
     db.session.commit()
-
-    return jsonify('Comment added!')
+    comment = comment_obj.to_dict()
+    comment['username'] = crud.get_user_by_id(comment['user_id']).username
+        # adding boolean value to each comment info dictionary to see if comment belongs to logged in user
+    if session['username'] == comment['username']:
+        comment['delete_option'] = True
+    else:
+        comment['delete_option'] = False
+    # return get_comments_for_post_id(post_id)
+    return jsonify(comment)
 
 
 @app.route('/get-all-comments', methods=["POST"])
 def get_all_comments():
     """Retrieves all comments and its user's username for post."""
-    print("$$$$SERVER GETALLCOMMENTS request.json", request.json)
+
     post_id = request.json
-    # all_comments = crud.get_post_comments(post_id)
+    
     post = crud.get_post_by_post_id(post_id)
-    # print("@@server post to comment on", post)
-    # print("^^^post'scomments", post.comments)
+    #create array by iterating through comments attribute of a post
     all_comments = [comment.to_dict() for comment in post.comments]
-    # username = crud.get_username(my_id)
+
     for i in range(len(all_comments)):
+        # adding username to each comment info dictionary
         all_comments[i]['username'] = crud.get_user_by_id(all_comments[i]['user_id']).username
-    # print("___SERVER all_comments:", all_comments)
+        # adding boolean value to each comment info dictionary to see if comment belongs to logged in user
+        if session['username'] == all_comments[i]['username']:
+            all_comments[i]['delete_option'] = True
+        else:
+            all_comments[i]['delete_option'] = False
+
+    print("___SERVER all_comments:", all_comments)
+    return jsonify(all_comments)
+
+
+@app.route('/delete-comment', methods=["POST"])
+def delete_comment():
+    """Delete a comment."""
+    print("++++++", request.json)
+    comment_to_delete = request.json['commentToDelete']
+    crud.delete_comment(comment_to_delete)
+
+    return jsonify('Deleted comment!')
+
+
+def get_comments_for_post_id(post_id):
+    """Helper function to get all comments for a post.""" 
+    post = crud.get_post_by_post_id(post_id)
+    #create array by iterating through comments attribute of a post
+    all_comments = [comment.to_dict() for comment in post.comments]
+
+    for i in range(len(all_comments)):
+        # adding username to each comment info dictionary
+        all_comments[i]['username'] = crud.get_user_by_id(all_comments[i]['user_id']).username
+        # adding boolean value to each comment info dictionary to see if comment belongs to logged in user
+        if session['username'] == all_comments[i]['username']:
+            all_comments[i]['delete_option'] = True
+        else:
+            all_comments[i]['delete_option'] = False
+
+    print("___SERVER all_comments:", all_comments)
 
     return jsonify(all_comments)
+
 
 if __name__ == "__main__":
     connect_to_db(app)

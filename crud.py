@@ -131,15 +131,17 @@ def create_comment(post_id, user_id, text, comment_date):
     return comment
 
 
-# def get_post_comments(post_id):
-#     """Retrieve all comments for a post."""
-
-#     return Comment.query.filter(Comment.post_id == post_id).all()
-
 def get_post_by_post_id(post_id):
     """Get post by post_id."""
 
     return Post.query.filter(Post.post_id == post_id).first()
+
+
+def delete_comment(comment_id):
+    """Delete comment from database."""
+
+    Comment.query.filter(Comment.comment_id==comment_id).delete()
+    db.session.commit()
 
 
 if __name__ == '__main__':

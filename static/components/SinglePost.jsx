@@ -36,8 +36,10 @@ const SinglePost = (props) => {
                 //blocker: comment component not showing in browser but console.log ok 
                 console.log("comment_info", comment_info);
                 setAllComments(prevState => [...prevState, <Comment username={comment_info['username']}
-                                                                    comment_date={comment_info['comment_date']}
+                                                                    commentDate={comment_info['comment_date']}
                                                                     text={comment_info['text']}
+                                                                    deleteOption={comment_info['delete_option']}
+                                                                    commentID={comment_info['comment_id']}
 
                         />])
             }
@@ -81,8 +83,15 @@ const SinglePost = (props) => {
         .then((response) => response.json())
         .then((result) => {
             console.log("addcomment result to siinglepost", result)
-            console.log("addcomment result[0]", result[0]['comment'])
-            setNewComment(result[0]['comment'])
+            // setNewComment(result[0]['comment'])
+            setAllComments(prevState => [...prevState, <Comment username={result['username']}
+                                                                    commentDate={result['comment_date']}
+                                                                    text={result['text']}
+                                                                    deleteOption={result['delete_option']}
+                                                                    commentID={result['comment_id']}
+
+                        />]);
+            setComment('');
         })
     }
 
@@ -110,6 +119,7 @@ const SinglePost = (props) => {
             {showCommentBox ? 
                 <div>
                     <input type="text" 
+                            key={allComments}
                             placeholder="Add a comment"
                             onChange={(e) => setComment(e.target.value)}>
                     </input>
