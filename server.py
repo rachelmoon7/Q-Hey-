@@ -369,10 +369,12 @@ def get_all_comments():
 def delete_comment():
     """Delete a comment."""
     print("++++++", request.json)
-    comment_to_delete = request.json['commentToDelete']
+    comment_to_delete = request.json['comment']
     crud.delete_comment(comment_to_delete)
-
-    return jsonify('Deleted comment!')
+    
+    post_id = request.json['post_id']
+    # print("**********SERVER CALLBACK RESULT", get_comments_for_post_id(post_id))
+    return jsonify('DeletedComment')
 
 
 def get_comments_for_post_id(post_id):

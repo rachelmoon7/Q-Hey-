@@ -8,6 +8,7 @@ const SinglePost = (props) => {
     const [deleteOrigin, setDeleteOrigin] = React.useState('');
     const [newComment, setNewComment] = React.useState('');
     const [allComments, setAllComments] = React.useState([]);
+    const [afterDeletedComment, setAfterDeletedComment] = React.useState(false);
 
     React.useEffect(() => {
         fetch('/get-logged-in-user')
@@ -31,7 +32,7 @@ const SinglePost = (props) => {
             console.log("getallcomments result text:", result)
             // console.log("typeof passing in:", typeof result[0]['comment_date'])
             // console.log("typeof passing this too:", typeof result[0]['text'])
-
+            setAllComments([]);
             for (const [each_comment, comment_info] of Object.entries(result)) {
                 //blocker: comment component not showing in browser but console.log ok 
                 console.log("comment_info", comment_info);
@@ -40,12 +41,17 @@ const SinglePost = (props) => {
                                                                     text={comment_info['text']}
                                                                     deleteOption={comment_info['delete_option']}
                                                                     commentID={comment_info['comment_id']}
+                                                                    postID={comment_info['post_id']}
+                                                                    setAfterDeletedComment={setAfterDeletedComment}
+                                                                    setAllComments={setAllComments}
+                                                                    afterDeletedComment={afterDeletedComment}
 
                         />])
             }
         })
-    }, []);
+    }, [ ,afterDeletedComment]);
 
+    
     // console.log("a-l-l-c-o-m-m-e-n-t-s", allComments);
 
 
@@ -89,6 +95,10 @@ const SinglePost = (props) => {
                                                                     text={result['text']}
                                                                     deleteOption={result['delete_option']}
                                                                     commentID={result['comment_id']}
+                                                                    postID={result['post_id']}
+                                                                    setAfterDeletedComment={setAfterDeletedComment}
+                                                                    setAllComments={setAllComments}
+                                                                    afterDeletedComment={afterDeletedComment}
 
                         />]);
             setComment('');
