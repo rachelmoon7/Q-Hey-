@@ -1,18 +1,30 @@
 const SinglePost = (props) => {
     const [loggedInUser, setLoggedInUser] = React.useState(false);
+    
     const [postToDelete, setPostToDelete] = React.useState('');
     const [showConfirmDelete, setShowConfirmDelete] = React.useState(false);
     const [postToComment, setPostToComment] = React.useState('');
     const [showCommentBox, setShowCommentBox] = React.useState(false);
     const [comment, setComment] = React.useState('');
+    
     const [deleteOrigin, setDeleteOrigin] = React.useState('');
     const [allComments, setAllComments] = React.useState([]);
     const [afterDeletedComment, setAfterDeletedComment] = React.useState(false);
+    
     const [newReaction, setNewReaction] = React.useState(false);
+    const [undoReaction, setUndoReaction] = React.useState(false);
+
     const [numberOfLikes, setNumberOfLikes] = React.useState(0);
+    const [usersWhoLiked, setUsersWhoLiked] = React.useState([]);
+
     const [numberOfLoves, setNumberOfLoves] = React.useState(0);
+    const [usersWhoLoved, setUsersWhoLoved] = React.useState([]);
+
     const [numberOfHaHas, setNumberOfHahas] = React.useState(0);
+    const [usersWhoHaha, setUsersWhoHaha] = React.useState([]);
+
     const [numberOfHugs, setNumberOfHugs] = React.useState(0);
+    const [usersWhoHugged, setUsersWhoHugged] = React.useState([]);
 
 
     React.useEffect(() => {
@@ -64,13 +76,26 @@ const SinglePost = (props) => {
         })
         .then((response) => response.json())
         .then((result) => {
+            setUsersWhoLiked([]);
+            setUsersWhoLoved([]);
+            setUsersWhoHaha([]);
+            setUsersWhoHugged([]);
+
             console.log("???getall-reactions result", result)
-            setNumberOfLikes(result['like']);
-            setNumberOfLoves(result['love']);
-            setNumberOfHahas(result['haha']);
-            setNumberOfHugs(result['hug']);
+            
+            setNumberOfLikes(result['like']['count']);
+            setUsersWhoLiked(result['like']['users']);
+
+            setNumberOfLoves(result['love']['count']);
+            setUsersWhoLoved(result['love']['users']);
+
+            setNumberOfHahas(result['haha']['count']);
+            setUsersWhoHaha(result['haha']['users']);
+            
+            setNumberOfHugs(result['hug']['count']);
+            setUsersWhoHugged(result['hug']['users']);
         })
-    }, [ , newReaction]);
+    }, [ ,newReaction]);
 
 
     const deletePost = () => {
@@ -140,7 +165,14 @@ const SinglePost = (props) => {
 
             <Reaction setNewReaction={setNewReaction}
                         newReaction={newReaction}
-                        postID={props.post_id}/>
+                        postID={props.post_id}
+                        // setUndoReaction={setUndoReaction}
+                        numberOfLikes={numberOfLikes}
+                        setNumberOfLikes={setNumberOfLikes}
+                        usersWhoLiked={usersWhoLiked}
+                        loggedInUser={loggedInUser}
+                        setUsersWhoLiked={setUsersWhoLiked}
+                        />
 
             {showCommentBox ? 
                 <div>

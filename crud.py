@@ -152,39 +152,74 @@ def create_reaction(post_id, user_id, reaction_type):
 
     return reaction
 
-def like_reaction_count(post_id):
+def like_reaction_count(post_id, reaction_type):
     """Get the count of a reaction."""
 
-    like_count = Reaction.query.filter(Reaction.post_id == post_id, Reaction.reaction_type == "Like").count()
+    like_count = Reaction.query.filter(Reaction.post_id == post_id, Reaction.reaction_type == reaction_type).count()
 
-    return like_count
+    #liked_users is a list of Reactions for the post
+    liked_users = Reaction.query.filter(Reaction.post_id==post_id, Reaction.reaction_type==reaction_type).all()
+    #iterate through liked_users to get the user_id's
+    liked_user_ids = [get_username(obj.user_id) for obj in liked_users]
+    # print("_____________**__CRUD LIKED USER ID'S", liked_users)
+    # print("__________!!crud id's:", liked_user_ids)
+
+    result = {}
+    result['count'] = like_count
+    result['users'] = liked_user_ids
+    return result
 
 
-def love_reaction_count(post_id):
+def love_reaction_count(post_id, reaction_type):
     """Get the count of a reaction."""
 
     love_count = Reaction.query.filter(Reaction.post_id == post_id, Reaction.reaction_type == "Love").count()
 
-    return love_count
+    loved_users = Reaction.query.filter(Reaction.post_id==post_id, Reaction.reaction_type==reaction_type).all()
+    loved_user_ids = [get_username(obj.user_id) for obj in loved_users]
+
+    result = {}
+    result['count'] = love_count
+    result['users'] = loved_user_ids
+    return result
 
 
-def haha_reaction_count(post_id):
+def haha_reaction_count(post_id, reaction_type):
     """Get the count of a reaction."""
 
     haha_count = Reaction.query.filter(Reaction.post_id == post_id, Reaction.reaction_type == "Ha ha!").count()
 
-    return haha_count
+    haha_users = Reaction.query.filter(Reaction.post_id==post_id, Reaction.reaction_type==reaction_type).all()
+    haha_user_ids = [get_username(obj.user_id) for obj in haha_users]
+
+    result = {}
+    result['count'] = haha_count
+    result['users'] = haha_user_ids
+    return result
 
 
-def hug_reaction_count(post_id):
+def hug_reaction_count(post_id, reaction_type):
     """Get the count of a reaction."""
 
     hug_count = Reaction.query.filter(Reaction.post_id == post_id, Reaction.reaction_type == "Ha ha!").count()
 
-    return hug_count
+    hug_users = Reaction.query.filter(Reaction.post_id==post_id, Reaction.reaction_type==reaction_type).all()
+    hug_user_ids = [get_username(obj.user_id) for obj in hug_users]
+
+    result = {}
+    result['count'] = hug_count
+    result['users'] = hug_user_ids
+    return result
 
 
-    
+def undo_reaction(user_id, post_id, reaction_type):
+    """Delete a reaction."""
+
+    Reaction.query.filter(Reaction.user_id==user_id, Reaction.post_id==post_id, Reaction.reaction_type==reaction_type).delete()
+
+    db.session.commit()
+
+
 if __name__ == '__main__':
     from server import app
     

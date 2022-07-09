@@ -401,21 +401,56 @@ def get_all_reactions():
     #create array by iterating through reactions attribute of a post
     all_reactions = [reaction.to_dict() for reaction in post.reactions]
     print("!!!!!!allreactions", all_reactions)
-    like_count = crud.like_reaction_count(post_id)
-    love_count = crud.love_reaction_count(post_id)
-    haha_count = crud.haha_reaction_count(post_id)
-    print("$$$HAHA COUNT", haha_count)
-    hug_count = crud.hug_reaction_count(post_id)
+    
+    # like_count = crud.like_reaction_count(post_id)
+    # love_count = crud.love_reaction_count(post_id)
+    # haha_count = crud.haha_reaction_count(post_id)
+    # print("$$$HAHA COUNT", haha_count)
+    # hug_count = crud.hug_reaction_count(post_id)
+    
+    # result = {}
+    
+    # result['like'] = like_count
+    # result['love'] = love_count
+    # result['haha'] = haha_count
+    # result['hug'] =hug_count
+
+    return count_of_reactions(post_id)
+
+
+@app.route('/undo-reaction', methods=["POST"])
+def undo_reaction():
+    """Undo a reaction."""
+
+    user_id = session["user_id"]
+    post_id = request.json['postID']
+    reaction_type = request.json['reactionType']
+
+    crud.undo_reaction(user_id, post_id, reaction_type)
+
+    return count_of_reactions(post_id)
+
+
+
+
+def count_of_reactions(post_id):
+    """Helper function to get count of each reaction."""
+
+    like_info = crud.like_reaction_count(post_id, 'Like')
+    print("$$$ like_info COUNT", like_info)
+
+    love_info = crud.love_reaction_count(post_id, 'Love')
+    haha_info = crud.haha_reaction_count(post_id, 'Ha ha!')
+    hug_info = crud.hug_reaction_count(post_id, 'Love')
     
     result = {}
     
-    result['like'] = like_count
-    result['love'] = love_count
-    result['haha'] = haha_count
-    result['hug'] =hug_count
+    result['like'] = like_info
+    result['love'] = love_info
+    result['haha'] = haha_info
+    result['hug'] =hug_info
 
     return jsonify(result)
-
 
 # def get_comments_for_post_id(post_id):
 #     """Helper function to get all comments for a post.""" 
