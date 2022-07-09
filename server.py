@@ -437,18 +437,18 @@ def count_of_reactions(post_id):
     """Helper function to get count of each reaction."""
 
     like_info = crud.like_reaction_count(post_id, 'Like')
-    print("$$$ like_info COUNT", like_info)
 
     love_info = crud.love_reaction_count(post_id, 'Love')
     haha_info = crud.haha_reaction_count(post_id, 'Ha ha!')
-    hug_info = crud.hug_reaction_count(post_id, 'Love')
-    
+    hug_info = crud.hug_reaction_count(post_id, 'Hug')
+    print("$$$ hug_info ", hug_info)
+
     result = {}
     
     result['like'] = like_info
     result['love'] = love_info
     result['haha'] = haha_info
-    result['hug'] =hug_info
+    result['hug'] = hug_info
 
     return jsonify(result)
 

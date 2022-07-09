@@ -167,11 +167,27 @@ const SinglePost = (props) => {
                         newReaction={newReaction}
                         postID={props.post_id}
                         // setUndoReaction={setUndoReaction}
+                        loggedInUser={loggedInUser}
+
                         numberOfLikes={numberOfLikes}
                         setNumberOfLikes={setNumberOfLikes}
                         usersWhoLiked={usersWhoLiked}
-                        loggedInUser={loggedInUser}
                         setUsersWhoLiked={setUsersWhoLiked}
+
+                        numberOfLoves={numberOfLoves}
+                        setNumberOfLoves={setNumberOfLoves}
+                        usersWhoLoved={usersWhoLoved}
+                        setUsersWhoLoved={setUsersWhoLoved}
+
+                        numberOfHaHas={numberOfHaHas}
+                        setNumberOfHahas={setNumberOfHahas}
+                        usersWhoHaha={usersWhoHaha}
+                        setUsersWhoHaha={setUsersWhoHaha}
+
+                        numberOfHugs={numberOfHugs}
+                        setNumberOfHugs={setNumberOfHugs}
+                        usersWhoHugged={usersWhoHugged}
+                        setUsersWhoHugged={setUsersWhoHugged}
                         />
 
             {showCommentBox ? 

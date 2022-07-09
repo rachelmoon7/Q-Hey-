@@ -201,7 +201,7 @@ def haha_reaction_count(post_id, reaction_type):
 def hug_reaction_count(post_id, reaction_type):
     """Get the count of a reaction."""
 
-    hug_count = Reaction.query.filter(Reaction.post_id == post_id, Reaction.reaction_type == "Ha ha!").count()
+    hug_count = Reaction.query.filter(Reaction.post_id == post_id, Reaction.reaction_type == "Hug").count()
 
     hug_users = Reaction.query.filter(Reaction.post_id==post_id, Reaction.reaction_type==reaction_type).all()
     hug_user_ids = [get_username(obj.user_id) for obj in hug_users]
