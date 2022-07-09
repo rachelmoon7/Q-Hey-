@@ -18,11 +18,13 @@ app = Flask(__name__)
 app.secret_key = "dev"
 app.jinja_env.undefined = StrictUndefined
 
+
 @app.route('/')
 def homepage():
     """Process user login or link to create account."""
     
     return render_template('homepage.html')
+
 
 @app.route('/login', methods=["POST"])
 def login_user():
@@ -42,6 +44,7 @@ def login_user():
         flash("Incorrect password!")
         return redirect('/')
 
+
 @app.route('/logout')
 def logout():
     "Log out the user"
@@ -49,7 +52,6 @@ def logout():
     session.clear()
 
     return redirect('/') 
-
 
 
 @app.route('/landing-page')
@@ -65,11 +67,13 @@ def landing_page():
     
     return render_template('landing-page.html', questions=questions, week_num=week_num, posts=posts, images=images)
 
+
 @app.route('/signup')
 def create_account():
     """Create new account."""
 
     return render_template("register.html")
+
 
 @app.route('/register', methods=["POST"])
 def register_user():
@@ -187,9 +191,11 @@ def deny_request():
     
     return jsonify('Denial successful')
 
+
 @app.route('/myFriends')
 def show_friends_and_requests():
     """Show list of friends and any friend requests"""
+
     logged_in_user = crud.get_user_by_id(session["user_id"])
     
     requested = set(logged_in_user.following) - set(logged_in_user.followers)
@@ -199,17 +205,46 @@ def show_friends_and_requests():
     return render_template("myfriends.html",                    logged_in_user=logged_in_user, requested=requested, my_friends=my_friends)
 
 
+@app.route('/get_list_of_friends')
+def get_list_of_friends():
+
+    logged_in_user = crud.get_user_by_id(session["user_id"])
+
+    my_friends = list(set(logged_in_user.following) & set(logged_in_user.followers))
+
+    result = {}
+
+    for friend in my_friends:
+        info = {}
+        info['fname'] = friend.fname
+        info['lname'] = friend.lname
+        info['user_id'] = friend.user_id
+        result[friend.user_id] = info
+
+    return result
+    # return jsonify([user.fname for user in my_friends])
+
+
+@app.route('/get_friend-profile_posts', methods=["POST"])
+def get_friend_profile_posts():
+    """Retrieve all posts for friend's profile."""
+
+    user_id = request.json
+
+    return profile_posts(user_id)
+
+
 @app.route('/get-all-requests')
 def get_all_requests():
     """Get all friend requests"""
     logged_in_user = crud.get_user_by_id(session["user_id"]) 
-    print("@@@@SERVER FOLLOWERS:", logged_in_user.followers) 
+    # print("@@@@SERVER FOLLOWERS:", logged_in_user.followers) 
     friend_requests = set(logged_in_user.followers) - set(logged_in_user.following)
     
     all_fr = []
     for fr in friend_requests:
         all_fr.append(fr.to_dict())
-    print("--202--ALL REQUESTS", all_fr)    
+    # print("--202--ALL REQUESTS", all_fr)    
     return jsonify(all_fr)
 
     
@@ -277,28 +312,30 @@ def show_logged_in_user():
 @app.route('/get-my-profile-posts')
 def get_my_profile_posts():
     """Retrieve all of my previous posts."""
+    
+    user_id = session["user_id"]
 
-    post_info = {}
+    # post_info = {}
+    # caption_image = {}
+    # #current_week_posts_obj is a list of post objects for each user [{post1 info}, {post2 info}]
+    # posts_obj = crud.get_users_previous_posts(user_id)
+    # # print("$$$$$server 292 post obj?", posts_obj[0].post_id)
+    # for post in posts_obj:
+    #         caption_image[post.post_id] = {'caption': post.caption}
+    #         caption_image[post.post_id]['post_date'] = post.post_date
 
-    my_id = session["user_id"]
-    caption_image = {}
-    #current_week_posts_obj is a list of post objects for each user [{post1 info}, {post2 info}]
-    posts_obj = crud.get_users_previous_posts(my_id)
-    # print("$$$$$server 292 post obj?", posts_obj[0].post_id)
-    for post in posts_obj:
-            caption_image[post.post_id] = {'caption': post.caption}
-            caption_image[post.post_id]['post_date'] = post.post_date
-
-            if len(post.images) > 0:
-                caption_image[post.post_id]['img_url'] = post.images[0].img_URL
-                if len(post.images) > 1:
-                    caption_image[post.post_id]['img_url2'] = post.images[1].img_URL
+    #         if len(post.images) > 0:
+    #             caption_image[post.post_id]['img_url'] = post.images[0].img_URL
+    #             if len(post.images) > 1:
+    #                 caption_image[post.post_id]['img_url2'] = post.images[1].img_URL
                 
-    username = crud.get_username(my_id)
-    post_info[username] = caption_image
+    # username = crud.get_username(user_id)
+    # post_info[username] = caption_image
         
-    # print("!@!@!@!@!@ Server 304", post_info)
-    return jsonify(post_info)
+    # # print("!@!@!@!@!@ Server 304", post_info)
+    # return jsonify(post_info)
+
+    return profile_posts(user_id)
 
 
 @app.route('/delete-post', methods=["POST"])
@@ -432,6 +469,29 @@ def undo_reaction():
 
 
 
+#------------Helper Functions:------------
+def profile_posts(user_id):
+    """Helper function to get all posts for a user's profile."""
+
+    post_info = {}
+    caption_image = {}
+    #current_week_posts_obj is a list of post objects for each user [{post1 info}, {post2 info}]
+    posts_obj = crud.get_users_previous_posts(user_id)
+    # print("$$$$$server 292 post obj?", posts_obj[0].post_id)
+    for post in posts_obj:
+            caption_image[post.post_id] = {'caption': post.caption}
+            caption_image[post.post_id]['post_date'] = post.post_date
+
+            if len(post.images) > 0:
+                caption_image[post.post_id]['img_url'] = post.images[0].img_URL
+                if len(post.images) > 1:
+                    caption_image[post.post_id]['img_url2'] = post.images[1].img_URL
+                
+    username = crud.get_username(user_id)
+    post_info[username] = caption_image
+        
+    # print("!@!@!@!@!@ Server 304", post_info)
+    return jsonify(post_info)
 
 def count_of_reactions(post_id):
     """Helper function to get count of each reaction."""

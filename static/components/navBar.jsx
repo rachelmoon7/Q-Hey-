@@ -2,8 +2,10 @@
 const NavBar = () => {
     const [searchString, setSearchString] = React.useState('');
     const [result, setResult] = React.useState('')
+    const [showSearchResult, setShowSearchResult] = React.useState(false);
 
     const handleClick = () => {
+        console.log("ENTERING HADLECLICK")
         fetch('/get-search-result', {
             //post request to this route with searchString
             method: 'POST',
@@ -12,7 +14,10 @@ const NavBar = () => {
         })
         .then((response) => response.json())
         .then((result) => {
-            setResult(result[0]['potentialFriend'])             
+            // console.log("navBAR SEARCH RESULT:", result)
+            setResult(result[0]['potentialFriend']);  
+            setSearchString('');  
+            setShowSearchResult(true);         
         }
     )}
 
@@ -26,6 +31,8 @@ const NavBar = () => {
         .then((result) => {
             console.log("###", result);      
             setResult('');
+            setShowSearchResult(false);
+            setSearchString('');
         })
        
     }
@@ -54,17 +61,23 @@ const NavBar = () => {
                 <a class="nav-link" href="#">Settings</a>
                 </li>
                 <li class="nav-item">
-                    <input type="text" name ="searchString" placeholder="Find friends via username" onChange={(e) => setSearchString(e.target.value)}></input>
+                    <input type="text" key={showSearchResult} name ="searchString" placeholder="Find friends via username" onChange={(e) => setSearchString(e.target.value)}></input>
                     <p>
                         {searchString} 
                     </p>
                 </li>
                 <li class="nav-item">
-                    <button type="submit" onClick={handleClick} >Submit</button>              
+                    <button type="submit" onClick={handleClick}>Submit</button>              
                 </li>
                 <li>
-                    <div> Add this friend?:</div>
-                    <button onClick={requestFriend}>  {result} </button>                             
+                    {showSearchResult ? 
+                    <div>
+                        <div> Add this friend?:</div>
+                        <button onClick={requestFriend}>  {result} </button> 
+                        </div>
+                    : <div></div>               
+                    }
+                                 
                 </li> 
                 <li>
                     <a class="nav-link" href="/logout">Logout</a>

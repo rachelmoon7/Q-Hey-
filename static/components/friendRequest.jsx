@@ -53,13 +53,14 @@ const FriendRequestContainer = () => {
         });
     }, []);
 
-    console.log("my friends as a result:", friends)
+    // console.log("my friends as a result:", friends)
 
     for (const request of friends) {
         requests.push(<FriendRequest user_id={request.user_id} name={request.fname}          
         />
         )
     };
+    
     return (
         <React.Fragment>
             {requests}

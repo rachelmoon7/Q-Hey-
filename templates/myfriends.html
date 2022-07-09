@@ -1,5 +1,5 @@
 {% extends 'base.html' %}
-{% block title %}Welcome to Q&Hey!{% endblock %}
+{% block title %}My Friends{% endblock %}
 
 {% block body %}
 <div id="navBar"></div>
@@ -8,6 +8,8 @@
 {% for friends in my_friends %}
     <li>{{ friends.fname }} {{ friends.lname }}</li>
 {% endfor %}
+
+<div id="my-friends"></div>
 
 <h2>Requested to:</h2>
 {% for friend in requested %}   
@@ -21,6 +23,9 @@
 <!-- JavaScript Bundle with Popper -->
 <script type='text/babel' src="../static/components/navBar.jsx"></script>
 <script type='text/babel' src="../static/components/friendRequest.jsx"></script>
+<script type='text/babel' src="../static/components/MyFriends.jsx"></script>
+<script type='text/babel' src="../static/components/Friend.jsx"></script>
+
 <!-- <script type='text/babel' src="../static/components/MyProfile.jsx"></script> -->
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
