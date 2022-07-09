@@ -6,9 +6,14 @@ const SinglePost = (props) => {
     const [showCommentBox, setShowCommentBox] = React.useState(false);
     const [comment, setComment] = React.useState('');
     const [deleteOrigin, setDeleteOrigin] = React.useState('');
-    const [newComment, setNewComment] = React.useState('');
     const [allComments, setAllComments] = React.useState([]);
     const [afterDeletedComment, setAfterDeletedComment] = React.useState(false);
+    const [whichReaction, setWhichReaction] = React.useState('');
+    const [numberOfLikes, setNumberOfLikes] = React.useState(0);
+    const [numberOfLoves, setNumberOfLoves] = React.useState(0);
+    const [numberOfHaHas, setNumberOfHahas] = React.useState(0);
+    const [numberOfHugs, setNumberOfHugs] = React.useState(0);
+
 
     React.useEffect(() => {
         fetch('/get-logged-in-user')
@@ -45,14 +50,19 @@ const SinglePost = (props) => {
                                                                     setAfterDeletedComment={setAfterDeletedComment}
                                                                     setAllComments={setAllComments}
                                                                     afterDeletedComment={afterDeletedComment}
-
-                        />])
+                                                            />])
             }
         })
     }, [ ,afterDeletedComment]);
-
     
-    // console.log("a-l-l-c-o-m-m-e-n-t-s", allComments);
+
+    React.useEffect(() => {
+        fetch('/get-all-reactions', {
+            method: 'POST',
+            headers: { "Content-Type": "application/json"},
+            body: JSON.stringify(props.post_id)
+        })
+    }, []);
 
 
     const deletePost = () => {
@@ -63,8 +73,8 @@ const SinglePost = (props) => {
                 })
         .then((response) => response.json())
         .then((result) => {
-            // console.log("DELETE RESULT:", result)
-            console.log("SINGLEPOST'S PROP:", props)
+            // console.log("DELETE-POST RESULT:", result)
+            // console.log("SINGLEPOST'S PROP:", props)
             // console.log("type of landing'S PROP:", typeof props.setAllLandingPosts)
             setShowConfirmDelete(false)
             if (!props.setAllLandingPosts) {
@@ -86,19 +96,19 @@ const SinglePost = (props) => {
             console.log("addcomment result to siinglepost", result)
             // setNewComment(result[0]['comment'])
             setAllComments(prevState => [...prevState, <Comment username={result['username']}
-                                                                    commentDate={result['comment_date']}
-                                                                    text={result['text']}
-                                                                    deleteOption={result['delete_option']}
-                                                                    commentID={result['comment_id']}
-                                                                    postID={result['post_id']}
-                                                                    setAfterDeletedComment={setAfterDeletedComment}
-                                                                    setAllComments={setAllComments}
-                                                                    afterDeletedComment={afterDeletedComment}
-                        />]);
+                                                                commentDate={result['comment_date']}
+                                                                text={result['text']}
+                                                                deleteOption={result['delete_option']}
+                                                                commentID={result['comment_id']}
+                                                                postID={result['post_id']}
+                                                                setAfterDeletedComment={setAfterDeletedComment}
+                                                                setAllComments={setAllComments}
+                                                                afterDeletedComment={afterDeletedComment}
+                                                        />]);
             setComment('');
         })
     }
-
+ 
     return (
         <React.Fragment>
             <div>
@@ -109,7 +119,7 @@ const SinglePost = (props) => {
             </div>
 
             {loggedInUser==props.username ? 
-                <button onClick={() => {setPostToDelete(props.post_id), setDeleteOrigin(props.deleteOnProfile), setShowConfirmDelete(true)}}>Delete</button>
+                <button onClick={() => {setPostToDelete(props.post_id), setDeleteOrigin(props.deleteOnProfile), setShowConfirmDelete(true)}}>Delete Post</button>
                 : <div></div>
             }
 
@@ -119,6 +129,9 @@ const SinglePost = (props) => {
             }
 
             <button onClick={() => {setShowCommentBox(true); setPostToComment(props.post_id)}}>Comment</button>   
+
+            <Reaction setWhichReaction={setWhichReaction}
+                        postID={props.post_id}/>
 
             {showCommentBox ? 
                 <div>
@@ -131,6 +144,7 @@ const SinglePost = (props) => {
                 </div>
                 : <div></div>
             } 
+            
             <div id="all-comments">
                 {allComments}
             </div>

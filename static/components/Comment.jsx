@@ -30,7 +30,7 @@ const Comment = (props) => {
             </div>
 
             {props.deleteOption ?
-                <button onClick={() => {setCommentToDelete(props.commentID), setShowConfirmDelete(true)}}>Delete</button>
+                <button onClick={() => {setCommentToDelete(props.commentID), setShowConfirmDelete(true)}}>Delete Comment</button>
                 : <div></div>
             }
 

@@ -1,5 +1,5 @@
 """CRUD operations."""
-from model import db, User, Post, Image, Question, Comment, Image, connect_to_db
+from model import db, User, Post, Image, Question, Comment, Reaction, connect_to_db
 from datetime import datetime
 import asyncio
 
@@ -115,7 +115,7 @@ def get_users_previous_posts(user_id):
 
 def delete_post(post_id):
     """Delete post object from database."""
-    print("____CRUD 113,", Post.query.filter(Post.post_id==post_id))
+    # print("____CRUD 113,", Post.query.filter(Post.post_id==post_id))
     Image.query.filter(Image.post_id==post_id).delete()
     db.session.commit()
     
@@ -142,6 +142,20 @@ def delete_comment(comment_id):
 
     Comment.query.filter(Comment.comment_id==comment_id).delete()
     db.session.commit()
+
+
+def create_reaction(post_id, user_id, reaction_type):
+    """Add a reaction."""
+
+    reaction = Reaction(post_id=post_id, user_id=user_id, reaction_type=reaction_type)
+    print("####CRUD REACTION CREATED:", reaction)
+
+    return reaction
+
+def reaction_count(post_id, reaction_type):
+    """Get the count of a reaction."""
+
+    haha_count = Reaction.query.filter(Reaction.post_id == post_id, Reaction.reaction_type == "haha").count()
 
 
 if __name__ == '__main__':

@@ -376,6 +376,42 @@ def delete_comment():
     return jsonify('Deleted Comment')
 
 
+@app.route('/add-reaction', methods=["POST"])
+def add_reaction():
+    """Add a reaction to a post."""
+
+    post_id = request.json['postID']
+    user_id = session["user_id"]
+    reaction_type = request.json['reactionType']
+    # print("__3-8-2-SERVER post_id", post_id)
+    # print("__3-8-2-SERVER reaction_type", reaction_type)
+    reaction_obj = crud.create_reaction(post_id, user_id, reaction_type)
+    db.session.add(reaction_obj)
+    db.session.commit()
+
+    return jsonify('Reaction added')
+
+
+@app.route('/get-all-reactions', methods=["POST"])
+def get_all_reactions():
+    """Get all reactions for a post."""
+
+    post_id = request.json
+    post = crud.get_post_by_post_id(post_id)
+    #create array by iterating through reactions attribute of a post
+    all_reactions = [reaction.to_dict() for reaction in post.reactions]
+    print("!!!!!!allreactions", all_reactions)
+    # like_count = 
+    # love_count
+    haha_count = crud.reaction_count(post_id)
+    print("$$$HAHA COUNT", haha_count)
+    # hug_count
+    # result = {}
+    
+    # result['like'] = like_count
+    # result['love'] = love_count
+    # result['haha'] = haha_count
+    # result['hug'] =hug_count
 # def get_comments_for_post_id(post_id):
 #     """Helper function to get all comments for a post.""" 
 #     post = crud.get_post_by_post_id(post_id)
