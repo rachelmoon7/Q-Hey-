@@ -401,17 +401,22 @@ def get_all_reactions():
     #create array by iterating through reactions attribute of a post
     all_reactions = [reaction.to_dict() for reaction in post.reactions]
     print("!!!!!!allreactions", all_reactions)
-    # like_count = 
-    # love_count
-    haha_count = crud.reaction_count(post_id)
+    like_count = crud.like_reaction_count(post_id)
+    love_count = crud.love_reaction_count(post_id)
+    haha_count = crud.haha_reaction_count(post_id)
     print("$$$HAHA COUNT", haha_count)
-    # hug_count
-    # result = {}
+    hug_count = crud.hug_reaction_count(post_id)
     
-    # result['like'] = like_count
-    # result['love'] = love_count
-    # result['haha'] = haha_count
-    # result['hug'] =hug_count
+    result = {}
+    
+    result['like'] = like_count
+    result['love'] = love_count
+    result['haha'] = haha_count
+    result['hug'] =hug_count
+
+    return jsonify(result)
+
+
 # def get_comments_for_post_id(post_id):
 #     """Helper function to get all comments for a post.""" 
 #     post = crud.get_post_by_post_id(post_id)

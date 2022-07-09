@@ -8,7 +8,7 @@ const SinglePost = (props) => {
     const [deleteOrigin, setDeleteOrigin] = React.useState('');
     const [allComments, setAllComments] = React.useState([]);
     const [afterDeletedComment, setAfterDeletedComment] = React.useState(false);
-    const [whichReaction, setWhichReaction] = React.useState('');
+    const [newReaction, setNewReaction] = React.useState(false);
     const [numberOfLikes, setNumberOfLikes] = React.useState(0);
     const [numberOfLoves, setNumberOfLoves] = React.useState(0);
     const [numberOfHaHas, setNumberOfHahas] = React.useState(0);
@@ -62,7 +62,15 @@ const SinglePost = (props) => {
             headers: { "Content-Type": "application/json"},
             body: JSON.stringify(props.post_id)
         })
-    }, []);
+        .then((response) => response.json())
+        .then((result) => {
+            console.log("???getall-reactions result", result)
+            setNumberOfLikes(result['like']);
+            setNumberOfLoves(result['love']);
+            setNumberOfHahas(result['haha']);
+            setNumberOfHugs(result['hug']);
+        })
+    }, [ , newReaction]);
 
 
     const deletePost = () => {
@@ -108,7 +116,7 @@ const SinglePost = (props) => {
             setComment('');
         })
     }
- 
+
     return (
         <React.Fragment>
             <div>
@@ -130,7 +138,8 @@ const SinglePost = (props) => {
 
             <button onClick={() => {setShowCommentBox(true); setPostToComment(props.post_id)}}>Comment</button>   
 
-            <Reaction setWhichReaction={setWhichReaction}
+            <Reaction setNewReaction={setNewReaction}
+                        newReaction={newReaction}
                         postID={props.post_id}/>
 
             {showCommentBox ? 
@@ -148,6 +157,41 @@ const SinglePost = (props) => {
             <div id="all-comments">
                 {allComments}
             </div>
+            
+            {numberOfLikes > 0 ?
+                <div>
+                    <div>Likes</div>
+                    {numberOfLikes}
+                </div>
+            : <div></div>
+            }
+
+            {numberOfLoves > 0 ?
+                <div>
+                    <div>Loves</div>
+                    {numberOfLoves}
+                </div>
+                
+            : <div></div>
+            }  
+
+            {numberOfHaHas > 0 ?
+                <div>
+                    <div>Ha ha!s</div>
+                    {numberOfHaHas}
+                </div>
+                
+            : <div></div>
+            }  
+
+            {numberOfHugs > 0 ?
+                <div>
+                    <div>Hugs</div>
+                    {numberOfHugs}
+                </div>
+                
+            : <div></div>
+            }            
                       
         </React.Fragment>
     )

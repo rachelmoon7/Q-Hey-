@@ -152,12 +152,39 @@ def create_reaction(post_id, user_id, reaction_type):
 
     return reaction
 
-def reaction_count(post_id, reaction_type):
+def like_reaction_count(post_id):
     """Get the count of a reaction."""
 
-    haha_count = Reaction.query.filter(Reaction.post_id == post_id, Reaction.reaction_type == "haha").count()
+    like_count = Reaction.query.filter(Reaction.post_id == post_id, Reaction.reaction_type == "Like").count()
+
+    return like_count
 
 
+def love_reaction_count(post_id):
+    """Get the count of a reaction."""
+
+    love_count = Reaction.query.filter(Reaction.post_id == post_id, Reaction.reaction_type == "Love").count()
+
+    return love_count
+
+
+def haha_reaction_count(post_id):
+    """Get the count of a reaction."""
+
+    haha_count = Reaction.query.filter(Reaction.post_id == post_id, Reaction.reaction_type == "Ha ha!").count()
+
+    return haha_count
+
+
+def hug_reaction_count(post_id):
+    """Get the count of a reaction."""
+
+    hug_count = Reaction.query.filter(Reaction.post_id == post_id, Reaction.reaction_type == "Ha ha!").count()
+
+    return hug_count
+
+
+    
 if __name__ == '__main__':
     from server import app
     

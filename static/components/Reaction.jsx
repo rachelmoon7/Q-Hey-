@@ -12,6 +12,11 @@ const Reaction = (props) => {
             })
         .then((response) => response.json())
         .then((result) => {
+            if (props.newReaction==false) {
+                props.setNewReaction(true)
+            } else {
+                props.setNewReaction(false)
+            }
         })
     }
 
@@ -19,20 +24,22 @@ const Reaction = (props) => {
     return (
         <React.Fragment>
             <div className="reaction">
-            <button
-                onMouseEnter={() => setIsShown(true)}
-                onMouseLeave={() => setIsShown(true)}>
-                React!
-            </button>
-            {isShown && (
-                <div>
-                    <button onClick={() => {setIsShown(false), addReaction('Like')}}>Like</button>
-                    <button onClick={() => {setIsShown(false), addReaction('Love')}}>Love</button>
-                    <button onClick={() => {setIsShown(false), addReaction('Ha ha!'), setReactionType('Ha ha!')}}>Ha ha!</button>
-                    <button onClick={() => {setIsShown(false), addReaction('Hug'), setReactionType('Hug')}}>Hug</button>
-                </div>
+
+                <button
+                    onMouseEnter={() => setIsShown(true)}
+                    onMouseLeave={() => setIsShown(true)}>
+                    React!
+                </button>
+
+                {isShown && (
+                    <div>
+                        <button onClick={() => {setIsShown(false), addReaction('Like')}}>Like</button>
+                        <button onClick={() => {setIsShown(false), addReaction('Love')}}>Love</button>
+                        <button onClick={() => {setIsShown(false), addReaction('Ha ha!')}}>Ha ha!</button>
+                        <button onClick={() => {setIsShown(false), addReaction('Hug')}}>Hug</button>
+                    </div>
                 )}
-                </div>
+            </div>
         </React.Fragment>
     )
 }
