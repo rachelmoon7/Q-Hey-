@@ -10,7 +10,9 @@ const MyFriends = () => {
             console.log("!!result[i]['user_id']", result['2'])
             setAllFriends([]);
             for (const [userID, info] of Object.entries(result)) {
-                setAllFriends((x) => [...x, <Friend user_id={info['user_id']} />])
+                setAllFriends((x) => [...x, <Friend user_id={info['user_id']}
+                                                    fname={info['fname']}
+                                                    lname={info['lname']} />])
             }
         })
     }, [])

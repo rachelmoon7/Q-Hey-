@@ -1,11 +1,20 @@
 const Friend = (props) => {
+    const [friendID, setFriendID] = React.useState('');
+    const [friendPosts, setFriendPosts] = React.useState([]);
 
+    // console.log("FRIEND props.user_id", props.user_id)
 
-    console.log("FRIEND PROPS", props)
-
+    const showFriendsPosts = () => {
+     
+        setFriendPosts(<FriendProfile user_id={props.user_id} />)
+       
+    }
     return (
         <React.Fragment>
-            <button>{props.user_id}</button>
+            <li>
+                <a onClick={showFriendsPosts} >{props.fname} {props.lname}</a>
+            </li>
+            {friendPosts}
         </React.Fragment>
     )
 }

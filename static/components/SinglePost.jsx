@@ -12,7 +12,7 @@ const SinglePost = (props) => {
     const [afterDeletedComment, setAfterDeletedComment] = React.useState(false);
     
     const [newReaction, setNewReaction] = React.useState(false);
-    const [undoReaction, setUndoReaction] = React.useState(false);
+    // const [undoReaction, setUndoReaction] = React.useState(false);
 
     const [numberOfLikes, setNumberOfLikes] = React.useState(0);
     const [usersWhoLiked, setUsersWhoLiked] = React.useState([]);

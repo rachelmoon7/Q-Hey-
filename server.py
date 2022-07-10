@@ -468,6 +468,18 @@ def undo_reaction():
     return count_of_reactions(post_id)
 
 
+@app.route('/get-friend-posts', methods=["POST"])
+def to_friend_profile():
+    """Show friend's posts."""
+    print("_=-=-=-=-request.json", request.json)
+    
+    friend_id = request.json
+    all_posts = profile_posts(friend_id)
+    print("__=-=-=-=-=-=all_posts", all_posts)
+    return all_posts
+
+
+
 
 #------------Helper Functions:------------
 def profile_posts(user_id):
