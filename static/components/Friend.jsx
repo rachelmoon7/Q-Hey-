@@ -6,7 +6,9 @@ const Friend = (props) => {
 
     const showFriendsPosts = () => {
      
-        setFriendPosts(<FriendProfile user_id={props.user_id} />)
+        setFriendPosts(<FriendPosts user_id={props.user_id}
+                                    fname={props.fname}
+                                    lname={props.lname} />)
        
     }
     return (

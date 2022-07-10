@@ -1,4 +1,4 @@
-const FriendProfile = (props) => {
+const FriendPosts = (props) => {
     const [friendProfilePosts, setFriendProfilePosts] = React.useState([]);
     const [username, setUsername] = React.useState('');
 
@@ -27,7 +27,7 @@ const FriendProfile = (props) => {
     return ( 
         <React.Fragment>
             {/* <NavBar /> */}
-            <h1> {username}'s Profile</h1>
+            <h1> {props.fname} {props.lname}'s Posts</h1>
            
            <ShowPosts 
                 thePosts={friendProfilePosts} 

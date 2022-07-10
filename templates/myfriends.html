@@ -4,20 +4,22 @@
 {% block body %}
 <div id="navBar"></div>
 
-<h2>My Friends</h2>
-{% for friends in my_friends %}
-    <li>{{ friends.fname }} {{ friends.lname }}</li>
-{% endfor %}
-
-<div id="my-friends"></div>
+<h2>Friend Requests:</h2>
+<div id="friend-request"></div> 
 
 <h2>Requested to:</h2>
 {% for friend in requested %}   
     <li>{{ friend.fname }} {{ friend.lname}}</li>    
 {% endfor %}
 
-<h2>Friend Requests:</h2>
-<div id="friend-request"></div> 
+<h2>My Friends</h2>
+
+
+<div id="my-friends"></div>
+
+
+
+
 
 
 <!-- JavaScript Bundle with Popper -->
@@ -29,7 +31,7 @@
 <script type='text/babel' src="../static/components/SinglePost.jsx"></script>
 <script type='text/babel' src="../static/components/ShowPosts.jsx"></script>
 <script type='text/babel' src="../static/components/MyFriends.jsx"></script>
-<script type='text/babel' src="../static/components/FriendProfile.jsx"></script>
+<script type='text/babel' src="../static/components/FriendPosts.jsx"></script>
 
 <script type='text/babel' src="../static/components/Friend.jsx"></script>
 
