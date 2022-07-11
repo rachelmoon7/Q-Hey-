@@ -12,6 +12,7 @@ const Friend = (props) => {
     }
 
     const deleteFriend = () => {
+        console.log("CALLIGN DELETEFRIEND FCN")
         fetch('/delete-friend', {
             method:'POST',
             headers: { "Content-Type": "application/json" },

@@ -1,6 +1,6 @@
 //render one request
 const FriendRequest = (props) => {
-    const [friend, setFriend] = React.useState('')
+    // const [friend, setFriend] = React.useState('')
     const [active, setActive] = React.useState(true)
 
     const handleAccept = () => {
@@ -22,8 +22,7 @@ const FriendRequest = (props) => {
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ 'request_from': props.user_id })
         })
-        .then((response) => response.json())
-        .then((result) => {
+        .then(() => {
             setActive(false);
             props.setFriendRequestHandled(true);
         })
@@ -54,8 +53,6 @@ const FriendRequestContainer = (props) => {
         });
     }, []);
 
-    // console.log("my friends as a result:", friends)
-
     for (const request of friends) {
         requests.push(<FriendRequest user_id={request.user_id} 
                                         name={request.fname} 
@@ -70,4 +67,3 @@ const FriendRequestContainer = (props) => {
         </React.Fragment>
     )
 }
-// ReactDOM.render(<FriendRequestContainer />, document.querySelector('#friend-request'),);

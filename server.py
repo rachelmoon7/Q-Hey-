@@ -196,9 +196,9 @@ def deny_request():
 @app.route('/delete-friend', methods=["POST"])
 def delete_friend():
     """Delete a friend."""
+
     logged_in_user = crud.get_user_by_id(session["user_id"])
     delete_friend = crud.get_user_by_id(request.json)
-
     crud.delete_friend(logged_in_user, delete_friend)
 
     return ("Deleted friend")
