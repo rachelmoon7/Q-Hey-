@@ -3,7 +3,7 @@ const Comment = (props) => {
     const [showConfirmDelete, setShowConfirmDelete] = React.useState(false);
 
     const deleteComment = () => {
-        console.log("COMMENTS PROPS", props)
+        // console.log("COMMENTS PROPS", props)
         fetch('/delete-comment', {
             method:'POST',
             headers: { "Content-Type": "application/json" },
@@ -11,7 +11,7 @@ const Comment = (props) => {
             })
         .then((response) => response.json())
         .then((result) => {
-            console.log("DELETE RESULT:", result)
+            // console.log("DELETE RESULT:", result)
             setShowConfirmDelete(false);
             //changing state from props for React.useEffect, which is listening to this state in SinglePost
             if (props.afterDeletedComment == false) {

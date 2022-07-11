@@ -86,6 +86,15 @@ def deny_request(logged_in_user, potential_friend):
     logged_in_user.followers.remove(potential_friend)
     
 
+def delete_friend(logged_in_user, delete_friend):
+    """Delete a friend."""
+
+    logged_in_user.following.remove(delete_friend)
+    logged_in_user.followers.remove(potential_friend)
+
+    delete_friend.followers.remove(logged_in_user)
+
+
 def get_username(id):
     """Retrieve the username of the user with id in argument."""
 

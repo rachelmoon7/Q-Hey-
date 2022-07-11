@@ -1,5 +1,6 @@
 const MyFriends = () => {
     const [allFriends, setAllFriends] = React.useState([]);
+    const [afterFriendDeleted, setAfterFriendDeleted] = React.useState(false);
     const [pendingFriends, setPendingFriends] = React.useState([]);
     const [friendRequestHandled, setFriendRequestHandled] = React.useState(false);
     const [requestSent, setRequestSent] = React.useState(false);
@@ -13,15 +14,15 @@ const MyFriends = () => {
         .then((response) => response.json())
         .then((result) => {
             console.log("??", result)
-            console.log("!!result[i]['user_id']", result['2'])
             setAllFriends([]);
             for (const [userID, info] of Object.entries(result)) {
                 setAllFriends((x) => [...x, <Friend user_id={info['user_id']}
                                                     fname={info['fname']}
-                                                    lname={info['lname']} />])
+                                                    lname={info['lname']} 
+                                                    setAfterFriendDeleted={setAfterFriendDeleted}/>])
             }
         })
-    }, [ , friendRequestHandled])
+    }, [ , friendRequestHandled, afterFriendDeleted])
 
 
     React.useEffect(() => {
