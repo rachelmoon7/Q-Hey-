@@ -9,11 +9,13 @@ const MyFriends = () => {
     const [result, setResult] = React.useState('')
     const [showSearchResult, setShowSearchResult] = React.useState(false);
 
+    //this hook will be rendered in 3 occasions listed in second parameter
     React.useEffect(() => {
         fetch('/get_list_of_friends')
         .then((response) => response.json())
         .then((result) => {
-            console.log("??", result)
+            // console.log("??", result)
+            //set allFriends to an empty parameter before setting the state variable with updated result
             setAllFriends([]);
             for (const [userID, info] of Object.entries(result)) {
                 setAllFriends((x) => [...x, <Friend user_id={info['user_id']}
@@ -24,12 +26,12 @@ const MyFriends = () => {
         })
     }, [ , friendRequestHandled, afterFriendDeleted])
 
-
+    //this hook will be rendered in 2 occasions listed in second parameter
     React.useEffect(() => {
         fetch('/get_list_of_pending')
         .then((response) => response.json())
         .then((result) => {
-            console.log("+++", result)
+            // console.log("+++", result)
             setPendingFriends([]);
             for (const [userID, info] of Object.entries(result)) {
                 setPendingFriends((x) => [...x, <PendingFriend fname={info['fname']}
@@ -38,7 +40,7 @@ const MyFriends = () => {
         })
     }, [ , requestSent])
 
-    const handleClick = () => {
+    const handleSearch = () => {
         fetch('/get-search-result', {
             //post request to this route with searchString
             method: 'POST',
@@ -68,22 +70,21 @@ const MyFriends = () => {
             setSearchString('');
             setRequestSent(true);
         })
-       
     }
 
     return (
         <React.Fragment>
-            <h2>Search for friends to add</h2>
+            <h2>Search for friends to add:</h2>
                 <input type="text" key={showSearchResult} 
                                     name ="searchString" 
                                     placeholder="Find friends via username" 
                                     onChange={(e) => setSearchString(e.target.value)}
                 ></input>
-                    <p>
-                        {searchString} 
-                    </p>
+                <p>
+                    {searchString} 
+                </p>
 
-                <button type="submit" onClick={handleClick}>Submit</button>              
+                <button type="submit" onClick={handleSearch}>Search</button>              
               
                 {showSearchResult ? 
                     <div>
@@ -96,7 +97,7 @@ const MyFriends = () => {
             <h2>Friend Request:</h2>
                 <FriendRequestContainer setFriendRequestHandled={setFriendRequestHandled}/>
 
-            <h1>Requested to...</h1>
+            <h2>Requested to...</h2>
                 {pendingFriends}
 
             <h2>My Friends:</h2>

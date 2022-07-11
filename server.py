@@ -107,7 +107,7 @@ def process_form():
 
     user_id = session["user_id"]
     # print("LINE 150: CURRENT USER POSTING:", user_id)
-    print("???????server from post request:", request.json)
+    # print("???????server from post request:", request.json)
     question_id = datetime.now().isocalendar().week
     post_date = datetime.now()
     caption = request.json["caption"]
@@ -121,7 +121,7 @@ def process_form():
     db.session.commit()
 
     if request.json['img2']:
-        print("SERVER IMG2 EXISTS ENTERING IF")
+        # print("SERVER IMG2 EXISTS ENTERING IF")
         img_url_2 = request.json['img2']   
         new_image_2 = crud.create_image(new_post.post_id, img_url_2)
         
@@ -132,7 +132,7 @@ def process_form():
         return result
     
     result = get_landing_posts()
-    print("*(*(*( SERVER.PY REULST 129", result)
+    # print("*(*(*( SERVER.PY REULST 129", result)
     return result
 
 
@@ -408,7 +408,7 @@ def get_all_comments():
         else:
             all_comments[i]['delete_option'] = False
 
-    print("___SERVER all_comments:", all_comments)
+    # print("___SERVER all_comments:", all_comments)
     return jsonify(all_comments)
 
 
@@ -420,7 +420,7 @@ def delete_comment():
     comment_to_delete = request.json
     crud.delete_comment(comment_to_delete)
     
-    return jsonify('Deleted Comment')
+    return ('Deleted Comment')
 
 
 @app.route('/add-reaction', methods=["POST"])

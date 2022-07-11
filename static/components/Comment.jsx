@@ -2,6 +2,7 @@ const Comment = (props) => {
     const [commentToDelete, setCommentToDelete] = React.useState('');
     const [showConfirmDelete, setShowConfirmDelete] = React.useState(false);
 
+    //deleteComment sends post fetch request to /delete-comment with comment's id to delete from db
     const deleteComment = () => {
         // console.log("COMMENTS PROPS", props)
         fetch('/delete-comment', {
@@ -9,8 +10,8 @@ const Comment = (props) => {
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify( commentToDelete )
             })
-        .then((response) => response.json())
-        .then((result) => {
+        //setting state variables to rerender state for user's experience
+        .then(() => {
             // console.log("DELETE RESULT:", result)
             setShowConfirmDelete(false);
             //changing state from props for React.useEffect, which is listening to this state in SinglePost

@@ -5,7 +5,6 @@ const PendingFriend = (props) => {
             <li>
                 {props.fname} {props.lname}
             </li>
-            
         </React.Fragment>
     )
 }

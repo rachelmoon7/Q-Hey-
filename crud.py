@@ -96,6 +96,7 @@ def delete_friend(logged_in_user, delete_friend):
     delete_friend.followers.remove(logged_in_user)
     db.session.commit()
 
+
 def get_username(id):
     """Retrieve the username of the user with id in argument."""
 
@@ -108,6 +109,7 @@ def get_users_posts_week(user_id):
     week_num = datetime.now().isocalendar().week
     friend_posts_all = Post.query.filter(Post.user_id==user_id).all()
     # print("*** CRUD LINE 58 USERS POSTS:", friend_posts_all)
+    
     friend_posts_current_week = []
     for post in friend_posts_all:
         if post.get_week_num() == week_num:
@@ -125,7 +127,7 @@ def get_users_previous_posts(user_id):
 
 def delete_post(post_id):
     """Delete post object from database."""
-    # print("____CRUD 113,", Post.query.filter(Post.post_id==post_id))
+
     Image.query.filter(Image.post_id==post_id).delete()
     db.session.commit()
     
@@ -158,9 +160,10 @@ def create_reaction(post_id, user_id, reaction_type):
     """Add a reaction."""
 
     reaction = Reaction(post_id=post_id, user_id=user_id, reaction_type=reaction_type)
-    print("####CRUD REACTION CREATED:", reaction)
+    # print("####CRUD REACTION CREATED:", reaction)
 
     return reaction
+
 
 def like_reaction_count(post_id, reaction_type):
     """Get the count of a reaction."""

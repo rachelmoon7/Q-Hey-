@@ -1,4 +1,4 @@
-//render one request
+//render one request 
 const FriendRequest = (props) => {
     // const [friend, setFriend] = React.useState('')
     const [active, setActive] = React.useState(true)
@@ -25,12 +25,10 @@ const FriendRequest = (props) => {
         .then(() => {
             setActive(false);
             props.setFriendRequestHandled(true);
-        })
-       
+        })  
     }
     
-    return (
-       
+    return ( 
         active ?
         <React.Fragment>
             <button type="submit" onClick={handleAccept}>Accept</button>
@@ -41,8 +39,8 @@ const FriendRequest = (props) => {
     )
 }
 
-const FriendRequestContainer = (props) => {
-    const requests = [];
+//container for FriendRequest component
+const FriendRequestContainer = (props) => {   
     const [friends, setFriends] = React.useState('');
 
     React.useEffect(() => {
@@ -53,6 +51,9 @@ const FriendRequestContainer = (props) => {
         });
     }, []);
 
+    const requests = [];
+
+    //push FriendRequest child components into empty array while passing in props
     for (const request of friends) {
         requests.push(<FriendRequest user_id={request.user_id} 
                                         name={request.fname} 

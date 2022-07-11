@@ -12,7 +12,6 @@ const SinglePost = (props) => {
     const [afterDeletedComment, setAfterDeletedComment] = React.useState(false);
     
     const [newReaction, setNewReaction] = React.useState(false);
-    // const [undoReaction, setUndoReaction] = React.useState(false);
 
     const [numberOfLikes, setNumberOfLikes] = React.useState(0);
     const [usersWhoLiked, setUsersWhoLiked] = React.useState([]);
@@ -36,8 +35,6 @@ const SinglePost = (props) => {
         })
     }, []);
 
-
-
     React.useEffect(() => {
         fetch('/get-all-comments', {
             method: 'POST',
@@ -51,8 +48,7 @@ const SinglePost = (props) => {
             // console.log("typeof passing this too:", typeof result[0]['text'])
             setAllComments([]);
             for (const [each_comment, comment_info] of Object.entries(result)) {
-                //blocker: comment component not showing in browser but console.log ok 
-                console.log("comment_info", comment_info);
+                // console.log("--comment_info", comment_info);
                 setAllComments(prevState => [...prevState, <Comment username={comment_info['username']}
                                                                     commentDate={comment_info['comment_date']}
                                                                     text={comment_info['text']}
@@ -65,7 +61,7 @@ const SinglePost = (props) => {
                                                             />])
             }
         })
-    }, [ ,afterDeletedComment]);
+    }, [ , afterDeletedComment]);
     
 
     React.useEffect(() => {
@@ -80,8 +76,7 @@ const SinglePost = (props) => {
             setUsersWhoLoved([]);
             setUsersWhoHaha([]);
             setUsersWhoHugged([]);
-
-            console.log("???getall-reactions result", result)
+            // console.log("???getall-reactions result", result)
             
             setNumberOfLikes(result['like']['count']);
             setUsersWhoLiked(result['like']['users']);
@@ -95,7 +90,7 @@ const SinglePost = (props) => {
             setNumberOfHugs(result['hug']['count']);
             setUsersWhoHugged(result['hug']['users']);
         })
-    }, [ ,newReaction]);
+    }, [ , newReaction]);
 
 
     const deletePost = () => {
@@ -152,7 +147,10 @@ const SinglePost = (props) => {
             </div>
 
             {loggedInUser==props.username ? 
-                <button onClick={() => {setPostToDelete(props.post_id), setDeleteOrigin(props.deleteOnProfile), setShowConfirmDelete(true)}}>Delete Post</button>
+                <button onClick={() => {setPostToDelete(props.post_id), 
+                                        setDeleteOrigin(props.deleteOnProfile), 
+                                        setShowConfirmDelete(true)}
+                                }>Delete Post</button>
                 : <div></div>
             }
 
@@ -161,7 +159,9 @@ const SinglePost = (props) => {
                 : <div></div>
             }
 
-            <button onClick={() => {setShowCommentBox(true); setPostToComment(props.post_id)}}>Comment</button>   
+            <button onClick={() => {setShowCommentBox(true), 
+                                    setPostToComment(props.post_id)}
+                            }>Comment</button>   
 
             <Reaction setNewReaction={setNewReaction}
                         newReaction={newReaction}
@@ -219,7 +219,6 @@ const SinglePost = (props) => {
                     <div>Loves</div>
                     {numberOfLoves}
                 </div>
-                
             : <div></div>
             }  
 
@@ -227,8 +226,7 @@ const SinglePost = (props) => {
                 <div>
                     <div>Ha ha!s</div>
                     {numberOfHaHas}
-                </div>
-                
+                </div>  
             : <div></div>
             }  
 
@@ -237,7 +235,6 @@ const SinglePost = (props) => {
                     <div>Hugs</div>
                     {numberOfHugs}
                 </div>
-                
             : <div></div>
             }            
                       

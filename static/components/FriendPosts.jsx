@@ -1,9 +1,10 @@
 const FriendPosts = (props) => {
     const [friendProfilePosts, setFriendProfilePosts] = React.useState([]);
 
-
     console.log("friendprofiel !! props:", props)
 
+    //FriendPosts is inside a callback function in Friend.jsx so when function is invoked, then 
+    //this React.useEffect will happen once since second parameter is [];
     React.useEffect(() => {
         fetch('/get-friend-posts', {
             method: 'POST',
@@ -12,11 +13,10 @@ const FriendPosts = (props) => {
         })
         .then((response) => response.json())
         .then((result) => {
-            // console.log("**:", result)
             setFriendProfilePosts(result)
         })
     }, []);
-
+    
     const hideFriendPosts = () => {
         //reset state to empty array to hide friend's posts after browsing
         props.setFriendPosts([]);
@@ -36,8 +36,6 @@ const FriendPosts = (props) => {
             <button onClick={hideFriendPosts}>Done</button>
         </React.Fragment>
     )
-
-
 }
 
 

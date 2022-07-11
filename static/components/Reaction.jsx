@@ -37,7 +37,6 @@ const Reaction = (props) => {
             })
         .then((response) => response.json())
         .then((result) => {
-    
             props.setNumberOfLikes(result['like']['count']);
             props.setUsersWhoLiked(result['like']['users']);
 
@@ -49,14 +48,13 @@ const Reaction = (props) => {
 
             props.setNumberOfHugs(result['hug']['count']);
             props.setUsersWhoHugged(result['hug']['users']);
-            // props.setUndoReaction(true);
         })
 
     }
     // console.log("$$$usersWhoLiked", props.usersWhoLiked)
     // console.log("__loggedInUsertypeof ", typeof props.loggedInUser)
     // console.log("###included yes or no", !props.usersWhoLiked.includes(props.loggedInUser))
-    console.log("!!!props.usersWhoHugged", props.usersWhoHugged)
+    // console.log("!!!props.usersWhoHugged", props.usersWhoHugged)
     return (
         <React.Fragment>
             <div className="reaction">
@@ -116,4 +114,3 @@ const Reaction = (props) => {
     )
 }
 
-//line 57 && && props.numberOfLikes == 0
