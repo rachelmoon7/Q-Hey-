@@ -177,7 +177,8 @@ def accept_request():
     db.session.commit()
 
     print("---178--whomyfriends:", logged_in_user.followers)
-    return jsonify([{'friend': potential_friend.to_dict()}])
+    # return jsonify([{'friend': potential_friend.to_dict()}])
+    return current_friends(logged_in_user)
 
 
 @app.route('/deny-request', methods=["POST"])
@@ -210,7 +211,12 @@ def get_list_of_friends():
 
     logged_in_user = crud.get_user_by_id(session["user_id"])
 
-    my_friends = list(set(logged_in_user.following) & set(logged_in_user.followers))
+    return current_friends(logged_in_user)
+
+
+def current_friends(user):
+
+    my_friends = list(set(user.following) & set(user.followers))
 
     result = {}
 
@@ -222,7 +228,6 @@ def get_list_of_friends():
         result[friend.user_id] = info
 
     return result
-    # return jsonify([user.fname for user in my_friends])
 
 
 @app.route('/get_friend-profile_posts', methods=["POST"])
@@ -314,26 +319,6 @@ def get_my_profile_posts():
     """Retrieve all of my previous posts."""
     
     user_id = session["user_id"]
-
-    # post_info = {}
-    # caption_image = {}
-    # #current_week_posts_obj is a list of post objects for each user [{post1 info}, {post2 info}]
-    # posts_obj = crud.get_users_previous_posts(user_id)
-    # # print("$$$$$server 292 post obj?", posts_obj[0].post_id)
-    # for post in posts_obj:
-    #         caption_image[post.post_id] = {'caption': post.caption}
-    #         caption_image[post.post_id]['post_date'] = post.post_date
-
-    #         if len(post.images) > 0:
-    #             caption_image[post.post_id]['img_url'] = post.images[0].img_URL
-    #             if len(post.images) > 1:
-    #                 caption_image[post.post_id]['img_url2'] = post.images[1].img_URL
-                
-    # username = crud.get_username(user_id)
-    # post_info[username] = caption_image
-        
-    # # print("!@!@!@!@!@ Server 304", post_info)
-    # return jsonify(post_info)
 
     return profile_posts(user_id)
 
@@ -438,20 +423,8 @@ def get_all_reactions():
     #create array by iterating through reactions attribute of a post
     all_reactions = [reaction.to_dict() for reaction in post.reactions]
     print("!!!!!!allreactions", all_reactions)
-    
-    # like_count = crud.like_reaction_count(post_id)
-    # love_count = crud.love_reaction_count(post_id)
-    # haha_count = crud.haha_reaction_count(post_id)
-    # print("$$$HAHA COUNT", haha_count)
-    # hug_count = crud.hug_reaction_count(post_id)
-    
-    # result = {}
-    
-    # result['like'] = like_count
-    # result['love'] = love_count
-    # result['haha'] = haha_count
-    # result['hug'] =hug_count
 
+    #call count_of_reactions function with post_id
     return count_of_reactions(post_id)
 
 
@@ -464,7 +437,8 @@ def undo_reaction():
     reaction_type = request.json['reactionType']
 
     crud.undo_reaction(user_id, post_id, reaction_type)
-
+    
+    #call count_of_reactions function with post_id
     return count_of_reactions(post_id)
 
 
@@ -505,6 +479,7 @@ def profile_posts(user_id):
     # print("!@!@!@!@!@ Server 304", post_info)
     return jsonify(post_info)
 
+
 def count_of_reactions(post_id):
     """Helper function to get count of each reaction."""
 
@@ -513,7 +488,6 @@ def count_of_reactions(post_id):
     love_info = crud.love_reaction_count(post_id, 'Love')
     haha_info = crud.haha_reaction_count(post_id, 'Ha ha!')
     hug_info = crud.hug_reaction_count(post_id, 'Hug')
-    print("$$$ hug_info ", hug_info)
 
     result = {}
     
@@ -524,24 +498,7 @@ def count_of_reactions(post_id):
 
     return jsonify(result)
 
-# def get_comments_for_post_id(post_id):
-#     """Helper function to get all comments for a post.""" 
-#     post = crud.get_post_by_post_id(post_id)
-#     #create array by iterating through comments attribute of a post
-#     all_comments = [comment.to_dict() for comment in post.comments]
 
-#     for i in range(len(all_comments)):
-#         # adding username to each comment info dictionary
-#         all_comments[i]['username'] = crud.get_user_by_id(all_comments[i]['user_id']).username
-#         # adding boolean value to each comment info dictionary to see if comment belongs to logged in user
-#         if session['username'] == all_comments[i]['username']:
-#             all_comments[i]['delete_option'] = True
-#         else:
-#             all_comments[i]['delete_option'] = False
-
-#     print("___SERVER all_comments:", all_comments)
-
-#     return jsonify(all_comments)
 
 
 if __name__ == "__main__":

@@ -4,15 +4,10 @@
 {% block body %}
 <div id="navBar"></div>
 
-<h2>Friend Requests:</h2>
-<div id="friend-request"></div> 
-
 <h2>Requested to:</h2>
 {% for friend in requested %}   
     <li>{{ friend.fname }} {{ friend.lname}}</li>    
 {% endfor %}
-
-<h2>My Friends</h2>
 
 
 <div id="my-friends"></div>

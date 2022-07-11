@@ -11,7 +11,8 @@ const FriendRequest = (props) => {
         })
         .then((response) => response.json())
         .then((result) => {
-            setActive(false)
+            setActive(false);
+            props.setFriendRequestHandled(true);
         })
         
     }
@@ -25,12 +26,13 @@ const FriendRequest = (props) => {
         })
         .then((response) => response.json())
         .then((result) => {
-            setActive(false)
+            setActive(false);
+            props.setFriendRequestHandled(true);
         })
        
     }
     return (
-        //if active is true = active ? // : is else
+       
         active ?
         <React.Fragment>
             <button type="submit" onClick={handleAccept}>Accept</button>
@@ -41,7 +43,7 @@ const FriendRequest = (props) => {
     )
 }
 
-const FriendRequestContainer = () => {
+const FriendRequestContainer = (props) => {
     const requests = [];
     const [friends, setFriends] = React.useState('');
 
@@ -56,7 +58,9 @@ const FriendRequestContainer = () => {
     // console.log("my friends as a result:", friends)
 
     for (const request of friends) {
-        requests.push(<FriendRequest user_id={request.user_id} name={request.fname}          
+        requests.push(<FriendRequest user_id={request.user_id} 
+                                        name={request.fname} 
+                                        setFriendRequestHandled={props.setFriendRequestHandled}      
         />
         )
     };
@@ -67,4 +71,4 @@ const FriendRequestContainer = () => {
         </React.Fragment>
     )
 }
-ReactDOM.render(<FriendRequestContainer />, document.querySelector('#friend-request'),);
+// ReactDOM.render(<FriendRequestContainer />, document.querySelector('#friend-request'),);

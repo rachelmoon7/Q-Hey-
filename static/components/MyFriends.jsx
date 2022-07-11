@@ -1,6 +1,6 @@
 const MyFriends = () => {
     const [allFriends, setAllFriends] = React.useState([]);
-    const [friend, setFriend] = React.useState([]);
+    const [friendRequestHandled, setFriendRequestHandled] = React.useState(false);
 
     React.useEffect(() => {
         fetch('/get_list_of_friends')
@@ -15,11 +15,16 @@ const MyFriends = () => {
                                                     lname={info['lname']} />])
             }
         })
-    }, [])
+    }, [ , friendRequestHandled])
 
 
     return (
         <React.Fragment>
+    
+            <h2>Friend Request:</h2>
+            <FriendRequestContainer setFriendRequestHandled={setFriendRequestHandled}/>
+
+            <h2>My Friends:</h2>
             {allFriends}
         </React.Fragment>
     )

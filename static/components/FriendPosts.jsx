@@ -1,14 +1,7 @@
 const FriendPosts = (props) => {
     const [friendProfilePosts, setFriendProfilePosts] = React.useState([]);
-    const [username, setUsername] = React.useState('');
 
-    // React.useEffect(() => {
-    //     fetch('/friend-profile')
-    //     .then((response) => response.json())
-    //     .then((result) => {
-    //         setUsername(result)
-    //     })
-    // }, []);
+
     console.log("friendprofiel !! props:", props)
 
     React.useEffect(() => {
@@ -19,14 +12,19 @@ const FriendPosts = (props) => {
         })
         .then((response) => response.json())
         .then((result) => {
-            console.log("**:", result)
+            // console.log("**:", result)
             setFriendProfilePosts(result)
         })
     }, []);
 
+    const hideFriendPosts = () => {
+        //reset state to empty array to hide friend's posts after browsing
+        props.setFriendPosts([]);
+    }
+
     return ( 
         <React.Fragment>
-            {/* <NavBar /> */}
+
             <h1> {props.fname} {props.lname}'s Posts</h1>
            
            <ShowPosts 
@@ -34,12 +32,13 @@ const FriendPosts = (props) => {
                 setFriendProfilePosts={setFriendProfilePosts}
                 deleteOnProfile={true}
                 />
+            
+            <button onClick={hideFriendPosts}>Done</button>
         </React.Fragment>
     )
 
 
 }
-// ReactDOM.render(<FriendProfile />, document.querySelector('#friend-profile'));
 
 
 
