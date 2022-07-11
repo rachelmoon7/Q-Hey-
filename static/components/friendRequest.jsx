@@ -9,12 +9,10 @@ const FriendRequest = (props) => {
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ 'request_from': props.user_id })
         })
-        .then((response) => response.json())
-        .then((result) => {
+        .then(() => {
             setActive(false);
             props.setFriendRequestHandled(true);
         })
-        
     }
 
     const handleDeny = () => {
@@ -31,6 +29,7 @@ const FriendRequest = (props) => {
         })
        
     }
+    
     return (
        
         active ?

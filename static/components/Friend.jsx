@@ -20,6 +20,7 @@ const Friend = (props) => {
             </li>
 
             {friendPosts}
+            
         </React.Fragment>
     )
 }

@@ -178,7 +178,7 @@ def accept_request():
 
     print("---178--whomyfriends:", logged_in_user.followers)
     # return jsonify([{'friend': potential_friend.to_dict()}])
-    return current_friends(logged_in_user)
+    return ("Accepted friend request")
 
 
 @app.route('/deny-request', methods=["POST"])
@@ -201,26 +201,40 @@ def show_friends_and_requests():
     
     requested = set(logged_in_user.following) - set(logged_in_user.followers)
 
-    my_friends = set(logged_in_user.following) & set(logged_in_user.followers)
     
-    return render_template("myfriends.html",                    logged_in_user=logged_in_user, requested=requested, my_friends=my_friends)
+    return render_template("myfriends.html",                    requested=requested)
 
 
 @app.route('/get_list_of_friends')
 def get_list_of_friends():
+    """Show list of user's friends."""
 
     logged_in_user = crud.get_user_by_id(session["user_id"])
 
-    return current_friends(logged_in_user)
-
-
-def current_friends(user):
-
-    my_friends = list(set(user.following) & set(user.followers))
+    my_friends = list(set(logged_in_user.following) & set(logged_in_user.followers))
 
     result = {}
 
     for friend in my_friends:
+        info = {}
+        info['fname'] = friend.fname
+        info['lname'] = friend.lname
+        info['user_id'] = friend.user_id
+        result[friend.user_id] = info
+
+    return result
+
+@app.route('/get_list_of_pending')
+def get_list_of_pending():
+    """Show who user sent a friend request to."""
+
+    logged_in_user = crud.get_user_by_id(session["user_id"])
+    
+    requested = list(set(logged_in_user.following) - set(logged_in_user.followers))
+
+    result = {}
+
+    for friend in requested:
         info = {}
         info['fname'] = friend.fname
         info['lname'] = friend.lname

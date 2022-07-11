@@ -1,41 +1,40 @@
 
 const NavBar = () => {
-    const [searchString, setSearchString] = React.useState('');
-    const [result, setResult] = React.useState('')
-    const [showSearchResult, setShowSearchResult] = React.useState(false);
+    // const [searchString, setSearchString] = React.useState('');
+    // const [result, setResult] = React.useState('')
+    // const [showSearchResult, setShowSearchResult] = React.useState(false);
 
-    const handleClick = () => {
-        console.log("ENTERING HADLECLICK")
-        fetch('/get-search-result', {
-            //post request to this route with searchString
-            method: 'POST',
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ searchString })
-        })
-        .then((response) => response.json())
-        .then((result) => {
-            // console.log("navBAR SEARCH RESULT:", result)
-            setResult(result[0]['potentialFriend']);  
-            setSearchString('');  
-            setShowSearchResult(true);         
-        }
-    )}
+    // const handleClick = () => {
+    //     fetch('/get-search-result', {
+    //         //post request to this route with searchString
+    //         method: 'POST',
+    //         headers: { "Content-Type": "application/json" },
+    //         body: JSON.stringify({ searchString })
+    //     })
+    //     .then((response) => response.json())
+    //     .then((result) => {
+    //         // console.log("navBAR SEARCH RESULT:", result)
+    //         setResult(result[0]['potentialFriend']);  
+    //         setSearchString('');  
+    //         setShowSearchResult(true);         
+    //     }
+    // )}
 
-    const requestFriend = () => {
-        fetch('/request-friend', {
-            method: 'POST',
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ result })
-        })
-        .then((response) => response.json())
-        .then((result) => {
-            console.log("###", result);      
-            setResult('');
-            setShowSearchResult(false);
-            setSearchString('');
-        })
+    // const requestFriend = () => {
+    //     fetch('/request-friend', {
+    //         method: 'POST',
+    //         headers: { "Content-Type": "application/json" },
+    //         body: JSON.stringify({ result })
+    //     })
+    //     .then((response) => response.json())
+    //     .then((result) => {
+    //         // console.log("###", result);      
+    //         setResult('');
+    //         setShowSearchResult(false);
+    //         setSearchString('');
+    //     })
        
-    }
+    // }
     
 
     
@@ -60,13 +59,13 @@ const NavBar = () => {
                 <li class="nav-item">
                 <a class="nav-link" href="#">Settings</a>
                 </li>
-                <li class="nav-item">
+                {/* <li class="nav-item">
                     <input type="text" key={showSearchResult} name ="searchString" placeholder="Find friends via username" onChange={(e) => setSearchString(e.target.value)}></input>
                     <p>
                         {searchString} 
                     </p>
-                </li>
-                <li class="nav-item">
+                </li> */}
+                {/* <li class="nav-item">
                     <button type="submit" onClick={handleClick}>Submit</button>              
                 </li>
                 <li>
@@ -78,7 +77,7 @@ const NavBar = () => {
                     : <div></div>               
                     }
                                  
-                </li> 
+                </li>  */}
                 <li>
                     <a class="nav-link" href="/logout">Logout</a>
                 </li>           
