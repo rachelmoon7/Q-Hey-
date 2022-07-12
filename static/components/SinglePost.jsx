@@ -25,6 +25,10 @@ const SinglePost = (props) => {
     const [numberOfHugs, setNumberOfHugs] = React.useState(0);
     const [usersWhoHugged, setUsersWhoHugged] = React.useState([]);
 
+    const [index, setIndex] = React.useState(0);
+
+    
+
 
     React.useEffect(() => {
         fetch('/get-logged-in-user')
@@ -137,12 +141,40 @@ const SinglePost = (props) => {
         })
     }
 
+    const handleSelect = (selectedIndex, e) => {
+        setIndex(selectedIndex);
+        };
+
     return (
         <React.Fragment>
+            <ReactBootstrap.Carousel activeIndex={index} onSelect={handleSelect}>
+                <ReactBootstrap.Carousel.Item>
+                    <img
+                        className="d-block w-100"
+                        src={props.img_url} 
+                        alt="First slide"
+                    />
+            
+                </ReactBootstrap.Carousel.Item>
+            
+                {props.img_url2 != "" ?
+                    <ReactBootstrap.Carousel.Item>
+                    <img
+                    className="d-block w-100"
+                    src={props.img_url2}
+                    alt="Second slide"
+                    />
+                    </ReactBootstrap.Carousel.Item>
+
+                :<p></p>
+                }
+
+            </ReactBootstrap.Carousel>
+
             <div>
                 {props.username} caption: {props.caption}
-                <img src={props.img_url} />
-                <img src={props.img_url2} />
+                {/* <img src={props.img_url} />
+                <img src={props.img_url2} /> */}
                 posted date: {props.post_date}   
             </div>
 
