@@ -11,7 +11,11 @@ const NewPost = (props) => {
     const [showChosenImage2, setShowChosenImage2] = React.useState(false);
     const [chooseFile, setChooseFile] = React.useState('');
     const [chooseFile2, setChooseFile2] = React.useState('1');
+    const [postingOption, setPostingOption] = React.useState(false);
 
+    const showPostingOption = () => {
+        setPostingOption(true);
+    }
     const getCloudinaryLink = (file) => {
         const data = new FormData();
         data.append("file", file);
@@ -63,7 +67,7 @@ const NewPost = (props) => {
             setCaption('');
             setChooseFile(null);
             setChooseFile2(null);
-         
+            setPostingOption(false);
         })
 
     };
@@ -71,50 +75,56 @@ const NewPost = (props) => {
    //when key is changed, re-renders input tag (line 76) for enhanced user experience
     return (
         <React.Fragment> 
+            <button id="answer" onClick={showPostingOption}>Answer</button>
 
-            <input 
-                type="file" key={chooseFile} onChange={(e)=> {
-                                                            setShowAddAnother(true);
-                                                            getCloudinaryLink(e.target.files[0]); 
-                                                            }
-                                                    } >
-            </input>          
-
-            {showAddAnother ? 
-                <button onClick={() => {setShowImgForm2(true), setShowAddAnother(false)}}>Add 2nd photo</button>
-                : <div></div>
-            }
-            
-           {showImgForm2 ? 
-                <input type="file" key={chooseFile2} onChange={(e)=> {getCloudinaryLink(e.target.files[0])}}></input>         
-                : <div></div>  
-            }
-
-            {showChosenImage ?
+            { postingOption ?
                 <div>
-                    <div>Chosen image:</div>
-                    <div>
-                        <img src={img}/>
-                    </div>
-                </div>
-                : <div></div>
-            }
-            
-            {showChosenImage2 ?
-                <div>
-                    <div>Chosen 2nd image:</div>
-                    <div>
-                        <img src={img2}/>
-                    </div>
-                </div>
-                : <div></div>
-            }
-        
-            <div>
-                <input type="text" placeholder="Type caption here" value = {caption} onChange={(e) => setCaption(e.target.value)}></input>
-            </div>
+                    <input 
+                        type="file" key={chooseFile} onChange={(e)=> {
+                                                                    setShowAddAnother(true);
+                                                                    getCloudinaryLink(e.target.files[0]); 
+                                                                    }
+                                                            } >
+                    </input>          
 
-            <button onClick = {upload}>POST</button> 
+                    {showAddAnother ? 
+                        <button onClick={() => {setShowImgForm2(true), setShowAddAnother(false)}}>Add 2nd photo</button>
+                        : <div></div>
+                    }
+                    
+                    {showImgForm2 ? 
+                        <input type="file" key={chooseFile2} onChange={(e)=> {getCloudinaryLink(e.target.files[0])}}></input>         
+                        : <div></div>  
+                    }
+
+                    {showChosenImage ?
+                        <div>
+                            <div>Chosen image:</div>
+                            <div>
+                                <img src={img}/>
+                            </div>
+                        </div>
+                        : <div></div>
+                    }
+                    
+                    {showChosenImage2 ?
+                        <div>
+                            <div>Chosen 2nd image:</div>
+                            <div>
+                                <img src={img2}/>
+                            </div>
+                        </div>
+                        : <div></div>
+                    }
+                
+                    <div>
+                        <input type="text" placeholder="Type caption here" value = {caption} onChange={(e) => setCaption(e.target.value)}></input>
+                    </div>
+
+                    <button onClick = {upload}>POST</button> 
+                </div>
+                : <div> </div>
+            }
         </React.Fragment>
     );
 }

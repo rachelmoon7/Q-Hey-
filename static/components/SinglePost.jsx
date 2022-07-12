@@ -66,7 +66,6 @@ const SinglePost = (props) => {
             }
         })
     }, [ , afterDeletedComment]);
-    
 
     React.useEffect(() => {
         fetch('/get-all-reactions', {
@@ -144,31 +143,34 @@ const SinglePost = (props) => {
     const handleSelect = (selectedIndex, e) => {
         setIndex(selectedIndex);
         };
+    
+
+    const carouselItems = [];
+
+    carouselItems.push(<ReactBootstrap.Carousel.Item>
+                            <img
+                                className="d-block w-100"
+                                src={props.img_url} 
+                                alt="First slide"
+                            />
+                        </ReactBootstrap.Carousel.Item>
+                    );
+
+    if (props.img_url2 !== undefined) {
+        carouselItems.push(<ReactBootstrap.Carousel.Item>
+                                <img
+                                    className="d-block w-100"
+                                    src={props.img_url2}
+                                    alt="Second slide"
+                                />
+                            </ReactBootstrap.Carousel.Item>
+                        );
+    }
 
     return (
         <React.Fragment>
             <ReactBootstrap.Carousel activeIndex={index} onSelect={handleSelect}>
-                <ReactBootstrap.Carousel.Item>
-                    <img
-                        className="d-block w-100"
-                        src={props.img_url} 
-                        alt="First slide"
-                    />
-            
-                </ReactBootstrap.Carousel.Item>
-            
-                {props.img_url2 != "" ?
-                    <ReactBootstrap.Carousel.Item>
-                    <img
-                    className="d-block w-100"
-                    src={props.img_url2}
-                    alt="Second slide"
-                    />
-                    </ReactBootstrap.Carousel.Item>
-
-                :<p></p>
-                }
-
+                {carouselItems}
             </ReactBootstrap.Carousel>
 
             <div>
