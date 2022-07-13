@@ -169,14 +169,12 @@ const SinglePost = (props) => {
 
     return (
         <React.Fragment>
-            <ReactBootstrap.Carousel activeIndex={index} onSelect={handleSelect}>
+            <ReactBootstrap.Carousel activeIndex={index} onSelect={handleSelect} interval={null}>
                 {carouselItems}
             </ReactBootstrap.Carousel>
 
             <div>
-                {props.username} caption: {props.caption}
-                {/* <img src={props.img_url} />
-                <img src={props.img_url2} /> */}
+                <div id="caption">{props.username} caption: {props.caption}</div>
                 posted date: {props.post_date}   
             </div>
 

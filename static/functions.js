@@ -1,15 +1,11 @@
-// 'use strict';
 
-// function addPic2() {
-//     //Callback function for eventListener when user wishes to upload second picture in same post
-//     document.querySelector("#upload-form").insertAdjacentHTML('afterbegin', '<input type="file" name="my-file-2"></input>')
-// }
+const switchers = [...document.querySelectorAll('.switcher')]
 
-// document.querySelector('input[type=file]').addEventListener('click', () => { 
-//     document.querySelector("#upload").insertAdjacentHTML('afterbegin','<button id="add-pic">Add 2nd picture</button>')
-//     document.querySelector('#add-pic').addEventListener('click', addPic2)
-// });
-
-
+switchers.forEach(item => {
+	item.addEventListener('click', function() {
+		switchers.forEach(item => item.parentElement.classList.remove('is-active'))
+		this.parentElement.classList.add('is-active')
+	})
+})
 
 

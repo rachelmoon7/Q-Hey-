@@ -26,7 +26,7 @@ const Comment = (props) => {
 
     return (
         <React.Fragment>
-            <div class="comment-div-1">
+            <div className="comment-div-1">
                 {props.username} comments: {props.text} on {props.commentDate} 
             </div>
 

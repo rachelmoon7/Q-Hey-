@@ -68,11 +68,11 @@ def landing_page():
     return render_template('landing-page.html', questions=questions, week_num=week_num, posts=posts, images=images)
 
 
-@app.route('/signup')
-def create_account():
-    """Create new account."""
+# @app.route('/signup')
+# def create_account():
+#     """Create new account."""
 
-    return render_template("register.html")
+#     return render_template("register.html")
 
 
 @app.route('/register', methods=["POST"])
@@ -415,7 +415,7 @@ def get_all_comments():
 @app.route('/delete-comment', methods=["POST"])
 def delete_comment():
     """Delete a comment."""
-    print("++++++", request.json)
+    # print("++++++", request.json)
 
     comment_to_delete = request.json
     crud.delete_comment(comment_to_delete)

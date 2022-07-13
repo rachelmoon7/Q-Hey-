@@ -26,7 +26,11 @@ const ShowPosts = (props) => {
 
     return (
         <React.Fragment>
-            {allPosts}
+             <ReactBootstrap.Container>
+                <ReactBootstrap.Row>
+                    <ReactBootstrap.Col>{allPosts}</ReactBootstrap.Col>
+                </ReactBootstrap.Row>
+            </ReactBootstrap.Container>
         </React.Fragment>
     )
 }
