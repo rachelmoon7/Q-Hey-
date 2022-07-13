@@ -2,9 +2,9 @@ const NavBar = () => {
 
     return (
         
-        <ReactBootstrap.Navbar bg="light" expand="lg">
+        <ReactBootstrap.Navbar className="color-nav" expand="lg">
             <ReactBootstrap.Container>
-                <ReactBootstrap.Navbar.Brand href="/landing-page">Home</ReactBootstrap.Navbar.Brand>
+                <ReactBootstrap.Navbar.Brand href="/landing-page"><img id="home-logo" src="/static/images/Logo.png" /></ReactBootstrap.Navbar.Brand>
                 <ReactBootstrap.Navbar.Toggle aria-controls="basic-navbar-nav" />
                 <ReactBootstrap.Navbar.Collapse id="basic-navbar-nav">
             <ReactBootstrap.Nav className="me-auto">

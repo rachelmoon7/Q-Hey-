@@ -6,7 +6,6 @@ const NewPost = (props) => {
     const [imgURL2, setImgURL2] = React.useState('');
     const [img2, setImg2] = React.useState('');
     const [caption, setCaption] = React.useState('');
-    const [entry, setEntry] = React.useState([]);
     const [showChosenImage, setShowChosenImage] = React.useState(false);
     const [showChosenImage2, setShowChosenImage2] = React.useState(false);
     const [chooseFile, setChooseFile] = React.useState('');
@@ -14,9 +13,12 @@ const NewPost = (props) => {
     const [postingOption, setPostingOption] = React.useState(false);
 
     const showPostingOption = () => {
+        console.log("CLOCKED ANSWER")
         setPostingOption(true);
     }
+
     const getCloudinaryLink = (file) => {
+        console.log("!!!")
         const data = new FormData();
         data.append("file", file);
         data.append("upload_preset", "pba5lu5s");
@@ -71,7 +73,7 @@ const NewPost = (props) => {
         })
 
     };
-
+    console.log("postingOption:", postingOption)
    //when key is changed, re-renders input tag (line 76) for enhanced user experience
     return (
         <React.Fragment> 

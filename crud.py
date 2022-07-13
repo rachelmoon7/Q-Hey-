@@ -131,9 +131,12 @@ def delete_post(post_id):
     Image.query.filter(Image.post_id==post_id).delete()
     db.session.commit()
     
+    Reaction.query.filter(Reaction.post_id==post_id).delete()
+    db.session.commit()
+
     Post.query.filter(Post.post_id==post_id).delete()
     db.session.commit()
-    
+
 
 def create_comment(post_id, user_id, text, comment_date):
     """Create a comment."""

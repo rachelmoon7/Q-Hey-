@@ -94,13 +94,13 @@ const MyFriends = () => {
                     : <div></div>               
                 } 
 
-            <h2>Friend Request:</h2>
+            <h2 class="friend-requests">Friend Request:</h2>
                 <FriendRequestContainer setFriendRequestHandled={setFriendRequestHandled}/>
 
-            <h2>Requested to...</h2>
+            <h2 class="requested-to">Requested to:</h2>
                 {pendingFriends}
 
-            <h2>My Friends:</h2>
+            <h2 class="my-friends">My Friends:</h2>
                 {allFriends}
         </React.Fragment>
     )

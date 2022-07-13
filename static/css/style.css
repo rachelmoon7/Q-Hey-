@@ -1,27 +1,69 @@
+.forms-section {
+	background-image: url("/static/images/Background.png");
+}
+/* body.container {
+	background-image: url("/static/images/Background.png") no-repeat center center;
+	background-size: cover;
+  } */
 img {
     max-height: 500px;
     max-width: 500px;
 }
 
 div {
-    font-family: 'Lora', serif;
+    font-family: 'Source Sans Pro', sans-serif;
 }
 
 button {
-    background-color: #c7e7ed; /* Ice */
+    background-color: #4abdac; /* Fresh */
     border:  5x white;
     color: black;
-    padding: 15px 32px
+    padding: 15px 14px;
+	margin: 2px 2px;
+	cursor: pointer;
+}
+
+h1 {
+	font-weight: 650;
+	font-family: 'Lora', serif;
+}
+
+.single-post {
+	border-top: black;
+	text-align: center;
+}
+
+.color-nav {
+	background-color: #F7B733;
+}
+
+#home-logo {
+	max-height: 250px;
+}
+
+.reactions {
+	background-color: #f1daa9;
+	display: inline-block;
+}
+
+#question {
+	font-size: 30px;
 }
 
 #answer {
-    background-color: #4781a5; /* fresh water */
+    background-color: #FC4A1A; /* fresh water */
     font-family: 'Lora', serif;
+	font-size: 25px;
 }
 
 #caption {
-    font-family: 'Lora', serif;
+    font-family: 'Source Sans Pro', sans-serif;
 }
+
+.grid-container {
+    display: grid;
+  }
+
 
 
 *,
@@ -33,7 +75,8 @@ button {
 body {
 	margin: 0;
 	font-family: Roboto, -apple-system, 'Helvetica Neue', 'Segoe UI', Arial, sans-serif;
-	background: #E9E9E9;
+	/* background: #E9E9E9; */
+	background-image: url("/static/images/Background.png")
 }
 
 .forms-section {

@@ -169,31 +169,65 @@ const SinglePost = (props) => {
 
     return (
         <React.Fragment>
-            <ReactBootstrap.Carousel activeIndex={index} onSelect={handleSelect} interval={null}>
-                {carouselItems}
-            </ReactBootstrap.Carousel>
+            <div class="single-post">
+            <ReactBootstrap.Container>
+                <ReactBootstrap.Row>
+                    <ReactBootstrap.Col>
+                        <ReactBootstrap.Carousel activeIndex={index} onSelect={handleSelect} interval={null}>
+                            {carouselItems}
+                        </ReactBootstrap.Carousel>
+                    </ReactBootstrap.Col>
 
+                    <ReactBootstrap.Col>
+                        
+                        <button onClick={() => {setShowCommentBox(true), 
+                                                setPostToComment(props.post_id)}
+                                        }>Comment</button>
+
+                        {showCommentBox ? 
+                            <div>
+                                <input type="text" 
+                                        key={allComments}
+                                        placeholder="Add a comment"
+                                        onChange={(e) => setComment(e.target.value)}>
+                                </input>
+                                <button type="submit" onClick={addComment}>Save</button>
+                            </div>
+                            : <div></div>
+                        } 
+            
+                        <div id="all-comments">
+                            {allComments}
+                        </div>
+                        
+                        {loggedInUser==props.username ? 
+                            <button onClick={() => {setPostToDelete(props.post_id), 
+                                                    setDeleteOrigin(props.deleteOnProfile), 
+                                                    setShowConfirmDelete(true)}
+                                            }>Delete Post</button>
+                            : <div></div>
+                        }
+
+                        {showConfirmDelete ?
+                            <button onClick={deletePost}>Confirm Delete</button>
+                            : <div></div>
+                        }
+                    </ReactBootstrap.Col>
+
+                   
+                </ReactBootstrap.Row>
+            </ReactBootstrap.Container>
+           
             <div>
-                <div id="caption">{props.username} caption: {props.caption}</div>
-                posted date: {props.post_date}   
+               {props.caption ?
+                <div id="caption">{props.username} {props.caption}</div>
+                : props.username }
+                <div id="post-date">posted date: {props.post_date}</div>   
             </div>
+            
 
-            {loggedInUser==props.username ? 
-                <button onClick={() => {setPostToDelete(props.post_id), 
-                                        setDeleteOrigin(props.deleteOnProfile), 
-                                        setShowConfirmDelete(true)}
-                                }>Delete Post</button>
-                : <div></div>
-            }
-
-            {showConfirmDelete ?
-                <button onClick={deletePost}>Confirm Delete</button>
-                : <div></div>
-            }
-
-            <button onClick={() => {setShowCommentBox(true), 
-                                    setPostToComment(props.post_id)}
-                            }>Comment</button>   
+            
+              
 
             <Reaction setNewReaction={setNewReaction}
                         newReaction={newReaction}
@@ -222,54 +256,36 @@ const SinglePost = (props) => {
                         setUsersWhoHugged={setUsersWhoHugged}
                         />
 
-            {showCommentBox ? 
-                <div>
-                    <input type="text" 
-                            key={allComments}
-                            placeholder="Add a comment"
-                            onChange={(e) => setComment(e.target.value)}>
-                    </input>
-                    <button type="submit" onClick={addComment}>Save</button>
-                </div>
-                : <div></div>
-            } 
             
-            <div id="all-comments">
-                {allComments}
-            </div>
             
             {numberOfLikes > 0 ?
-                <div>
-                    <div>Likes</div>
-                    {numberOfLikes}
-                </div>
+                <span>
+                    <span>👍: {numberOfLikes}   </span>
+                </span>
             : <div></div>
             }
 
             {numberOfLoves > 0 ?
-                <div>
-                    <div>Loves</div>
-                    {numberOfLoves}
-                </div>
+                <span>
+                    <span>💗: {numberOfLoves}   </span>
+                </span>
             : <div></div>
             }  
 
             {numberOfHaHas > 0 ?
-                <div>
-                    <div>Ha ha!s</div>
-                    {numberOfHaHas}
-                </div>  
+                <span>
+                    <span>😂: {numberOfHaHas}   </span>
+                </span>  
             : <div></div>
             }  
 
             {numberOfHugs > 0 ?
-                <div>
-                    <div>Hugs</div>
-                    {numberOfHugs}
-                </div>
+                <span>
+                    <span>🤗: {numberOfHugs}   </span>
+                </span>
             : <div></div>
             }            
-                      
+            </div>          
         </React.Fragment>
     )
 }
