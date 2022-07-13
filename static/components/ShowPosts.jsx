@@ -11,7 +11,8 @@ const ShowPosts = (props) => {
         console.log("USER:", user)
         console.log("allLandingPosts  after NEWPOST:", props.thePosts)
         for (const [postID, postInfo] of Object.entries(allUserPosts)) {
-                allPosts.push(<SinglePost username={user}
+                allPosts.push(<div class="single-post">
+                                        <SinglePost username={user}
                                           caption={postInfo['caption']}
                                           img_url={postInfo['img_url']} 
                                           img_url2={postInfo['img_url2']} 
@@ -21,7 +22,7 @@ const ShowPosts = (props) => {
                                           setMyProfilePosts={props.setMyProfilePosts}
                                           deleteOnLanding={props.deleteOnLanding}
                                           deleteOnProfile={props.deleteOnProfile}
-                                />)
+                                /> </div>)
     }};
 
     return (
