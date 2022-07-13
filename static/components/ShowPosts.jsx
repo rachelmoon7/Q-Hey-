@@ -8,21 +8,22 @@ const ShowPosts = (props) => {
     console.log("showPosts props:", props)
 
     for (const [user, allUserPosts] of Object.entries(props.thePosts)) {
-        console.log("USER:", user)
-        console.log("allLandingPosts  after NEWPOST:", props.thePosts)
+        // console.log("USER:", user)
+        // console.log("allLandingPosts  after NEWPOST:", props.thePosts)
         for (const [postID, postInfo] of Object.entries(allUserPosts)) {
-                allPosts.push(<div class="single-post">
-                                        <SinglePost username={user}
-                                          caption={postInfo['caption']}
-                                          img_url={postInfo['img_url']} 
-                                          img_url2={postInfo['img_url2']} 
-                                          post_id={postID} 
-                                          post_date={postInfo['post_date']} 
-                                          setAllLandingPosts={props.setAllLandingPosts}
-                                          setMyProfilePosts={props.setMyProfilePosts}
-                                          deleteOnLanding={props.deleteOnLanding}
-                                          deleteOnProfile={props.deleteOnProfile}
-                                /> </div>)
+            let d = new Date(postInfo['post_date'])
+            allPosts.push(<div class="single-post">
+                                    <SinglePost username={user}
+                                        caption={postInfo['caption']}
+                                        img_url={postInfo['img_url']} 
+                                        img_url2={postInfo['img_url2']} 
+                                        post_id={postID} 
+                                        post_date={d.toLocaleDateString()} 
+                                        setAllLandingPosts={props.setAllLandingPosts}
+                                        setMyProfilePosts={props.setMyProfilePosts}
+                                        deleteOnLanding={props.deleteOnLanding}
+                                        deleteOnProfile={props.deleteOnProfile}
+                            /> </div>)
     }};
 
     return (

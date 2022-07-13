@@ -75,20 +75,24 @@ const MyFriends = () => {
     return (
         <React.Fragment>
             <h2>Search for friends to add:</h2>
-                <input type="text" key={showSearchResult} 
-                                    name ="searchString" 
-                                    placeholder="Find friends via username" 
-                                    onChange={(e) => setSearchString(e.target.value)}
-                ></input>
-                <p>
+                <span>
+                    <input type="text" key={showSearchResult} 
+                                        name ="searchString" 
+                                        placeholder="Find friends via username" 
+                                        onChange={(e) => setSearchString(e.target.value)}
+                    ></input>
+                </span>
+                <span>
                     {searchString} 
-                </p>
+                </span>
 
-                <button type="submit" onClick={handleSearch}>Search</button>              
+                <span>
+                    <button type="submit" onClick={handleSearch}><i class="bi bi-search"></i></button>
+                </span>         
               
                 {showSearchResult ? 
                     <div>
-                        <div> Add this friend?:</div>
+                        <div> Click to add this friend:</div>
                         <button onClick={requestFriend}>  {result} </button> 
                         </div>
                     : <div></div>               

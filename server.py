@@ -68,13 +68,6 @@ def landing_page():
     return render_template('landing-page.html', questions=questions, week_num=week_num, posts=posts, images=images)
 
 
-# @app.route('/signup')
-# def create_account():
-#     """Create new account."""
-
-#     return render_template("register.html")
-
-
 @app.route('/register', methods=["POST"])
 def register_user():
     """Create a new user."""    
@@ -488,7 +481,7 @@ def profile_posts(user_id):
     caption_image = {}
     #current_week_posts_obj is a list of post objects for each user [{post1 info}, {post2 info}]
     posts_obj = crud.get_users_previous_posts(user_id)
-    # print("$$$$$server 292 post obj?", posts_obj[0].post_id)
+    # print("$$$$$server 484 post obj?", posts_obj[0].post_id)
     for post in posts_obj:
             caption_image[post.post_id] = {'caption': post.caption}
             caption_image[post.post_id]['post_date'] = post.post_date
@@ -501,7 +494,7 @@ def profile_posts(user_id):
     username = crud.get_username(user_id)
     post_info[username] = caption_image
         
-    # print("!@!@!@!@!@ Server 304", post_info)
+    # print("!@!@!@!@!@ Server 497", post_info)
     return jsonify(post_info)
 
 

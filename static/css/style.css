@@ -12,9 +12,9 @@ button {
     background-color: #4abdac; /* Fresh */
     border:  5x white;
     color: black;
-    padding: 15px 14px;
 	margin: 2px 2px;
 	cursor: pointer;
+	font-size: 30px;
 }
 
 h1 {
@@ -46,6 +46,10 @@ a {
 	display: inline-block;
 }
 
+.reaction-count{
+	font-size: 25px;
+}
+
 #question {
 	font-size: 30px;
 }
@@ -68,7 +72,8 @@ a {
 }
 
 .single-post {
-	text-align: center;
+	border: 2px solid black;
+	background-color: #fff7d8;
 }
 
 .grid-container {

@@ -123,7 +123,7 @@ const NewPost = (props) => {
                         <input type="text" placeholder="Type caption here" value = {caption} onChange={(e) => setCaption(e.target.value)}></input>
                     </div>
 
-                    <button id="post-button" onClick = {upload}><i class="bi bi-save2-fill"></i></button> 
+                    <button id="post-button" onClick = {upload}><i class="bi bi-plus-circle-fill"></i></button> 
                 </div>
                 : <div> </div>
             }
