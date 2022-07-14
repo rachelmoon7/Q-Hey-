@@ -138,6 +138,7 @@ const SinglePost = (props) => {
                                                                 afterDeletedComment={afterDeletedComment}
                                                         />]);
             setComment('');
+            setShowCommentBox(false);
         })
     }
 
@@ -196,12 +197,16 @@ const SinglePost = (props) => {
                 
                 <div class="caption-and-date">
                     {props.caption ?
-                        <span id="caption">{props.username} "{props.caption}"</span>
-                    : <span>props.username </span>
+                        <span id="caption"><span id="username">{props.username}</span> "{props.caption}"</span>
+                    : <span>{props.username} </span>
                     }
                     <div id="post-date"><span>posted date: {props.post_date}</span></div>   
                 </div>
-
+                <ReactBootstrap.Stack direction="horizontal" gap={3}>
+                <div className="bg-light border">First item</div>
+                <div className="bg-light border">Second item</div>
+                <div className="bg-light border">Third item</div>
+                </ReactBootstrap.Stack>
                 <button class="comment"
                         onClick={() => {setShowCommentBox(true), 
                                         setPostToComment(props.post_id)}

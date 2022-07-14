@@ -104,8 +104,8 @@ const MyFriends = () => {
             <h2 class="requested-to">Requested to:</h2>
                 {pendingFriends}
 
-            <h2 class="my-friends">My Friends:</h2>
-                {allFriends}
+            <h2>My Friends:</h2>
+                <div class="my-friends">{allFriends}</div>
         </React.Fragment>
     )
 }

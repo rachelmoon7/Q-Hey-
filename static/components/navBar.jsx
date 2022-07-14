@@ -6,7 +6,7 @@ const NavBar = () => {
             <div><h1>Q&Hey!</h1></div>
             <span>
                 <ReactBootstrap.Container className="navbar-tabs">
-                    <ReactBootstrap.Navbar.Brand href="/landing-page"><img id="home-logo" src="/static/images/Logo.png" />
+                    <ReactBootstrap.Navbar.Brand href="/landing-page"><img id="home-logo" src="/static/images/Logo2.png" />
                     </ReactBootstrap.Navbar.Brand>
 
                     <ReactBootstrap.Navbar.Toggle aria-controls="basic-navbar-nav" />

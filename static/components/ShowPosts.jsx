@@ -36,8 +36,11 @@ const ShowPosts = (props) => {
                 </ReactBootstrap.Row>
             </ReactBootstrap.Container>
              */}
-            <ReactBootstrap.Stack direction="horizontal" gap={2}>
+            <ReactBootstrap.Stack direction="horizontal" gap={90}>
+                <div className="bg-light border"></div>
                 <div className="bg-light border">{allPosts}</div>
+                <div className="bg-light border"></div>
+
             </ReactBootstrap.Stack>
         </React.Fragment>
     )
