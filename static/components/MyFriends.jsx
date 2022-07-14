@@ -98,14 +98,14 @@ const MyFriends = () => {
                     : <div></div>               
                 } 
 
-            <h2 class="friend-requests">Friend Request:</h2>
+            <h2 className="friend-requests">Friend Request:</h2>
                 <FriendRequestContainer setFriendRequestHandled={setFriendRequestHandled}/>
 
-            <h2 class="requested-to">Requested to:</h2>
+            <h2 className="requested-to">Requested to:</h2>
                 {pendingFriends}
 
             <h2>My Friends:</h2>
-                <div class="my-friends">{allFriends}</div>
+                <div className="my-friends">{allFriends}</div>
         </React.Fragment>
     )
 }

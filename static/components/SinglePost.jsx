@@ -127,6 +127,7 @@ const SinglePost = (props) => {
             console.log("addcomment result to siinglepost", result)
             // setNewComment(result[0]['comment'])
             let d = new Date(result['comment_date']);
+            console.log("!!!d.toLocaleDateString()", d.toLocaleDateString())
             setAllComments(prevState => [...prevState, <Comment username={result['username']}
                                                                 commentDate={d.toLocaleDateString()}
                                                                 text={result['text']}
@@ -171,7 +172,7 @@ const SinglePost = (props) => {
 
     return (
         <React.Fragment>
-            <div class="single-post">
+            <div className="single-post">
                 {/* <ReactBootstrap.Container className="mx-auto">
                     <ReactBootstrap.Row>
                         <ReactBootstrap.Col>
@@ -187,6 +188,10 @@ const SinglePost = (props) => {
                     </ReactBootstrap.Row>
                 </ReactBootstrap.Container> */}
                 <ReactBootstrap.Stack direction="horizontal" gap={3}>
+                    <span id="username">{props.username}</span>
+                    <span>posted date: {props.post_date}</span>
+                </ReactBootstrap.Stack>
+                <ReactBootstrap.Stack direction="horizontal" gap={3}>
                 <div className="bg-light border"> <ReactBootstrap.Carousel activeIndex={index} onSelect={handleSelect} interval={null}>
                                 {carouselItems}
                             </ReactBootstrap.Carousel></div>
@@ -195,18 +200,29 @@ const SinglePost = (props) => {
                             </div></div>
                 </ReactBootstrap.Stack>
                 
-                <div class="caption-and-date">
+                {/* <div class="caption-and-date">
                     {props.caption ?
-                        <span id="caption"><span id="username">{props.username}</span> "{props.caption}"</span>
-                    : <span>{props.username} </span>
+                        <span id="caption">"{props.caption}"</span>
+                    : <span>{props.username}</span>
                     }
                     <div id="post-date"><span>posted date: {props.post_date}</span></div>   
-                </div>
+                </div> */}
+
                 <ReactBootstrap.Stack direction="horizontal" gap={3}>
-                <div className="bg-light border">First item</div>
-                <div className="bg-light border">Second item</div>
-                <div className="bg-light border">Third item</div>
+                <div className="bg-light border">
+                    <div class="caption-and-date">
+                        {props.caption ?
+                            <span id="caption">"{props.caption}"</span>
+                        : <span>{props.username}</span>
+                        }
+                        <div id="post-date">
+                            
+                        </div>   
+                    </div>
+                </div>
+               
                 </ReactBootstrap.Stack>
+
                 <button class="comment"
                         onClick={() => {setShowCommentBox(true), 
                                         setPostToComment(props.post_id)}
@@ -216,7 +232,8 @@ const SinglePost = (props) => {
                         </i>
                     </span>
                 </button>
-
+                {/* space between chat and react button */}
+                <span>     </span>
                 {showCommentBox ? 
                     <div>
                         <input type="text" 
@@ -265,7 +282,7 @@ const SinglePost = (props) => {
                             />
 
                 
-                    <div class="reaction-count">
+                    <div className="reaction-count">
                         {numberOfLikes > 0 ?
                             <span>
                                 <span><i class="bi bi-hand-thumbs-up"></i>: {numberOfLikes}   </span>

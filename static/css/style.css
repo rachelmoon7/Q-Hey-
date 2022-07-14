@@ -17,9 +17,6 @@ button {
 	outline: none;
 	border: none;
     background-color: #4abdac; /* Fresh */
-    /* border:  5x white; */
-    /* color: black; */
-	/* margin: 2px 2px; */
 	cursor: pointer;
 	font-size: 20px;
 	
@@ -32,9 +29,17 @@ button {
 }
 
 .trash {
-	background-color:#DFDCE3
+	background-color:#DFDCE3;
+	display: block;
+  	height: 30px;
+  	width: 30px;
+  	border-radius: 40%;
+	text-align: center;
 }
+.trash:hover {
+	background-color:#919195;
 
+}
 h1 {
 	font-weight: 650;
 	font-family: 'Lora', serif;
@@ -89,6 +94,7 @@ h2 span {
 
 .reaction-count{
 	font-size: 25px;
+	
 }
 
 #question {
@@ -99,8 +105,16 @@ h2 span {
     background-color: #F78733; /* fresh water */
     font-family: 'Arima', cursive;
 	font-size: 25px;
+	border-radius: 9px;
+	text-align: center;
+	text-decoration: none;
+
 }
 
+#answer:hover {
+	background-color: #d66f20; /* fresh water */
+
+}
 .question span {
 	background: #a7e245;
 }
@@ -124,7 +138,8 @@ h2 span {
 }
 
 #username {
-	color: blue;
+	color: black;
+	font-size: 30px;
 }
 
 #post-date span {
