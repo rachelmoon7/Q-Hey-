@@ -74,10 +74,10 @@ const NewPost = (props) => {
 
     };
     console.log("postingOption:", postingOption)
-   //when key is changed, re-renders input tag (line 76) for enhanced user experience
+   //when key is changed, re-renders input tag for enhanced user experience
     return (
         <React.Fragment> 
-            <button id="answer" onClick={showPostingOption}>Answer</button>
+            <span><button id="answer" onClick={showPostingOption}>Hey, I'll Answer!</button></span>
 
             { postingOption ?
                 <div>

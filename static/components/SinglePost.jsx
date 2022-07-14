@@ -171,127 +171,130 @@ const SinglePost = (props) => {
     return (
         <React.Fragment>
             <div class="single-post">
-            <ReactBootstrap.Container className="mx-auto">
-                <ReactBootstrap.Row>
-                    <ReactBootstrap.Col>
-                        
-                        <ReactBootstrap.Carousel activeIndex={index} onSelect={handleSelect} interval={null}>
-                            {carouselItems}
-                        </ReactBootstrap.Carousel>
-                    </ReactBootstrap.Col>
-
-                    <ReactBootstrap.Col>
-                        
-                        <button onClick={() => {setShowCommentBox(true), 
-                                                setPostToComment(props.post_id)}
-                                        }><span class="comment" ><i class="bi bi-chat-dots"></i></span></button>
-
-                        {showCommentBox ? 
-                            <div>
-                                <input type="text" 
-                                        key={allComments}
-                                        placeholder="Add a comment"
-                                        onChange={(e) => setComment(e.target.value)}>
-                                </input>
-                                <button type="submit" onClick={addComment}><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-send-plus" viewBox="0 0 16 16">
-                                <path d="M15.964.686a.5.5 0 0 0-.65-.65L.767 5.855a.75.75 0 0 0-.124 1.329l4.995 3.178 1.531 2.406a.5.5 0 0 0 .844-.536L6.637 10.07l7.494-7.494-1.895 4.738a.5.5 0 1 0 .928.372l2.8-7Zm-2.54 1.183L5.93 9.363 1.591 6.602l11.833-4.733Z"/>
-                                <path d="M16 12.5a3.5 3.5 0 1 1-7 0 3.5 3.5 0 0 1 7 0Zm-3.5-2a.5.5 0 0 0-.5.5v1h-1a.5.5 0 0 0 0 1h1v1a.5.5 0 0 0 1 0v-1h1a.5.5 0 0 0 0-1h-1v-1a.5.5 0 0 0-.5-.5Z"/>
-                                </svg></button>
+                <ReactBootstrap.Container className="mx-auto">
+                    <ReactBootstrap.Row>
+                        <ReactBootstrap.Col>
+                            <ReactBootstrap.Carousel activeIndex={index} onSelect={handleSelect} interval={null}>
+                                {carouselItems}
+                            </ReactBootstrap.Carousel>
+                        </ReactBootstrap.Col>
+                        <ReactBootstrap.Col class="right-column">
+                            <div id="all-comments">
+                                {allComments}
                             </div>
-                            : <div></div>
+                        </ReactBootstrap.Col>
+                    </ReactBootstrap.Row>
+                </ReactBootstrap.Container>
+                
+                <div class="caption-and-date">
+                    {props.caption ?
+                        <span id="caption">{props.username} {props.caption}</span>
+                    : <span>props.username </span>
+                    }
+                    <div id="post-date"><span>posted date: {props.post_date}</span></div>   
+                </div>
+
+                <button class="comment"
+                        onClick={() => {setShowCommentBox(true), 
+                                        setPostToComment(props.post_id)}
+                                }>
+                    <span  >
+                        <i class="bi bi-chat-dots">
+                        </i>
+                    </span>
+                </button>
+
+                {showCommentBox ? 
+                    <div>
+                        <input type="text" 
+                                key={allComments}
+                                placeholder="Add a comment"
+                                onChange={(e) => setComment(e.target.value)}>
+                        </input>
+                        <button type="submit" onClick={addComment}>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-send-plus" viewBox="0 0 16 16">
+                            <path d="M15.964.686a.5.5 0 0 0-.65-.65L.767 5.855a.75.75 0 0 0-.124 1.329l4.995 3.178 1.531 2.406a.5.5 0 0 0 .844-.536L6.637 10.07l7.494-7.494-1.895 4.738a.5.5 0 1 0 .928.372l2.8-7Zm-2.54 1.183L5.93 9.363 1.591 6.602l11.833-4.733Z"/>
+                            <path d="M16 12.5a3.5 3.5 0 1 1-7 0 3.5 3.5 0 0 1 7 0Zm-3.5-2a.5.5 0 0 0-.5.5v1h-1a.5.5 0 0 0 0 1h1v1a.5.5 0 0 0 1 0v-1h1a.5.5 0 0 0 0-1h-1v-1a.5.5 0 0 0-.5-.5Z"/>
+                            </svg>
+                        </button>
+                    </div>
+                : <span></span>
+                } 
+
+                
+                
+
+                <Reaction setNewReaction={setNewReaction}
+                            newReaction={newReaction}
+                            postID={props.post_id}
+                            // setUndoReaction={setUndoReaction}
+                            loggedInUser={loggedInUser}
+
+                            numberOfLikes={numberOfLikes}
+                            setNumberOfLikes={setNumberOfLikes}
+                            usersWhoLiked={usersWhoLiked}
+                            setUsersWhoLiked={setUsersWhoLiked}
+
+                            numberOfLoves={numberOfLoves}
+                            setNumberOfLoves={setNumberOfLoves}
+                            usersWhoLoved={usersWhoLoved}
+                            setUsersWhoLoved={setUsersWhoLoved}
+
+                            numberOfHaHas={numberOfHaHas}
+                            setNumberOfHahas={setNumberOfHahas}
+                            usersWhoHaha={usersWhoHaha}
+                            setUsersWhoHaha={setUsersWhoHaha}
+
+                            numberOfHugs={numberOfHugs}
+                            setNumberOfHugs={setNumberOfHugs}
+                            usersWhoHugged={usersWhoHugged}
+                            setUsersWhoHugged={setUsersWhoHugged}
+                            />
+
+                
+                    <div class="reaction-count">
+                        {numberOfLikes > 0 ?
+                            <span>
+                                <span><i class="bi bi-hand-thumbs-up"></i>: {numberOfLikes}   </span>
+                            </span>
+                        : <span></span>
+                        }
+
+                        {numberOfLoves > 0 ?
+                            <span>
+                                <span><i class="bi bi-suit-heart"></i>: {numberOfLoves}   </span>
+                            </span>
+                        : <span></span>
+                        }  
+
+                        {numberOfHaHas > 0 ?
+                            <span>
+                                <span><i class="bi bi-emoji-laughing"></i>: {numberOfHaHas}   </span>
+                            </span>  
+                        : <span></span>
+                        }  
+
+                        {numberOfHugs > 0 ?
+                            <span>
+                                <span><i class="bi bi-emoji-angry"></i>: {numberOfHugs}   </span>
+                            </span>
+                        : <span></span>
                         } 
-            
-                        <div id="all-comments">
-                            {allComments}
-                        </div>
-                        
-                        {loggedInUser==props.username ? 
-                            <button onClick={() => {setPostToDelete(props.post_id), 
-                                                    setDeleteOrigin(props.deleteOnProfile), 
-                                                    setShowConfirmDelete(true)}
-                                            }><i class="bi bi-trash"></i></button>
-                            : <div></div>
-                        }
-
-                        {showConfirmDelete ?
-                            <button onClick={deletePost}>Confirm <i class="bi bi-trash-fill"></i></button>
-                            : <div></div>
-                        }
-                    </ReactBootstrap.Col>
-
-                   
-                </ReactBootstrap.Row>
-            </ReactBootstrap.Container>
-           
-            <div>
-               {props.caption ?
-                <div id="caption">{props.username} {props.caption}</div>
-                : props.username }
-                <div id="post-date">posted date: {props.post_date}</div>   
-            </div>
-            
-
-            
-              
-
-            <Reaction setNewReaction={setNewReaction}
-                        newReaction={newReaction}
-                        postID={props.post_id}
-                        // setUndoReaction={setUndoReaction}
-                        loggedInUser={loggedInUser}
-
-                        numberOfLikes={numberOfLikes}
-                        setNumberOfLikes={setNumberOfLikes}
-                        usersWhoLiked={usersWhoLiked}
-                        setUsersWhoLiked={setUsersWhoLiked}
-
-                        numberOfLoves={numberOfLoves}
-                        setNumberOfLoves={setNumberOfLoves}
-                        usersWhoLoved={usersWhoLoved}
-                        setUsersWhoLoved={setUsersWhoLoved}
-
-                        numberOfHaHas={numberOfHaHas}
-                        setNumberOfHahas={setNumberOfHahas}
-                        usersWhoHaha={usersWhoHaha}
-                        setUsersWhoHaha={setUsersWhoHaha}
-
-                        numberOfHugs={numberOfHugs}
-                        setNumberOfHugs={setNumberOfHugs}
-                        usersWhoHugged={usersWhoHugged}
-                        setUsersWhoHugged={setUsersWhoHugged}
-                        />
-
-            
-                <div class="reaction-count">
-                    {numberOfLikes > 0 ?
-                        <span>
-                            <span><i class="bi bi-hand-thumbs-up"></i>: {numberOfLikes}   </span>
-                        </span>
-                    : <span></span>
+                    </div>
+                    {loggedInUser==props.username ? 
+                        <button onClick={() => {setPostToDelete(props.post_id), 
+                                                setDeleteOrigin(props.deleteOnProfile), 
+                                                setShowConfirmDelete(true)}
+                                        }
+                                class="delete-post"><i class="bi bi-trash"></i></button>
+                    : <div></div>
                     }
 
-                    {numberOfLoves > 0 ?
-                        <span>
-                            <span><i class="bi bi-suit-heart"></i>: {numberOfLoves}   </span>
-                        </span>
-                    : <span></span>
-                    }  
-
-                    {numberOfHaHas > 0 ?
-                        <span>
-                            <span><i class="bi bi-emoji-laughing"></i>: {numberOfHaHas}   </span>
-                        </span>  
-                    : <span></span>
-                    }  
-
-                    {numberOfHugs > 0 ?
-                        <span>
-                            <span><i class="bi bi-emoji-angry"></i>: {numberOfHugs}   </span>
-                        </span>
-                    : <span></span>
-                    } 
-                </div>           
-            </div>          
+                    {showConfirmDelete ?
+                        <button onClick={deletePost}>Confirm <i class="bi bi-trash-fill"></i></button>
+                    : <div></div>
+                    }           
+            </div>  
         </React.Fragment>
     )
 }

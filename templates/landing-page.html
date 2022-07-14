@@ -3,14 +3,14 @@
 
 {% block body %}
 <div id="navBar"></div>
-<body class="logged-in"></body>
+<body class="background"></body>
 
 <h1>Q&Hey!</h1>
 
-<h2>Question for this week: </h2>
-<div id="question">{{ questions[week_num - 1].question }}</div>
+<h2 class="question"><span>Question for this week: </span></h2>
+<div class="question" id="question">{{ questions[week_num - 1].question }}</div>
 
-<h2>Answers for this week: </h2>
+<h2><span>Answers for this week: </span></h2>
 <div id="reactLandingPosts"></div>
 
 

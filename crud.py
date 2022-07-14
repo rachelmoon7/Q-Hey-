@@ -129,10 +129,13 @@ def delete_post(post_id):
     """Delete post object from database."""
 
     Image.query.filter(Image.post_id==post_id).delete()
-    db.session.commit()
+    # db.session.commit()
     
     Reaction.query.filter(Reaction.post_id==post_id).delete()
-    db.session.commit()
+    # db.session.commit()
+    
+    Comment.query.filter(Comment.post_id==post_id).delete()
+    # db.session.commit()
 
     Post.query.filter(Post.post_id==post_id).delete()
     db.session.commit()

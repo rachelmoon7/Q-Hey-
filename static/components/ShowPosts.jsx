@@ -28,8 +28,10 @@ const ShowPosts = (props) => {
 
     return (
         <React.Fragment>
+            {/* <div class="grid">{allPosts}</div> */}
              <ReactBootstrap.Container>
                 <ReactBootstrap.Row>
+                
                     <ReactBootstrap.Col>{allPosts}</ReactBootstrap.Col>
                 </ReactBootstrap.Row>
             </ReactBootstrap.Container>
