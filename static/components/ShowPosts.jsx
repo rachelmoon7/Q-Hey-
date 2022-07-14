@@ -29,12 +29,16 @@ const ShowPosts = (props) => {
     return (
         <React.Fragment>
             {/* <div class="grid">{allPosts}</div> */}
-             <ReactBootstrap.Container>
+             {/* <ReactBootstrap.Container>
                 <ReactBootstrap.Row>
                 
                     <ReactBootstrap.Col>{allPosts}</ReactBootstrap.Col>
                 </ReactBootstrap.Row>
             </ReactBootstrap.Container>
+             */}
+            <ReactBootstrap.Stack direction="horizontal" gap={2}>
+                <div className="bg-light border">{allPosts}</div>
+            </ReactBootstrap.Stack>
         </React.Fragment>
     )
 }

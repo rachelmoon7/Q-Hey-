@@ -3,6 +3,7 @@ const NavBar = () => {
     return (
         
         <ReactBootstrap.Navbar className="justify-content-center" expand="lg">
+            <div><h1>Q&Hey!</h1></div>
             <span>
                 <ReactBootstrap.Container className="navbar-tabs">
                     <ReactBootstrap.Navbar.Brand href="/landing-page"><img id="home-logo" src="/static/images/Logo.png" />

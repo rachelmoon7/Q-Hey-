@@ -171,7 +171,7 @@ const SinglePost = (props) => {
     return (
         <React.Fragment>
             <div class="single-post">
-                <ReactBootstrap.Container className="mx-auto">
+                {/* <ReactBootstrap.Container className="mx-auto">
                     <ReactBootstrap.Row>
                         <ReactBootstrap.Col>
                             <ReactBootstrap.Carousel activeIndex={index} onSelect={handleSelect} interval={null}>
@@ -184,11 +184,19 @@ const SinglePost = (props) => {
                             </div>
                         </ReactBootstrap.Col>
                     </ReactBootstrap.Row>
-                </ReactBootstrap.Container>
+                </ReactBootstrap.Container> */}
+                <ReactBootstrap.Stack direction="horizontal" gap={3}>
+                <div className="bg-light border"> <ReactBootstrap.Carousel activeIndex={index} onSelect={handleSelect} interval={null}>
+                                {carouselItems}
+                            </ReactBootstrap.Carousel></div>
+                <div className="bg-light border"><div id="all-comments">
+                                {allComments}
+                            </div></div>
+                </ReactBootstrap.Stack>
                 
                 <div class="caption-and-date">
                     {props.caption ?
-                        <span id="caption">{props.username} {props.caption}</span>
+                        <span id="caption">{props.username} "{props.caption}"</span>
                     : <span>props.username </span>
                     }
                     <div id="post-date"><span>posted date: {props.post_date}</span></div>   
@@ -211,7 +219,7 @@ const SinglePost = (props) => {
                                 placeholder="Add a comment"
                                 onChange={(e) => setComment(e.target.value)}>
                         </input>
-                        <button type="submit" onClick={addComment}>
+                        <button id="submit-comment" type="submit" onClick={addComment}>
                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-send-plus" viewBox="0 0 16 16">
                             <path d="M15.964.686a.5.5 0 0 0-.65-.65L.767 5.855a.75.75 0 0 0-.124 1.329l4.995 3.178 1.531 2.406a.5.5 0 0 0 .844-.536L6.637 10.07l7.494-7.494-1.895 4.738a.5.5 0 1 0 .928.372l2.8-7Zm-2.54 1.183L5.93 9.363 1.591 6.602l11.833-4.733Z"/>
                             <path d="M16 12.5a3.5 3.5 0 1 1-7 0 3.5 3.5 0 0 1 7 0Zm-3.5-2a.5.5 0 0 0-.5.5v1h-1a.5.5 0 0 0 0 1h1v1a.5.5 0 0 0 1 0v-1h1a.5.5 0 0 0 0-1h-1v-1a.5.5 0 0 0-.5-.5Z"/>
@@ -286,12 +294,12 @@ const SinglePost = (props) => {
                                                 setDeleteOrigin(props.deleteOnProfile), 
                                                 setShowConfirmDelete(true)}
                                         }
-                                class="delete-post"><i class="bi bi-trash"></i></button>
+                                        class="trash"><i class="bi bi-trash"></i></button>
                     : <div></div>
                     }
 
                     {showConfirmDelete ?
-                        <button onClick={deletePost}>Confirm <i class="bi bi-trash-fill"></i></button>
+                        <button class="trash" onClick={deletePost}>Confirm <i class="bi bi-trash-fill"></i></button>
                     : <div></div>
                     }           
             </div>  

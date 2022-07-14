@@ -58,7 +58,6 @@ const Reaction = (props) => {
         <React.Fragment>
 
                 <button
-                    class="react"
                     onMouseEnter={() => setIsShown(true)}
                     onMouseLeave={() => setIsShown(true)}>
                     React!

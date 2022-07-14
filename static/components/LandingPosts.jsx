@@ -14,14 +14,25 @@ const LandingPosts = (props) => {
 
     return ( 
         <React.Fragment>
-            <NewPost 
+            <ReactBootstrap.Stack gap={10}>
+                <div className="bg-light border"><NewPost 
+                            setAllLandingPosts={setAllLandingPosts}                
+                        /></div>
+                <div className="bg-light border"><ShowPosts 
+                            thePosts={allLandingPosts} 
+                            setAllLandingPosts={setAllLandingPosts}
+                            deleteOnProfile={false}
+                        /></div>
+            
+            </ReactBootstrap.Stack>
+            {/* <NewPost 
                 setAllLandingPosts={setAllLandingPosts}                
-            />   
-            <ShowPosts 
+            />    */}
+            {/* <ShowPosts 
                 thePosts={allLandingPosts} 
                 setAllLandingPosts={setAllLandingPosts}
                 deleteOnProfile={false}
-            />
+            /> */}
         </React.Fragment>
     )
 }

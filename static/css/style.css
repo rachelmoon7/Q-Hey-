@@ -14,21 +14,22 @@ div {
 }
 
 button {
-    background-color: #DFDCE3; /* Fresh */
+    background-color: #4abdac; /* Fresh */
     border:  5x white;
     color: black;
 	margin: 2px 2px;
 	cursor: pointer;
-	font-size: 30px;
+	font-size: 20px;
 }
 
-.submit-comment {
-	background-color: #4abdac; /* Fresh */
 
+
+#submit-comment {
+	background-color: #a7e245; /* Fresh */
 }
 
-.delete-post {
-	text-align: left;
+.trash {
+	background-color:#DFDCE3
 }
 
 h1 {
@@ -114,14 +115,14 @@ h2 span {
 }
 
 .caption-and-date span{
-	background-color: white;
+	background-color: #fff7d8;
 	color: black;
 	font-size: 30px;
 	border: 2px solid #4abdac;
 }
 
 #post-date span {
-	background-color: white;
+	background-color: #fff7d8;
 	color: BLACK;
 	width: 50%;
 	font-size: 25px;
@@ -130,14 +131,13 @@ h2 span {
 
 #caption {
     font-family: 'Source Sans Pro', sans-serif;
-
 }
 
 .grid-container {
     display: grid;
   }
 
-.comment  {
+/* .comment  {
 	font-size: 20px;
 	background-color: #4abdac;
 
@@ -146,7 +146,7 @@ h2 span {
 	font-size: 20px;
 	background-color: #4abdac;
 
-}
+} */
 
 .right-column {
 	text-align: left;
