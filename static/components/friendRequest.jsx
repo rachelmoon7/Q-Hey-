@@ -34,9 +34,9 @@ const FriendRequest = (props) => {
             <div>
             <span id="friend-request-from">{props.name}</span>
 
-            <button type="submit" onClick={handleAccept}><i class="bi bi-person-check"></i></button>
+            <button type="submit" onClick={handleAccept}><i className="bi bi-person-check"></i></button>
             
-            <button type="submit" onClick={handleDeny}><i class="bi bi-person-x-fill"></i></button>
+            <button type="submit" onClick={handleDeny}><i className="bi bi-person-x-fill"></i></button>
             </div>
         </React.Fragment>
         : <span></span>

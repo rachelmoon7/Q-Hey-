@@ -75,42 +75,42 @@ const Reaction = (props) => {
                     <div className="reactions">
                         <span>Reaction options</span>
                         {showLike && !props.usersWhoLiked.includes(props.loggedInUser) ?
-                            <button className="reactions" onClick={() => {setIsShown(false), addReaction('Like'), setShowLike(false), setShowUnlike(true)}}><i class="bi bi-hand-thumbs-up"></i></button>
+                            <button className="reactions" onClick={() => {setIsShown(false), addReaction('Like'), setShowLike(false), setShowUnlike(true)}}><i className="bi bi-hand-thumbs-up"></i></button>
                         : <div className="reactions"></div>
                         }
                         
                         {props.usersWhoLiked.includes(props.loggedInUser) ?
-                            <button className="reactions" onClick={() => {setIsShown(false), undoReaction('Like'), setShowLike(true)}}><i class="bi bi-hand-thumbs-up-fill"></i></button>
+                            <button className="reactions" onClick={() => {setIsShown(false), undoReaction('Like'), setShowLike(true)}}><i className="bi bi-hand-thumbs-up-fill"></i></button>
                         : <div className="reactions"></div>
                         }
                       
                         {showLove && !props.usersWhoLoved.includes(props.loggedInUser) ?
-                            <button className="reactions" onClick={() => {setIsShown(false), addReaction('Love'), setShowLove(false), setShowUnlove(true)}}><i class="bi bi-suit-heart"></i></button>
+                            <button className="reactions" onClick={() => {setIsShown(false), addReaction('Love'), setShowLove(false), setShowUnlove(true)}}><i className="bi bi-suit-heart"></i></button>
                         : <div className="reactions"></div>
                         }
                         
                         {props.usersWhoLoved.includes(props.loggedInUser) ?
-                            <button className="reactions" onClick={() => {setIsShown(false), undoReaction('Love'), setShowLove(true)}}><i class="bi bi-suit-heart-fill"></i></button>
+                            <button className="reactions" onClick={() => {setIsShown(false), undoReaction('Love'), setShowLove(true)}}><i className="bi bi-suit-heart-fill"></i></button>
                         : <div className="reactions"></div>
                         }
                         
                         {showHaha && !props.usersWhoHaha.includes(props.loggedInUser) ?
-                            <button className="reactions" onClick={() => {setIsShown(false), addReaction('Ha ha!'), setShowHaha(false), setShowUnhaha(true)}}><i class="bi bi-emoji-laughing"></i></button>
+                            <button className="reactions" onClick={() => {setIsShown(false), addReaction('Ha ha!'), setShowHaha(false), setShowUnhaha(true)}}><i className="bi bi-emoji-laughing"></i></button>
                         : <div className="reactions"></div>
                         }
                         
                         {props.usersWhoHaha.includes(props.loggedInUser) ?
-                            <button className="reactions" onClick={() => {setIsShown(false), undoReaction('Ha ha!'), setShowHaha(true)}}><i class="bi bi-emoji-laughing-fill"></i></button>
+                            <button className="reactions" onClick={() => {setIsShown(false), undoReaction('Ha ha!'), setShowHaha(true)}}><i className="bi bi-emoji-laughing-fill"></i></button>
                         : <div className="reactions"></div>
                         }
 
                         {showHug && !props.usersWhoHugged.includes(props.loggedInUser) ?
-                            <button className="reactions" onClick={() => {setIsShown(false), addReaction('Hug'), setShowHug(false), setShowUnhug(true)}}><i class="bi bi-emoji-angry"></i></button> 
+                            <button className="reactions" onClick={() => {setIsShown(false), addReaction('Hug'), setShowHug(false), setShowUnhug(true)}}><i className="bi bi-emoji-angry"></i></button> 
                         : <div className="reactions"></div>
                         }
                         
                         {props.usersWhoHugged.includes(props.loggedInUser) ?
-                            <button className="reactions" onClick={() => {setIsShown(false), undoReaction('Hug'), setShowHug(true)}}><i class="bi bi-emoji-angry-fill"></i></button>
+                            <button className="reactions" onClick={() => {setIsShown(false), undoReaction('Hug'), setShowHug(true)}}><i className="bi bi-emoji-angry-fill"></i></button>
                         : <div className="reactions"></div>
                         }
 

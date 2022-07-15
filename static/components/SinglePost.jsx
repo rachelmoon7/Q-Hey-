@@ -210,7 +210,7 @@ const SinglePost = (props) => {
 
                         <ReactBootstrap.Stack direction="horizontal" gap={3}>
                             <div className="bg-light border">
-                                <div class="caption-and-date">
+                                <div className="caption-and-date">
                                     {props.caption ?
                                         <span id="caption">"{props.caption}"</span>
                                     : <span>{props.username}</span>
@@ -220,12 +220,12 @@ const SinglePost = (props) => {
                             </div>
                         </ReactBootstrap.Stack>
 
-                        <button class="comment"
+                        <button className="comment"
                                 onClick={() => {setShowCommentBox(true), 
                                                 setPostToComment(props.post_id)}
                                         }>
                             <span  >
-                                <i class="bi bi-chat-dots">
+                                <i className="bi bi-chat-dots">
                                 </i>
                             </span>
                         </button>
@@ -280,28 +280,28 @@ const SinglePost = (props) => {
                         <div className="reaction-count">
                             {numberOfLikes > 0 ?
                                 <span>
-                                    <span><i class="bi bi-hand-thumbs-up"></i>: {numberOfLikes}   </span>
+                                    <span><i className="bi bi-hand-thumbs-up"></i>: {numberOfLikes}   </span>
                                 </span>
                             : <span></span>
                             }
 
                             {numberOfLoves > 0 ?
                                 <span>
-                                    <span><i class="bi bi-suit-heart"></i>: {numberOfLoves}   </span>
+                                    <span><i className="bi bi-suit-heart"></i>: {numberOfLoves}   </span>
                                 </span>
                             : <span></span>
                             }  
 
                             {numberOfHaHas > 0 ?
                                 <span>
-                                    <span><i class="bi bi-emoji-laughing"></i>: {numberOfHaHas}   </span>
+                                    <span><i className="bi bi-emoji-laughing"></i>: {numberOfHaHas}   </span>
                                 </span>  
                             : <span></span>
                             }  
 
                             {numberOfHugs > 0 ?
                                 <span>
-                                    <span><i class="bi bi-emoji-angry"></i>: {numberOfHugs}   </span>
+                                    <span><i className="bi bi-emoji-angry"></i>: {numberOfHugs}   </span>
                                 </span>
                             : <span></span>
                             } 
@@ -312,12 +312,12 @@ const SinglePost = (props) => {
                                                     setDeleteOrigin(props.deleteOnProfile), 
                                                     setShowConfirmDelete(true)}
                                             }
-                                            class="trash"><i class="bi bi-trash"></i></button>
+                                            className="trash"><i className="bi bi-trash"></i></button>
                         : <span></span>
                         }
 
                         {showConfirmDelete ?
-                            <button class="trash" onClick={deletePost}>Confirm <i class="bi bi-trash-fill"></i></button>
+                            <button className="trash" onClick={deletePost}>Confirm <i className="bi bi-trash-fill"></i></button>
                         : <span></span>
                         }           
                     </ReactBootstrap.Card.Body>
