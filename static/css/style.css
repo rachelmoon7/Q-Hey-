@@ -15,11 +15,11 @@ div {
 
 button {
 	outline: none;
-	border: none;
+	/* border: none; */
     background-color: #4abdac; /* Fresh */
 	cursor: pointer;
 	font-size: 20px;
-	
+	border: 2px white;
 }
 
 
@@ -93,8 +93,10 @@ h2 span {
 
 .navbar {
 	background-image: url("/static/images/Background.jpg");
-	background-size: 900px;
-	text-align: right;
+	background-size: 250px;
+	text-align: center;
+	position: relative; 
+	top: -50px;
 }
 
 

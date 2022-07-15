@@ -14,7 +14,7 @@ const ShowPosts = (props) => {
             // console.log("allLandingPosts  after NEWPOST:", props.thePosts)
             for (const [postID, postInfo] of Object.entries(allUserPosts)) {
                 let d = new Date(postInfo['post_date'])
-                setAllPosts((x) => [...x, <div class="single-post">
+                setAllPosts((x) => [...x, <div className="single-post">
                                         <SinglePost username={user}
                                             caption={postInfo['caption']}
                                             img_url={postInfo['img_url']} 

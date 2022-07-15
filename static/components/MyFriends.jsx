@@ -18,10 +18,16 @@ const MyFriends = () => {
             //set allFriends to an empty parameter before setting the state variable with updated result
             setAllFriends([]);
             for (const [userID, info] of Object.entries(result)) {
-                setAllFriends((x) => [...x, <Friend user_id={info['user_id']}
+                setAllFriends((x) => [...x, <ReactBootstrap.ListGroup>
+                    
+                                                <ReactBootstrap.ListGroup.Item>
+                                                    <Friend user_id={info['user_id']}
                                                     fname={info['fname']}
                                                     lname={info['lname']} 
-                                                    setAfterFriendDeleted={setAfterFriendDeleted}/>])
+                                                    setAfterFriendDeleted={setAfterFriendDeleted}/>
+                                                </ReactBootstrap.ListGroup.Item>
+                                            </ReactBootstrap.ListGroup>
+                                                    ])
             }
         })
     }, [ , friendRequestHandled, afterFriendDeleted])
@@ -102,9 +108,16 @@ const MyFriends = () => {
                         } 
                     </ReactBootstrap.Col>
 
-                    <ReactBootstrap.Col xs={5}>
-                        <h2>My Friends:</h2>
-                        <div className="my-friends">{allFriends}</div>
+                    <ReactBootstrap.Col>
+                        
+                        <ReactBootstrap.ListGroup>
+                            <ReactBootstrap.ListGroup.Item>
+                                <h2>My Friends:</h2>
+                            </ReactBootstrap.ListGroup.Item>
+                            <ReactBootstrap.ListGroup.Item>
+                                <div className="my-friends">{allFriends}</div>
+                            </ReactBootstrap.ListGroup.Item>
+                        </ReactBootstrap.ListGroup>
                     </ReactBootstrap.Col>
 
                     <ReactBootstrap.Col>
@@ -117,39 +130,6 @@ const MyFriends = () => {
 
                 </ReactBootstrap.Row>
             </ReactBootstrap.Container>
-
-            {/* <h2>Search for friends to add:</h2>
-                <span>
-                    <input type="text" key={showSearchResult} 
-                                        name ="searchString" 
-                                        placeholder="Find friends via username" 
-                                        onChange={(e) => setSearchString(e.target.value)}
-                    ></input>
-                </span>
-                <span>
-                    {searchString} 
-                </span>
-
-                <span>
-                    <button type="submit" onClick={handleSearch}><i class="bi bi-search"></i></button>
-                </span>         
-              
-                {showSearchResult ? 
-                    <div>
-                        <div> Click to add this friend:</div>
-                        <button onClick={requestFriend}>  {result} </button> 
-                        </div>
-                    : <div></div>               
-                }  */}
-
-            {/* <h2 className="friend-requests">Friend Request:</h2>
-                <FriendRequestContainer setFriendRequestHandled={setFriendRequestHandled}/> */}
-
-            {/* <h2 className="requested-to">Requested to:</h2>
-                {pendingFriends} */}
-
-            {/* <h2>My Friends:</h2>
-                <div className="my-friends">{allFriends}</div> */}
         </React.Fragment>
     )
 }
