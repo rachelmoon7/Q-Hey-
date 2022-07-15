@@ -10,7 +10,6 @@ const SinglePost = (props) => {
     const [afterDeletedPost, setAfterDeletedPost] = React.useState(false);
     const [deleteOrigin, setDeleteOrigin] = React.useState('');
     const [allComments, setAllComments] = React.useState([]);
-    const [afterNewComment, setAfterNewComment] = React.useState(false); 
     const [afterDeletedComment, setAfterDeletedComment] = React.useState(false);
     
     const [newReaction, setNewReaction] = React.useState(false);
@@ -43,6 +42,15 @@ const SinglePost = (props) => {
         })
     }, []);
 
+    React.useEffect(() => {
+        // console.log("get all comments")
+        gettingAllComments();
+    }, [ , afterDeletedComment, props.newPostComments, afterDeletedPost]);
+
+    React.useEffect(() => {
+        gettingAllReactions();
+    }, [ , newReaction, afterUndoReaction, props.newPostReactions, afterDeletedPost]);
+
     const gettingAllComments = () => {
         fetch('/get-all-comments', {
             method: 'POST',
@@ -51,9 +59,8 @@ const SinglePost = (props) => {
         })
         .then((response) => response.json())
         .then((result) => {
-            console.log("getallcomments result text:", result)
-            // console.log("typeof passing in:", typeof result[0]['comment_date'])
-            // console.log("typeof passing this too:", typeof result[0]['text'])
+            // console.log("getallcomments result text:", result)
+            //resetting allComments to [] to reset state
             setAllComments([]);
             for (const [each_comment, comment_info] of Object.entries(result)) {
                 // console.log("--comment_info", comment_info);
@@ -84,7 +91,6 @@ const SinglePost = (props) => {
             setUsersWhoLoved([]);
             setUsersWhoHaha([]);
             setUsersWhoHugged([]);
-            // console.log("???getall-reactions result", result)
             
             setNumberOfLikes(result['like']['count']);
             setUsersWhoLiked(result['like']['users']);
@@ -99,72 +105,6 @@ const SinglePost = (props) => {
             setUsersWhoHugged(result['hug']['users']);
         })
     }
-
-    React.useEffect(() => {
-        // console.log("get all comments")
-        gettingAllComments();
-    }, [ , afterDeletedComment, props.newPostComments, afterDeletedPost]);
-    // React.useEffect(() => {
-    //     // console.log("get all comments")
-    //     fetch('/get-all-comments', {
-    //         method: 'POST',
-    //         headers: { "Content-Type": "application/json"},
-    //         body: JSON.stringify(props.post_id)
-    //     })
-    //     .then((response) => response.json())
-    //     .then((result) => {
-    //         console.log("getallcomments result text:", result)
-    //         // console.log("typeof passing in:", typeof result[0]['comment_date'])
-    //         // console.log("typeof passing this too:", typeof result[0]['text'])
-    //         setAllComments([]);
-    //         for (const [each_comment, comment_info] of Object.entries(result)) {
-    //             // console.log("--comment_info", comment_info);
-    //             let d = new Date(comment_info['comment_date']);
-    //             setAllComments(prevState => [...prevState, <Comment username={comment_info['username']}
-    //                                                                 commentDate={d.toLocaleDateString()}
-    //                                                                 text={comment_info['text']}
-    //                                                                 deleteOption={comment_info['delete_option']}
-    //                                                                 commentID={comment_info['comment_id']}
-    //                                                                 postID={comment_info['post_id']}
-    //                                                                 setAfterDeletedComment={setAfterDeletedComment}
-    //                                                                 setAllComments={setAllComments}
-    //                                                                 afterDeletedComment={afterDeletedComment}
-    //                                                         />])
-    //         }
-    //     })
-    // }, [ , afterDeletedComment, afterNewComment, props.newPostComments, afterDeletedPost]);
-
-    React.useEffect(() => {
-        gettingAllReactions();
-        // console.log("get all reactions")
-
-        // fetch('/get-all-reactions', {
-        //     method: 'POST',
-        //     headers: { "Content-Type": "application/json"},
-        //     body: JSON.stringify(props.post_id)
-        // })
-        // .then((response) => response.json())
-        // .then((result) => {
-        //     setUsersWhoLiked([]);
-        //     setUsersWhoLoved([]);
-        //     setUsersWhoHaha([]);
-        //     setUsersWhoHugged([]);
-        //     // console.log("???getall-reactions result", result)
-            
-        //     setNumberOfLikes(result['like']['count']);
-        //     setUsersWhoLiked(result['like']['users']);
-
-        //     setNumberOfLoves(result['love']['count']);
-        //     setUsersWhoLoved(result['love']['users']);
-
-        //     setNumberOfHahas(result['haha']['count']);
-        //     setUsersWhoHaha(result['haha']['users']);
-            
-        //     setNumberOfHugs(result['hug']['count']);
-        //     setUsersWhoHugged(result['hug']['users']);
-        // })
-    }, [ , newReaction, afterUndoReaction, props.newPostReactions, afterDeletedPost]);
-
 
     const deletePost = () => {
         fetch('/delete-post', {
@@ -190,7 +130,6 @@ const SinglePost = (props) => {
             } else {
                 setAfterDeletedPost(false);
             }
-            
         })
         .then(() => {
             gettingAllComments();
@@ -206,7 +145,6 @@ const SinglePost = (props) => {
                 })
         .then((response) => response.json())
         .then((result) => {
-            // console.log("addcomment result to siinglepost", result)
             let d = new Date(result['comment_date']);
             setAllComments(x => [...x, <Comment username={result['username']}
                                                                 commentDate={d.toLocaleDateString()}
@@ -230,7 +168,6 @@ const SinglePost = (props) => {
     const handleSelect = (selectedIndex, e) => {
         setIndex(selectedIndex);
         };
-    
 
     const carouselItems = [];
 
@@ -312,9 +249,6 @@ const SinglePost = (props) => {
                         : <span></span>
                         } 
 
-                
-                
-
                         <Reaction setNewReaction={setNewReaction}
                                     newReaction={newReaction}
                                     afterUndoReaction={afterUndoReaction}
@@ -342,7 +276,6 @@ const SinglePost = (props) => {
                                     usersWhoHugged={usersWhoHugged}
                                     setUsersWhoHugged={setUsersWhoHugged}
                         />
-
                         
                         <div className="reaction-count">
                             {numberOfLikes > 0 ?

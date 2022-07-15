@@ -14,7 +14,7 @@ const Comment = (props) => {
         .then(() => {
             // console.log("DELETE RESULT:", result)
             setShowConfirmDelete(false);
-            //changing state from props for React.useEffect, which is listening to this state in SinglePost
+            //changing state from props for React.useEffect, which is listening to this state in SinglePost for potential consecutive deleting comments
             if (props.afterDeletedComment == false) {
                 props.setAfterDeletedComment(true);
             } else {

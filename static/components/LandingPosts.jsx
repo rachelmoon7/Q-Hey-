@@ -13,7 +13,6 @@ const LandingPosts = (props) => {
         })
     }, []);    
 
-    // console.log("!!ALL LANDING:", allLandingPosts)
     //passing in newPostComments and setNewPostComments to trigger changes when there is NewPost 
     //prop drilling to re-rendering Comments everytime there is new post 
     return ( 

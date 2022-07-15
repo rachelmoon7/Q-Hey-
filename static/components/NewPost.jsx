@@ -96,7 +96,7 @@ const NewPost = (props) => {
                                                                     setShowAddAnother(true);
                                                                     getCloudinaryLink(e.target.files[0]); 
                                                                     }
-                                                            } >
+                                                                } >
                     </input>          
 
                     {showAddAnother ? 
