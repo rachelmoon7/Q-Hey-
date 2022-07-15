@@ -25,10 +25,14 @@ const Friend = (props) => {
 
     return (
         <React.Fragment>
-            <li>
-                <a onClick={showFriendsPosts} >{props.fname} {props.lname}</a>
-                <button onClick={deleteFriend}><i className="bi bi-person-x-fill"></i></button>
-            </li>
+            <div>
+                <span>
+                <a class="friend-name" onClick={showFriendsPosts} >{props.fname} {props.lname}</a>
+                </span>
+                <span>
+                <button class="trash" onClick={deleteFriend}><i className="bi bi-person-x-fill"></i></button>
+                </span>
+            </div>
 
             {friendPosts}
             

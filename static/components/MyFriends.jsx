@@ -91,13 +91,14 @@ const MyFriends = () => {
                                                 onChange={(e) => setSearchString(e.target.value)}
                             ></input>
                         </span>
-                        <span>
-                            {searchString} 
-                        </span>
 
                         <span>
                             <button type="submit" onClick={handleSearch}><i class="bi bi-search"></i></button>
-                        </span>         
+                        </span>  
+
+                        <div>
+                            {searchString} 
+                        </div>       
               
                         {showSearchResult ? 
                             <div>
@@ -109,14 +110,13 @@ const MyFriends = () => {
                     </ReactBootstrap.Col>
 
                     <ReactBootstrap.Col>
-                        
                         <ReactBootstrap.ListGroup>
                             <ReactBootstrap.ListGroup.Item>
                                 <h2>My Friends:</h2>
                             </ReactBootstrap.ListGroup.Item>
-                            <ReactBootstrap.ListGroup.Item>
-                                <div className="my-friends">{allFriends}</div>
-                            </ReactBootstrap.ListGroup.Item>
+                            
+                            <div className="my-friends">{allFriends}</div>
+                            
                         </ReactBootstrap.ListGroup>
                     </ReactBootstrap.Col>
 

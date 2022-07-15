@@ -4,6 +4,10 @@ body.background {
 	width: 100%;
 }
 
+body {
+	font-family: 'Lora', serif;
+}
+
 img {
     max-height: 350px;
     max-width: 350px;
@@ -11,21 +15,25 @@ img {
 
 div {
     font-family: 'Source Sans Pro', sans-serif;
+	font-size: 20px;
 }
 
 button {
 	outline: none;
-	/* border: none; */
+	border: none;
     background-color: #4abdac; /* Fresh */
 	cursor: pointer;
 	font-size: 20px;
-	border: 2px white;
 }
 
 
 
 #submit-comment {
 	background-color: #a7e245; /* Fresh */
+}
+
+#submit-comment:hover {
+	background: #7fae33;
 }
 
 .trash {
@@ -35,6 +43,7 @@ button {
   	width: 30px; */
   	border-radius: 45%;
 	text-align: center; 
+	display: inline-block;
 }
 
 .trash:hover {
@@ -58,12 +67,12 @@ a {
 	color: #FC4A1A;
 }
 
-/* .grid {
-	display: grid;
-	grid-template-columns: 1fr;
-} */
 
 h2 span {
+	background: #a7e245;
+}
+
+.me-auto span {
 	background: #a7e245;
 }
 
@@ -98,12 +107,9 @@ h2 span {
 	position: relative; 
 	top: -50px;
 }
-
-
-.navbar span {
+.navbar-tabs span {
 	text-align: center;
 	font-size: 30px;
-
 }
 
 #home-logo {
@@ -142,8 +148,11 @@ h2 span {
 #post-button {
 	color: #060704;
 	background: #a7e245;
-	/* box-shadow: inset 0 0 0 2px #a7e245; */
-	/* transform: translateX(30%); */
+	font-size: 37px;
+}
+
+#post-button:hover {
+	background: #7fae33;
 }
 
 .caption-and-date span{
@@ -175,6 +184,15 @@ h2 span {
 
 .my-friends {
 	cursor: pointer;
+}
+
+.friend-name {
+	font-size: 30px;
+	color: black;
+}
+
+.friend-name:hover {
+	color: #4abdac;
 }
 
 .col-5 {
@@ -467,9 +485,19 @@ h2 span {
 	transform: translateX(-30%);
 }
 
+.btn-login:hover {
+	color: #a7e245;
+	background: #fbfdff;
+}
+
 .btn-signup {
 	color: #a7e245;
 	background: #fbfdff;
 	box-shadow: inset 0 0 0 2px #a7e245;
 	transform: translateX(30%);
+}
+
+.btn-signup:hover {
+	color: #fbfdff;
+	background: #a7e245;
 }

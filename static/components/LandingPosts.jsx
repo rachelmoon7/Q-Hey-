@@ -17,24 +17,25 @@ const LandingPosts = (props) => {
     //prop drilling to re-rendering Comments everytime there is new post 
     return ( 
         <React.Fragment>
-            <ReactBootstrap.Stack gap={10}>
-                <div className="bg-light border"><NewPost 
-                                                    setAllLandingPosts={setAllLandingPosts} 
-                                                    setNewPostComments={setNewPostComments}
-                                                    newPostComments={newPostComments}
-                                                    setNewPostReactions={setNewPostReactions}
-                                                    newPostReactions={newPostReactions}
-                                                   
-                            
-                                                /></div>
-                <div className="bg-light border post-container"><ShowPosts 
+            <ReactBootstrap.Stack gap={3}>
+                <div className="bg-light border">
+                    <NewPost 
+                            setAllLandingPosts={setAllLandingPosts} 
+                            setNewPostComments={setNewPostComments}
+                            newPostComments={newPostComments}
+                            setNewPostReactions={setNewPostReactions}
+                            newPostReactions={newPostReactions}
+                    />
+                </div>
+                <div className="bg-light border post-container">
+                    <ShowPosts 
                             thePosts={allLandingPosts} 
                             setAllLandingPosts={setAllLandingPosts}
                             deleteOnProfile={false}
                             newPostComments={newPostComments}
                             newPostReactions={newPostReactions}
-
-                        /></div>
+                    />
+                </div>
             
             </ReactBootstrap.Stack>
         </React.Fragment>

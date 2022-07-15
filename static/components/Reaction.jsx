@@ -64,16 +64,13 @@ const Reaction = (props) => {
     return (
         <React.Fragment>
             <div>
-                <button
-                    onMouseEnter={() => setIsShown(true)}
-                    onMouseLeave={() => setIsShown(true)}
-                    >
+                <button onClick={() => {setIsShown(true)}}>
                     React!
                 </button>
             </div>
                 {isShown && (
                     <div className="reactions">
-                        <span>Reaction options</span>
+                        
                         {showLike && props.usersWhoLiked && !props.usersWhoLiked.includes(props.loggedInUser) ?
                             <button className="reactions" onClick={() => {setIsShown(false), addReaction('Like'), setShowLike(false), setShowUnlike(true)}}><i className="bi bi-hand-thumbs-up"></i></button>
                         : <div className="reactions"></div>
