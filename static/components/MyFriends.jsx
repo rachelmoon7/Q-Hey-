@@ -74,7 +74,51 @@ const MyFriends = () => {
 
     return (
         <React.Fragment>
-            <h2>Search for friends to add:</h2>
+            <ReactBootstrap.Container>
+                <ReactBootstrap.Row>
+                    <ReactBootstrap.Col>
+                        <h2>Search for friends to add:</h2>
+                        <span>
+                            <input type="text" key={showSearchResult} 
+                                                name ="searchString" 
+                                                placeholder="Find friends via username" 
+                                                onChange={(e) => setSearchString(e.target.value)}
+                            ></input>
+                        </span>
+                        <span>
+                            {searchString} 
+                        </span>
+
+                        <span>
+                            <button type="submit" onClick={handleSearch}><i class="bi bi-search"></i></button>
+                        </span>         
+              
+                        {showSearchResult ? 
+                            <div>
+                                <div> Click to add this friend:</div>
+                                <button onClick={requestFriend}>  {result} </button> 
+                                </div>
+                            : <div></div>               
+                        } 
+                    </ReactBootstrap.Col>
+
+                    <ReactBootstrap.Col xs={5}>
+                        <h2>My Friends:</h2>
+                        <div className="my-friends">{allFriends}</div>
+                    </ReactBootstrap.Col>
+
+                    <ReactBootstrap.Col>
+                        <h2 className="friend-requests">Friend Request:</h2>
+                        <FriendRequestContainer setFriendRequestHandled={setFriendRequestHandled}/>
+
+                        <h2 className="requested-to">Requested to:</h2>
+                        <div>{pendingFriends}</div>
+                    </ReactBootstrap.Col>
+
+                </ReactBootstrap.Row>
+            </ReactBootstrap.Container>
+
+            {/* <h2>Search for friends to add:</h2>
                 <span>
                     <input type="text" key={showSearchResult} 
                                         name ="searchString" 
@@ -96,16 +140,16 @@ const MyFriends = () => {
                         <button onClick={requestFriend}>  {result} </button> 
                         </div>
                     : <div></div>               
-                } 
+                }  */}
 
-            <h2 className="friend-requests">Friend Request:</h2>
-                <FriendRequestContainer setFriendRequestHandled={setFriendRequestHandled}/>
+            {/* <h2 className="friend-requests">Friend Request:</h2>
+                <FriendRequestContainer setFriendRequestHandled={setFriendRequestHandled}/> */}
 
-            <h2 className="requested-to">Requested to:</h2>
-                {pendingFriends}
+            {/* <h2 className="requested-to">Requested to:</h2>
+                {pendingFriends} */}
 
-            <h2>My Friends:</h2>
-                <div className="my-friends">{allFriends}</div>
+            {/* <h2>My Friends:</h2>
+                <div className="my-friends">{allFriends}</div> */}
         </React.Fragment>
     )
 }

@@ -115,7 +115,6 @@ h2 span {
 
 .reaction-count{
 	font-size: 25px;
-	
 }
 
 #question {
@@ -133,7 +132,6 @@ h2 span {
 
 #answer:hover {
 	background-color: #d66f20; /* fresh water */
-
 }
 .question span {
 	background: #a7e245;
@@ -162,25 +160,23 @@ h2 span {
 	color: BLACK;
 	width: 50%;
 	font-size: 25px;
-
 }
 
 #caption {
     font-family: 'Source Sans Pro', sans-serif;
 }
 
-/* .grid-container {
-    display: grid;
-  } */
-
 .right-column {
 	text-align: left;
 	background-color: #4abdac;
-
 }
 
 .my-friends {
 	cursor: pointer;
+}
+
+.col-5 {
+	width: 60%;
 }
 
 *,

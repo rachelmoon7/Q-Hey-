@@ -31,6 +31,7 @@ const FriendRequest = (props) => {
     return ( 
         active ?
         <React.Fragment>
+       
             <div>
             <span id="friend-request-from">{props.name}</span>
 
