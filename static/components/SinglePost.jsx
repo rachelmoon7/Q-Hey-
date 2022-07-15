@@ -7,6 +7,7 @@ const SinglePost = (props) => {
     const [showCommentBox, setShowCommentBox] = React.useState(false);
     const [comment, setComment] = React.useState('');
     
+    const [afterDeletedPost, setAfterDeletedPost] = React.useState(false);
     const [deleteOrigin, setDeleteOrigin] = React.useState('');
     const [allComments, setAllComments] = React.useState([]);
     const [afterDeletedComment, setAfterDeletedComment] = React.useState(false);
@@ -28,7 +29,8 @@ const SinglePost = (props) => {
     const [index, setIndex] = React.useState(0);
 
     
-
+    // console.log("**entering singlepost")
+    // console.log("!!allComments", allComments)
 
     React.useEffect(() => {
         fetch('/get-logged-in-user')
@@ -66,7 +68,7 @@ const SinglePost = (props) => {
                                                             />])
             }
         })
-    }, [ , afterDeletedComment]);
+    }, [ , afterDeletedComment, props.newPostComments, afterDeletedPost]);
 
     React.useEffect(() => {
         fetch('/get-all-reactions', {
@@ -108,12 +110,19 @@ const SinglePost = (props) => {
             // console.log("DELETE-POST RESULT:", result)
             // console.log("SINGLEPOST'S PROP:", props)
             // console.log("type of landing'S PROP:", typeof props.setAllLandingPosts)
-            setShowConfirmDelete(false)
+            
             if (!props.setAllLandingPosts) {
                     props.setMyProfilePosts(result);
                 } else {
                     props.setAllLandingPosts(result)
                 }
+            setShowConfirmDelete(false);
+            if (afterDeletedPost==false) {
+                setAfterDeletedPost(true);
+            } else {
+                setAfterDeletedPost(false);
+            }
+            
         })
     }
 
@@ -125,10 +134,8 @@ const SinglePost = (props) => {
                 })
         .then((response) => response.json())
         .then((result) => {
-            console.log("addcomment result to siinglepost", result)
-            // setNewComment(result[0]['comment'])
+            // console.log("addcomment result to siinglepost", result)
             let d = new Date(result['comment_date']);
-            console.log("!!!d.toLocaleDateString()", d.toLocaleDateString())
             setAllComments(prevState => [...prevState, <Comment username={result['username']}
                                                                 commentDate={d.toLocaleDateString()}
                                                                 text={result['text']}

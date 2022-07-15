@@ -1,31 +1,54 @@
 const ShowPosts = (props) => {
-
+    const [allPosts, setAllPosts] = React.useState([]);
     // console.log("typeof PROPS:", typeof props.theUpdatedPosts)
     // console.log("PROPS.thePosts:", props.thePosts)
+    // const allPosts = []
 
-    const allPosts = []
-    // console.log("ShowPosts props.thePosts:", props.thePosts)
+    
+    console.log("ShowPosts props.thePosts:", props.thePosts)
     console.log("showPosts props:", props)
+    React.useEffect(()=> {
+        setAllPosts([]);
+        for (const [user, allUserPosts] of Object.entries(props.thePosts)) {
+            // console.log("USER:", user)
+            // console.log("allLandingPosts  after NEWPOST:", props.thePosts)
+            for (const [postID, postInfo] of Object.entries(allUserPosts)) {
+                let d = new Date(postInfo['post_date'])
+                setAllPosts((x) => [...x, <div class="single-post">
+                                        <SinglePost username={user}
+                                            caption={postInfo['caption']}
+                                            img_url={postInfo['img_url']} 
+                                            img_url2={postInfo['img_url2']} 
+                                            post_id={postID} 
+                                            post_date={d.toLocaleDateString()} 
+                                            setAllLandingPosts={props.setAllLandingPosts}
+                                            setMyProfilePosts={props.setMyProfilePosts}
+                                            deleteOnLanding={props.deleteOnLanding}
+                                            deleteOnProfile={props.deleteOnProfile}
+                                            newPostComments={props.newPostComments}
+                                /> </div>])
+        }};
+    }, [ , props.thePosts, props.setNewPostComments])
 
-    for (const [user, allUserPosts] of Object.entries(props.thePosts)) {
-        // console.log("USER:", user)
-        // console.log("allLandingPosts  after NEWPOST:", props.thePosts)
-        for (const [postID, postInfo] of Object.entries(allUserPosts)) {
-            let d = new Date(postInfo['post_date'])
-            allPosts.push(<div class="single-post">
-                                    <SinglePost username={user}
-                                        caption={postInfo['caption']}
-                                        img_url={postInfo['img_url']} 
-                                        img_url2={postInfo['img_url2']} 
-                                        post_id={postID} 
-                                        post_date={d.toLocaleDateString()} 
-                                        setAllLandingPosts={props.setAllLandingPosts}
-                                        setMyProfilePosts={props.setMyProfilePosts}
-                                        deleteOnLanding={props.deleteOnLanding}
-                                        deleteOnProfile={props.deleteOnProfile}
-                            /> </div>)
-    }};
 
+    // for (const [user, allUserPosts] of Object.entries(props.thePosts)) {
+    //     // console.log("USER:", user)
+    //     // console.log("allLandingPosts  after NEWPOST:", props.thePosts)
+    //     for (const [postID, postInfo] of Object.entries(allUserPosts)) {
+    //         let d = new Date(postInfo['post_date'])
+    //         allPosts.push(<div class="single-post">
+    //                                 <SinglePost username={user}
+    //                                     caption={postInfo['caption']}
+    //                                     img_url={postInfo['img_url']} 
+    //                                     img_url2={postInfo['img_url2']} 
+    //                                     post_id={postID} 
+    //                                     post_date={d.toLocaleDateString()} 
+    //                                     setAllLandingPosts={props.setAllLandingPosts}
+    //                                     setMyProfilePosts={props.setMyProfilePosts}
+    //                                     deleteOnLanding={props.deleteOnLanding}
+    //                                     deleteOnProfile={props.deleteOnProfile}
+    //                         /> </div>)
+    // }};
     return (
         <React.Fragment>
             {/* <div class="grid">{allPosts}</div> */}

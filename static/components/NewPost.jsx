@@ -13,7 +13,6 @@ const NewPost = (props) => {
     const [postingOption, setPostingOption] = React.useState(false);
 
     const showPostingOption = () => {
-        console.log("CLOCKED ANSWER")
         setPostingOption(true);
     }
 
@@ -56,16 +55,21 @@ const NewPost = (props) => {
         })
         .then((response) => response.json())
         .then((result) => {
-            // console.log("NEWPOST RESULT:", result);
+            console.log("NEWPOST RESULT:", result);
+            
+            if (props.newPostComments==false) {
+                props.setNewPostComments(true);
+            } else {
+                props.setNewPostComments(false);
+            }
             props.setAllLandingPosts(result);
- 
             setShowImgForm2(false);
             setImgURL('');
-            setImg('')
+            setImg('');
             setShowChosenImage(false);
             setImgURL2('');
-            setImg2('')
-            setShowChosenImage2(false)
+            setImg2('');
+            setShowChosenImage2(false);
             setCaption('');
             setChooseFile(null);
             setChooseFile2(null);
@@ -79,7 +83,7 @@ const NewPost = (props) => {
         <React.Fragment> 
             <span><button id="answer" onClick={showPostingOption}>Hey, I'll Answer!</button></span>
 
-            { postingOption ?
+            {postingOption ?
                 <div>
                     <input 
                         type="file" key={chooseFile} onChange={(e)=> {

@@ -1,5 +1,7 @@
 const LandingPosts = (props) => {
     const [allLandingPosts, setAllLandingPosts] = React.useState([]);
+    const [newPostComments, setNewPostComments] = React.useState(false); 
+
 
     React.useEffect(() => {
         fetch('/get-landing-posts')
@@ -10,30 +12,27 @@ const LandingPosts = (props) => {
         })
     }, []);    
 
-    // console.log("rendering LandingPosts.jsx")
-
+    // console.log("!!ALL LANDING:", allLandingPosts)
+    //passing in newPostComments and setNewPostComments to trigger changes when there is NewPost 
+    //prop drilling to re-rendering Comments everytime there is new post 
     return ( 
         <React.Fragment>
             <ReactBootstrap.Stack gap={10}>
                 <div className="bg-light border"><NewPost 
-                            setAllLandingPosts={setAllLandingPosts}                
-                        /></div>
+                                                    setAllLandingPosts={setAllLandingPosts} 
+                                                    setNewPostComments={setNewPostComments}
+                                                    newPostComments={newPostComments}
+                            
+                                                /></div>
                 <div className="bg-light border post-container"><ShowPosts 
                             thePosts={allLandingPosts} 
                             setAllLandingPosts={setAllLandingPosts}
                             deleteOnProfile={false}
+                            newPostComments={newPostComments}
+
                         /></div>
             
             </ReactBootstrap.Stack>
-            {/* <NewPost 
-                setAllLandingPosts={setAllLandingPosts}                
-            />    */}
-            {/* <ShowPosts 
-                thePosts={allLandingPosts} 
-                setAllLandingPosts={setAllLandingPosts}
-                deleteOnProfile={false}
-            /> */}
-            
         </React.Fragment>
     )
 }

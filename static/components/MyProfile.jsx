@@ -23,11 +23,13 @@ const MyProfilePosts = (props) => {
         <React.Fragment>
             <NavBar />
             <h1> {username}'s Profile</h1>
-           <ShowPosts 
-                thePosts={myProfilePosts} 
-                setMyProfilePosts={setMyProfilePosts}
-                deleteOnProfile={true}
+            <div className="profile-container">
+            <ShowPosts 
+                    thePosts={myProfilePosts} 
+                    setMyProfilePosts={setMyProfilePosts}
+                    deleteOnProfile={true}
                 />
+            </div>
         </React.Fragment>
     )
 }

@@ -72,6 +72,25 @@ h2 span {
     justify-content: center;
 }
 
+.profile-container{
+	display: flex;
+    justify-content: center;
+}
+
+.card-header {
+	border-bottom: none;
+}
+
+.card-footer {
+	border-top: none;
+}
+
+#all-comments {
+	border: none;
+}
+
+
+
 .navbar {
 	background-image: url("/static/images/Background.jpg");
 	background-size: 900px;
@@ -110,7 +129,6 @@ h2 span {
 	border-radius: 9px;
 	text-align: center;
 	text-decoration: none;
-
 }
 
 #answer:hover {
@@ -151,20 +169,9 @@ h2 span {
     font-family: 'Source Sans Pro', sans-serif;
 }
 
-.grid-container {
+/* .grid-container {
     display: grid;
-  }
-
-/* .comment  {
-	font-size: 20px;
-	background-color: #4abdac;
-
-}
-.react  {
-	font-size: 20px;
-	background-color: #4abdac;
-
-} */
+  } */
 
 .right-column {
 	text-align: left;
@@ -174,7 +181,6 @@ h2 span {
 
 .my-friends {
 	cursor: pointer;
-
 }
 
 *,
