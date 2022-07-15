@@ -26,9 +26,10 @@ const ShowPosts = (props) => {
                                             deleteOnLanding={props.deleteOnLanding}
                                             deleteOnProfile={props.deleteOnProfile}
                                             newPostComments={props.newPostComments}
+                                            newPostReactions={props.newPostReactions}
                                 /> </div>])
         }};
-    }, [ , props.thePosts, props.setNewPostComments])
+    }, [ , props.thePosts, props.setNewPostComments, props.setNewPostReactions])
 
 
     // for (const [user, allUserPosts] of Object.entries(props.thePosts)) {

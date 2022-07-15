@@ -389,20 +389,24 @@ def get_all_comments():
     post_id = request.json
     
     post = crud.get_post_by_post_id(post_id)
+    # print("_______post.comments", post.comments)
+    # all_comments = []
     #create array by iterating through comments attribute of a post
-    all_comments = [comment.to_dict() for comment in post.comments]
+    if post is not None:
+        all_comments = [comment.to_dict() for comment in post.comments]
 
-    for i in range(len(all_comments)):
-        # adding username to each comment info dictionary
-        all_comments[i]['username'] = crud.get_user_by_id(all_comments[i]['user_id']).username
-        # adding boolean value to each comment info dictionary to see if comment belongs to logged in user
-        if session['username'] == all_comments[i]['username']:
-            all_comments[i]['delete_option'] = True
-        else:
-            all_comments[i]['delete_option'] = False
+        for i in range(len(all_comments)):
+            # adding username to each comment info dictionary
+            all_comments[i]['username'] = crud.get_user_by_id(all_comments[i]['user_id']).username
+            # adding boolean value to each comment info dictionary to see if comment belongs to logged in user
+            if session['username'] == all_comments[i]['username']:
+                all_comments[i]['delete_option'] = True
+            else:
+                all_comments[i]['delete_option'] = False
+        return jsonify(all_comments)
+    else: 
+        return jsonify([])
 
-    # print("___SERVER all_comments:", all_comments)
-    return jsonify(all_comments)
 
 
 @app.route('/delete-comment', methods=["POST"])
@@ -439,11 +443,13 @@ def get_all_reactions():
     post_id = request.json
     post = crud.get_post_by_post_id(post_id)
     #create array by iterating through reactions attribute of a post
-    all_reactions = [reaction.to_dict() for reaction in post.reactions]
-    print("!!!!!!allreactions", all_reactions)
-
+    if post is not None:
+        all_reactions = [reaction.to_dict() for reaction in post.reactions]
+        print("!!!!!!allreactions", all_reactions)
+        return count_of_reactions(post_id)
+    else:
     #call count_of_reactions function with post_id
-    return count_of_reactions(post_id)
+        return {'like': 0, 'love': 0, 'haha': 0, 'hug': 0}
 
 
 @app.route('/undo-reaction', methods=["POST"])

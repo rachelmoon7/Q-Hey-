@@ -62,6 +62,12 @@ const NewPost = (props) => {
             } else {
                 props.setNewPostComments(false);
             }
+            
+            if (props.newPostReactions==false) {
+                props.setNewPostReactions(true);
+            } else {
+                props.setNewPostReactions(false);
+            }
             props.setAllLandingPosts(result);
             setShowImgForm2(false);
             setImgURL('');

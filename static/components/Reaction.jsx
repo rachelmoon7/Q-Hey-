@@ -37,6 +37,11 @@ const Reaction = (props) => {
             })
         .then((response) => response.json())
         .then((result) => {
+            if (props.afterUndoReaction==false) {
+                props.setAfterUndoReaction(true);
+            } else {
+                props.setAfterUndoReaction(false);
+            }
             props.setNumberOfLikes(result['like']['count']);
             props.setUsersWhoLiked(result['like']['users']);
 
@@ -48,6 +53,8 @@ const Reaction = (props) => {
 
             props.setNumberOfHugs(result['hug']['count']);
             props.setUsersWhoHugged(result['hug']['users']);
+
+            
         })
     }
     // console.log("$$$usersWhoLiked", props.usersWhoLiked)

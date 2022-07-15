@@ -1,6 +1,7 @@
 const LandingPosts = (props) => {
     const [allLandingPosts, setAllLandingPosts] = React.useState([]);
     const [newPostComments, setNewPostComments] = React.useState(false); 
+    const [newPostReactions, setNewPostReactions] = React.useState(false);
 
 
     React.useEffect(() => {
@@ -22,6 +23,9 @@ const LandingPosts = (props) => {
                                                     setAllLandingPosts={setAllLandingPosts} 
                                                     setNewPostComments={setNewPostComments}
                                                     newPostComments={newPostComments}
+                                                    setNewPostReactions={setNewPostReactions}
+                                                    newPostReactions={newPostReactions}
+                                                   
                             
                                                 /></div>
                 <div className="bg-light border post-container"><ShowPosts 
@@ -29,6 +33,7 @@ const LandingPosts = (props) => {
                             setAllLandingPosts={setAllLandingPosts}
                             deleteOnProfile={false}
                             newPostComments={newPostComments}
+                            newPostReactions={newPostReactions}
 
                         /></div>
             
