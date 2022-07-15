@@ -18,7 +18,7 @@ const LandingPosts = (props) => {
                 <div className="bg-light border"><NewPost 
                             setAllLandingPosts={setAllLandingPosts}                
                         /></div>
-                <div className="bg-light border"><ShowPosts 
+                <div className="bg-light border post-container"><ShowPosts 
                             thePosts={allLandingPosts} 
                             setAllLandingPosts={setAllLandingPosts}
                             deleteOnProfile={false}
@@ -33,6 +33,7 @@ const LandingPosts = (props) => {
                 setAllLandingPosts={setAllLandingPosts}
                 deleteOnProfile={false}
             /> */}
+            
         </React.Fragment>
     )
 }

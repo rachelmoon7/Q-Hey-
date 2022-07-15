@@ -31,15 +31,17 @@ button {
 .trash {
 	background-color:#DFDCE3;
 	display: block;
-  	height: 30px;
-  	width: 30px;
-  	border-radius: 40%;
-	text-align: center;
+  	/* /* height: 30px;
+  	width: 30px; */
+  	border-radius: 45%;
+	text-align: center; 
 }
+
 .trash:hover {
 	background-color:#919195;
-
 }
+
+
 h1 {
 	font-weight: 650;
 	font-family: 'Lora', serif;
@@ -65,9 +67,9 @@ h2 span {
 	background: #a7e245;
 }
 
-.single-post {
-	border-top: black;
-	text-align: center;
+.post-container {
+	display: flex;
+    justify-content: center;
 }
 
 .navbar {
@@ -124,11 +126,6 @@ h2 span {
 	background: #a7e245;
 	/* box-shadow: inset 0 0 0 2px #a7e245; */
 	/* transform: translateX(30%); */
-}
-
-.single-post {
-	border: 2px solid #f7B733;
-	/* background-color: #fff7d8; */
 }
 
 .caption-and-date span{

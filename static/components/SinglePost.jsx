@@ -53,8 +53,9 @@ const SinglePost = (props) => {
             setAllComments([]);
             for (const [each_comment, comment_info] of Object.entries(result)) {
                 // console.log("--comment_info", comment_info);
+                let d = new Date(comment_info['comment_date']);
                 setAllComments(prevState => [...prevState, <Comment username={comment_info['username']}
-                                                                    commentDate={comment_info['comment_date']}
+                                                                    commentDate={d.toLocaleDateString()}
                                                                     text={comment_info['text']}
                                                                     deleteOption={comment_info['delete_option']}
                                                                     commentID={comment_info['comment_id']}
@@ -172,158 +173,141 @@ const SinglePost = (props) => {
 
     return (
         <React.Fragment>
-            <div className="single-post">
-                {/* <ReactBootstrap.Container className="mx-auto">
-                    <ReactBootstrap.Row>
-                        <ReactBootstrap.Col>
-                            <ReactBootstrap.Carousel activeIndex={index} onSelect={handleSelect} interval={null}>
-                                {carouselItems}
-                            </ReactBootstrap.Carousel>
-                        </ReactBootstrap.Col>
-                        <ReactBootstrap.Col class="right-column">
-                            <div id="all-comments">
-                                {allComments}
+            <div className="card">
+                <ReactBootstrap.Card className="text-center">
+                    <ReactBootstrap.Card.Header>
+                        <span id="username">{props.username}</span>
+                    </ReactBootstrap.Card.Header>
+                    <ReactBootstrap.Card.Body>
+                        <ReactBootstrap.Stack direction="horizontal" gap={3}>
+                            <div className="bg-light border"> <ReactBootstrap.Carousel activeIndex={index} onSelect={handleSelect} interval={null}>
+                                            {carouselItems}
+                                        </ReactBootstrap.Carousel></div>
+                            <div className="bg-light border"><div id="all-comments">
+                                            {allComments}
+                                        </div></div>
+                        </ReactBootstrap.Stack>
+
+                        <ReactBootstrap.Stack direction="horizontal" gap={3}>
+                            <div className="bg-light border">
+                                <div class="caption-and-date">
+                                    {props.caption ?
+                                        <span id="caption">"{props.caption}"</span>
+                                    : <span>{props.username}</span>
+                                    }
+                                    <div id="post-date"></div>   
+                                </div>
                             </div>
-                        </ReactBootstrap.Col>
-                    </ReactBootstrap.Row>
-                </ReactBootstrap.Container> */}
-                <ReactBootstrap.Stack direction="horizontal" gap={3}>
-                    <span id="username">{props.username}</span>
-                    <span>posted date: {props.post_date}</span>
-                </ReactBootstrap.Stack>
-                <ReactBootstrap.Stack direction="horizontal" gap={3}>
-                <div className="bg-light border"> <ReactBootstrap.Carousel activeIndex={index} onSelect={handleSelect} interval={null}>
-                                {carouselItems}
-                            </ReactBootstrap.Carousel></div>
-                <div className="bg-light border"><div id="all-comments">
-                                {allComments}
-                            </div></div>
-                </ReactBootstrap.Stack>
-                
-                {/* <div class="caption-and-date">
-                    {props.caption ?
-                        <span id="caption">"{props.caption}"</span>
-                    : <span>{props.username}</span>
-                    }
-                    <div id="post-date"><span>posted date: {props.post_date}</span></div>   
-                </div> */}
+                        </ReactBootstrap.Stack>
 
-                <ReactBootstrap.Stack direction="horizontal" gap={3}>
-                <div className="bg-light border">
-                    <div class="caption-and-date">
-                        {props.caption ?
-                            <span id="caption">"{props.caption}"</span>
-                        : <span>{props.username}</span>
-                        }
-                        <div id="post-date">
-                            
-                        </div>   
-                    </div>
-                </div>
-               
-                </ReactBootstrap.Stack>
-
-                <button class="comment"
-                        onClick={() => {setShowCommentBox(true), 
-                                        setPostToComment(props.post_id)}
-                                }>
-                    <span  >
-                        <i class="bi bi-chat-dots">
-                        </i>
-                    </span>
-                </button>
-                {/* space between chat and react button */}
-                <span>     </span>
-                {showCommentBox ? 
-                    <div>
-                        <input type="text" 
-                                key={allComments}
-                                placeholder="Add a comment"
-                                onChange={(e) => setComment(e.target.value)}>
-                        </input>
-                        <button id="submit-comment" type="submit" onClick={addComment}>
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-send-plus" viewBox="0 0 16 16">
-                            <path d="M15.964.686a.5.5 0 0 0-.65-.65L.767 5.855a.75.75 0 0 0-.124 1.329l4.995 3.178 1.531 2.406a.5.5 0 0 0 .844-.536L6.637 10.07l7.494-7.494-1.895 4.738a.5.5 0 1 0 .928.372l2.8-7Zm-2.54 1.183L5.93 9.363 1.591 6.602l11.833-4.733Z"/>
-                            <path d="M16 12.5a3.5 3.5 0 1 1-7 0 3.5 3.5 0 0 1 7 0Zm-3.5-2a.5.5 0 0 0-.5.5v1h-1a.5.5 0 0 0 0 1h1v1a.5.5 0 0 0 1 0v-1h1a.5.5 0 0 0 0-1h-1v-1a.5.5 0 0 0-.5-.5Z"/>
-                            </svg>
+                        <button class="comment"
+                                onClick={() => {setShowCommentBox(true), 
+                                                setPostToComment(props.post_id)}
+                                        }>
+                            <span  >
+                                <i class="bi bi-chat-dots">
+                                </i>
+                            </span>
                         </button>
-                    </div>
-                : <span></span>
-                } 
+                        {/* space between chat and react button */}
+                        <span>     </span>
 
-                
-                
-
-                <Reaction setNewReaction={setNewReaction}
-                            newReaction={newReaction}
-                            postID={props.post_id}
-                            // setUndoReaction={setUndoReaction}
-                            loggedInUser={loggedInUser}
-
-                            numberOfLikes={numberOfLikes}
-                            setNumberOfLikes={setNumberOfLikes}
-                            usersWhoLiked={usersWhoLiked}
-                            setUsersWhoLiked={setUsersWhoLiked}
-
-                            numberOfLoves={numberOfLoves}
-                            setNumberOfLoves={setNumberOfLoves}
-                            usersWhoLoved={usersWhoLoved}
-                            setUsersWhoLoved={setUsersWhoLoved}
-
-                            numberOfHaHas={numberOfHaHas}
-                            setNumberOfHahas={setNumberOfHahas}
-                            usersWhoHaha={usersWhoHaha}
-                            setUsersWhoHaha={setUsersWhoHaha}
-
-                            numberOfHugs={numberOfHugs}
-                            setNumberOfHugs={setNumberOfHugs}
-                            usersWhoHugged={usersWhoHugged}
-                            setUsersWhoHugged={setUsersWhoHugged}
-                            />
-
-                
-                    <div className="reaction-count">
-                        {numberOfLikes > 0 ?
-                            <span>
-                                <span><i class="bi bi-hand-thumbs-up"></i>: {numberOfLikes}   </span>
-                            </span>
-                        : <span></span>
-                        }
-
-                        {numberOfLoves > 0 ?
-                            <span>
-                                <span><i class="bi bi-suit-heart"></i>: {numberOfLoves}   </span>
-                            </span>
-                        : <span></span>
-                        }  
-
-                        {numberOfHaHas > 0 ?
-                            <span>
-                                <span><i class="bi bi-emoji-laughing"></i>: {numberOfHaHas}   </span>
-                            </span>  
-                        : <span></span>
-                        }  
-
-                        {numberOfHugs > 0 ?
-                            <span>
-                                <span><i class="bi bi-emoji-angry"></i>: {numberOfHugs}   </span>
-                            </span>
+                        {showCommentBox ? 
+                            <div>
+                                <input type="text" 
+                                        key={allComments}
+                                        placeholder="Add a comment"
+                                        onChange={(e) => setComment(e.target.value)}>
+                                </input>
+                                <button id="submit-comment" type="submit" onClick={addComment}>
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-send-plus" viewBox="0 0 16 16">
+                                    <path d="M15.964.686a.5.5 0 0 0-.65-.65L.767 5.855a.75.75 0 0 0-.124 1.329l4.995 3.178 1.531 2.406a.5.5 0 0 0 .844-.536L6.637 10.07l7.494-7.494-1.895 4.738a.5.5 0 1 0 .928.372l2.8-7Zm-2.54 1.183L5.93 9.363 1.591 6.602l11.833-4.733Z"/>
+                                    <path d="M16 12.5a3.5 3.5 0 1 1-7 0 3.5 3.5 0 0 1 7 0Zm-3.5-2a.5.5 0 0 0-.5.5v1h-1a.5.5 0 0 0 0 1h1v1a.5.5 0 0 0 1 0v-1h1a.5.5 0 0 0 0-1h-1v-1a.5.5 0 0 0-.5-.5Z"/>
+                                    </svg>
+                                </button>
+                            </div>
                         : <span></span>
                         } 
-                    </div>
-                    {loggedInUser==props.username ? 
-                        <button onClick={() => {setPostToDelete(props.post_id), 
-                                                setDeleteOrigin(props.deleteOnProfile), 
-                                                setShowConfirmDelete(true)}
-                                        }
-                                        class="trash"><i class="bi bi-trash"></i></button>
-                    : <div></div>
-                    }
 
-                    {showConfirmDelete ?
-                        <button class="trash" onClick={deletePost}>Confirm <i class="bi bi-trash-fill"></i></button>
-                    : <div></div>
-                    }           
+                
+                
+
+                        <Reaction setNewReaction={setNewReaction}
+                                    newReaction={newReaction}
+                                    postID={props.post_id}
+                                    loggedInUser={loggedInUser}
+
+                                    numberOfLikes={numberOfLikes}
+                                    setNumberOfLikes={setNumberOfLikes}
+                                    usersWhoLiked={usersWhoLiked}
+                                    setUsersWhoLiked={setUsersWhoLiked}
+
+                                    numberOfLoves={numberOfLoves}
+                                    setNumberOfLoves={setNumberOfLoves}
+                                    usersWhoLoved={usersWhoLoved}
+                                    setUsersWhoLoved={setUsersWhoLoved}
+
+                                    numberOfHaHas={numberOfHaHas}
+                                    setNumberOfHahas={setNumberOfHahas}
+                                    usersWhoHaha={usersWhoHaha}
+                                    setUsersWhoHaha={setUsersWhoHaha}
+
+                                    numberOfHugs={numberOfHugs}
+                                    setNumberOfHugs={setNumberOfHugs}
+                                    usersWhoHugged={usersWhoHugged}
+                                    setUsersWhoHugged={setUsersWhoHugged}
+                        />
+
+                        
+                        <div className="reaction-count">
+                            {numberOfLikes > 0 ?
+                                <span>
+                                    <span><i class="bi bi-hand-thumbs-up"></i>: {numberOfLikes}   </span>
+                                </span>
+                            : <span></span>
+                            }
+
+                            {numberOfLoves > 0 ?
+                                <span>
+                                    <span><i class="bi bi-suit-heart"></i>: {numberOfLoves}   </span>
+                                </span>
+                            : <span></span>
+                            }  
+
+                            {numberOfHaHas > 0 ?
+                                <span>
+                                    <span><i class="bi bi-emoji-laughing"></i>: {numberOfHaHas}   </span>
+                                </span>  
+                            : <span></span>
+                            }  
+
+                            {numberOfHugs > 0 ?
+                                <span>
+                                    <span><i class="bi bi-emoji-angry"></i>: {numberOfHugs}   </span>
+                                </span>
+                            : <span></span>
+                            } 
+                        </div>
+
+                        {loggedInUser==props.username ? 
+                            <button onClick={() => {setPostToDelete(props.post_id), 
+                                                    setDeleteOrigin(props.deleteOnProfile), 
+                                                    setShowConfirmDelete(true)}
+                                            }
+                                            class="trash"><i class="bi bi-trash"></i></button>
+                        : <span></span>
+                        }
+
+                        {showConfirmDelete ?
+                            <button class="trash" onClick={deletePost}>Confirm <i class="bi bi-trash-fill"></i></button>
+                        : <span></span>
+                        }           
+                    </ReactBootstrap.Card.Body>
+                    
+                    <ReactBootstrap.Card.Footer className="text-muted">
+                        <span>posted date: {props.post_date}</span>
+                    </ReactBootstrap.Card.Footer>
+                </ReactBootstrap.Card>
             </div>  
         </React.Fragment>
     )
