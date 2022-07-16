@@ -40,14 +40,18 @@ button {
   	/* /* height: 30px;
   	width: 30px; */
   	border-radius: 45%;
-	text-align: center; 
+	text-align: right; 
 	display: inline-block;
+	
 }
 
 .trash:hover {
 	background-color:#919195;
 }
 
+#trash-post {
+	float: right;
+}
 
 h1 {
 	font-weight: 650;
@@ -58,7 +62,7 @@ h1 {
 
 h2 {
 	font-weight: 450;
-
+	/* text-align: center; */
 }
 
 a {
@@ -66,9 +70,9 @@ a {
 }
 
 
-h2 span {
-	background: #f7B733;
-}
+/* h2 span { */
+	/* background: #f7B733; */
+/* } */
 
 /* tabs in navbar */
 /* .me-auto span {
@@ -83,6 +87,10 @@ h2 span {
 .profile-container{
 	display: flex;
     justify-content: center;
+}
+
+.single-post {
+	padding: 30px;
 }
 
 .card-header {
@@ -134,19 +142,23 @@ h2 span {
 
 #question {
 	font-size: 40px;
+	/* text-align: center; */
+	background-color: #cddbef
 }
 
 #answer {
-    background-color: #a7e245; /* fresh water */
+    background-color: #f7B733; /* fresh water */
     font-family: 'Arima', cursive;
 	font-size: 25px;
 	border-radius: 9px;
 	text-align: center;
 	text-decoration: none;
+	justify-content: center;
+
 }
 
 #answer:hover {
-	background-color: #759e32; /* fresh water */
+	background-color: #e4a72d; 
 }
 
 .question span {
@@ -234,6 +246,10 @@ h2 span {
 	background-size: 1600px;
 }
 
+.footer {
+	background-color: #cddbef;
+
+}
 
 
 .forms-section {
@@ -310,7 +326,6 @@ h2 span {
 	color: #F78733;
 	transform: translateX(-90px);
 	font-size: 30px
-
 }
 
 .underline {

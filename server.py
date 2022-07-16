@@ -63,8 +63,6 @@ def landing_page():
     posts = crud.get_post()
     images = crud.get_image()
     
-    flash("Logged in!")
-    
     return render_template('landing-page.html', questions=questions, week_num=week_num, posts=posts, images=images)
 
 

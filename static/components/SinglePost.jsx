@@ -7,6 +7,7 @@ const SinglePost = (props) => {
     const [showCommentBox, setShowCommentBox] = React.useState(false);
     const [comment, setComment] = React.useState('');
     
+    const [showTrash, setShowTrash] = React.useState(true);
     const [afterDeletedPost, setAfterDeletedPost] = React.useState(false);
     const [deleteOrigin, setDeleteOrigin] = React.useState('');
     const [allComments, setAllComments] = React.useState([]);
@@ -65,7 +66,8 @@ const SinglePost = (props) => {
             for (const [each_comment, comment_info] of Object.entries(result)) {
                 // console.log("--comment_info", comment_info);
                 let d = new Date(comment_info['comment_date']);
-                setAllComments(prevState => [...prevState, <Comment username={comment_info['username']}
+                setAllComments(prevState => [...prevState, <div>
+                                                                <Comment username={comment_info['username']}
                                                                     commentDate={d.toLocaleDateString()}
                                                                     text={comment_info['text']}
                                                                     deleteOption={comment_info['delete_option']}
@@ -74,7 +76,8 @@ const SinglePost = (props) => {
                                                                     setAfterDeletedComment={setAfterDeletedComment}
                                                                     setAllComments={setAllComments}
                                                                     afterDeletedComment={afterDeletedComment}
-                                                            />])
+                                                                />
+                                                            </div>])
             }
         })
     }
@@ -146,16 +149,18 @@ const SinglePost = (props) => {
         .then((response) => response.json())
         .then((result) => {
             let d = new Date(result['comment_date']);
-            setAllComments(x => [...x, <Comment username={result['username']}
-                                                                commentDate={d.toLocaleDateString()}
-                                                                text={result['text']}
-                                                                deleteOption={result['delete_option']}
-                                                                commentID={result['comment_id']}
-                                                                postID={result['post_id']}
-                                                                setAfterDeletedComment={setAfterDeletedComment}
-                                                                setAllComments={setAllComments}
-                                                                afterDeletedComment={afterDeletedComment}
-                                                        />]);
+            setAllComments(x => [...x, <div>
+                                            <Comment username={result['username']}
+                                                    commentDate={d.toLocaleDateString()}
+                                                    text={result['text']}
+                                                    deleteOption={result['delete_option']}
+                                                    commentID={result['comment_id']}
+                                                    postID={result['post_id']}
+                                                    setAfterDeletedComment={setAfterDeletedComment}
+                                                    setAllComments={setAllComments}
+                                                    afterDeletedComment={afterDeletedComment}
+                                            />
+                                        </div>]);
             setComment('');
             setShowCommentBox(false);
 
@@ -223,8 +228,9 @@ const SinglePost = (props) => {
                         <button className="comment"
                                 onClick={() => {setShowCommentBox(true), 
                                                 setPostToComment(props.post_id)}
-                                        }>
-                            <span  >
+                                        }
+                        >
+                            <span >
                                 <i className="bi bi-chat-dots">
                                 </i>
                             </span>
@@ -305,25 +311,26 @@ const SinglePost = (props) => {
                                 </span>
                             : <span></span>
                             } 
-                        </div>
-
-                        {loggedInUser==props.username ? 
-                            <button onClick={() => {setPostToDelete(props.post_id), 
-                                                    setDeleteOrigin(props.deleteOnProfile), 
-                                                    setShowConfirmDelete(true)}
-                                            }
-                                            className="trash"><i className="bi bi-trash"></i></button>
-                        : <span></span>
-                        }
-
-                        {showConfirmDelete ?
-                            <button className="trash" onClick={deletePost}>Confirm <i className="bi bi-trash-fill"></i></button>
-                        : <span></span>
-                        }           
+                        </div>         
                     </ReactBootstrap.Card.Body>
                     
                     <ReactBootstrap.Card.Footer className="text-muted">
                         <span>posted date: {props.post_date}</span>
+
+                        {loggedInUser==props.username && showTrash ? 
+                            <button onClick={() => {setPostToDelete(props.post_id), 
+                                                    setDeleteOrigin(props.deleteOnProfile), 
+                                                    setShowConfirmDelete(true)
+                                                    setShowTrash(false)}
+                                            }
+                                            className="trash" id="trash-post"><i className="bi bi-trash"></i></button>
+                        : <span></span>
+                        }
+
+                        {showConfirmDelete ?
+                            <button className="trash" id="trash-post" onClick={deletePost}>Confirm <i className="bi bi-trash-fill"></i></button>
+                        : <span></span>
+                        }  
                     </ReactBootstrap.Card.Footer>
                     
                 </ReactBootstrap.Card>

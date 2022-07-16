@@ -63,11 +63,11 @@ const Reaction = (props) => {
     // console.log("!!!props.usersWhoHugged", props.usersWhoHugged)
     return (
         <React.Fragment>
-            <div>
+            <span>
                 <button onClick={() => {setIsShown(true)}}>
                     React!
                 </button>
-            </div>
+            </span>
                 {isShown && (
                     <div className="reactions">
                         

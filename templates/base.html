@@ -36,7 +36,8 @@
     {% block body %}{% endblock %}
 
     {% block after_body %}{% endblock %}
-  
+    <div id="footer"></div>
+
     <script src="https://unpkg.com/react@17/umd/react.development.js" crossorigin></script>
     <script src="https://unpkg.com/react-dom@17/umd/react-dom.development.js" crossorigin></script>
     <script src='https://unpkg.com/react-router-dom@5.0.0/umd/react-router-dom.min.js' crossorigin></script>
@@ -45,6 +46,7 @@
       src="https://unpkg.com/react-bootstrap@next/dist/react-bootstrap.min.js"
       crossorigin>
     </script>  
-    <div id="footer"></div>
+    <script type='text/babel' src="../static/components/Footer.jsx"></script>
+
   </body>
 </html>
