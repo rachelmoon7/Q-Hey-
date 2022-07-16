@@ -2,7 +2,7 @@ const NavBar = () => {
 
     return (
         
-        <ReactBootstrap.Navbar className="justify-content-center" fixed="top" expand="lg">
+        <ReactBootstrap.Navbar className="justify-content-center"  expand="lg">
             
             <span>
                 <ReactBootstrap.Container className="navbar-tabs">
