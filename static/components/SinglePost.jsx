@@ -286,28 +286,32 @@ const SinglePost = (props) => {
                         <div className="reaction-count">
                             {numberOfLikes > 0 ?
                                 <span>
-                                    <span><i className="bi bi-hand-thumbs-up"></i>: {numberOfLikes}   </span>
+                                    <span><i className="bi bi-hand-thumbs-up"></i>: {numberOfLikes}</span>
+                                    <span> | </span>
                                 </span>
                             : <span></span>
                             }
-
+                            
                             {numberOfLoves > 0 ?
                                 <span>
-                                    <span><i className="bi bi-suit-heart"></i>: {numberOfLoves}   </span>
+                                    <span><i className="bi bi-suit-heart"></i>: {numberOfLoves}</span>
+                                    <span> | </span>
                                 </span>
                             : <span></span>
                             }  
 
                             {numberOfHaHas > 0 ?
                                 <span>
-                                    <span><i className="bi bi-emoji-laughing"></i>: {numberOfHaHas}   </span>
+                                    <span><i className="bi bi-emoji-laughing"></i>: {numberOfHaHas}</span>
+                                    <span> | </span>
                                 </span>  
                             : <span></span>
                             }  
 
                             {numberOfHugs > 0 ?
                                 <span>
-                                    <span><i className="bi bi-emoji-angry"></i>: {numberOfHugs}   </span>
+                                    <span><i className="bi bi-emoji-angry"></i>: {numberOfHugs}</span>
+                                    <span> | </span>
                                 </span>
                             : <span></span>
                             } 
