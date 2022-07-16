@@ -2,9 +2,9 @@ const PendingFriend = (props) => {
 
     return (
         <React.Fragment>
-            <li>
+            <div className="pending-friend">
                 {props.fname} {props.lname}
-            </li>
+            </div>
         </React.Fragment>
     )
 }

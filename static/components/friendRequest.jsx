@@ -32,11 +32,11 @@ const FriendRequest = (props) => {
         active ?
         <React.Fragment>
        
-            <div>
+            <div className="friend-request-name">
             <span id="friend-request-from">{props.name}</span>
-
+            <span>     </span>
             <button type="submit" onClick={handleAccept}><i className="bi bi-person-check"></i></button>
-            
+            <span>     </span>
             <button type="submit" onClick={handleDeny}><i className="bi bi-person-x-fill"></i></button>
             </div>
         </React.Fragment>

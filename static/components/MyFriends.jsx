@@ -83,7 +83,14 @@ const MyFriends = () => {
             <ReactBootstrap.Container>
                 <ReactBootstrap.Row>
                     <ReactBootstrap.Col>
-                        <h2>Search for friends to add:</h2>
+                        <ReactBootstrap.ListGroup>
+                            <ReactBootstrap.ListGroup.Item>
+                            <h2>Search for friends to add:</h2>
+                            </ReactBootstrap.ListGroup.Item>
+                        </ReactBootstrap.ListGroup>
+                        
+                        
+
                         <span>
                             <input type="text" key={showSearchResult} 
                                                 name ="searchString" 
@@ -102,7 +109,7 @@ const MyFriends = () => {
               
                         {showSearchResult ? 
                             <div>
-                                <div> Click to add this friend:</div>
+                                <div className="request-prompt"> Click to add this friend:</div>
                                 <button onClick={requestFriend}>  {result} </button> 
                                 </div>
                             : <div></div>               
@@ -121,10 +128,20 @@ const MyFriends = () => {
                     </ReactBootstrap.Col>
 
                     <ReactBootstrap.Col>
-                        <h2 className="friend-requests">Friend Request:</h2>
+                        <ReactBootstrap.ListGroup>
+                            <ReactBootstrap.ListGroup.Item>
+                                <h2 className="friend-requests">Friend Request:</h2>
+                            </ReactBootstrap.ListGroup.Item>
+                        </ReactBootstrap.ListGroup>
+                        
                         <FriendRequestContainer setFriendRequestHandled={setFriendRequestHandled}/>
 
-                        <h2 className="requested-to">Requested to:</h2>
+                        <ReactBootstrap.ListGroup>
+                            <ReactBootstrap.ListGroup.Item>
+                                <h2 className="requested-to">Requested to:</h2>
+                            </ReactBootstrap.ListGroup.Item>
+                        </ReactBootstrap.ListGroup>
+                        
                         <div>{pendingFriends}</div>
                     </ReactBootstrap.Col>
 

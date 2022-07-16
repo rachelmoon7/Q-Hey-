@@ -26,8 +26,6 @@ button {
 	font-size: 20px;
 }
 
-
-
 #submit-comment {
 	background-color: #a7e245; /* Fresh */
 }
@@ -69,12 +67,13 @@ a {
 
 
 h2 span {
-	background: #a7e245;
+	background: #f7B733;
 }
 
-.me-auto span {
+/* tabs in navbar */
+/* .me-auto span {
 	background: #a7e245;
-}
+} */
 
 .post-container {
 	display: flex;
@@ -98,22 +97,30 @@ h2 span {
 	border: none;
 }
 
-
-
 .navbar {
-	background-image: url("/static/images/Background.jpg");
-	background-size: 250px;
+	/* background-image: url("/static/images/Background.jpg"); */
+	/* background-size: 250px; */
 	text-align: center;
 	position: relative; 
-	top: -50px;
 }
+
 .navbar-tabs span {
-	text-align: center;
+	/* text-align: center; */
 	font-size: 30px;
+	margin: 30px;
+	/* margin-bottom: "0" */
+}
+
+.navbar-nav {
+ --bs-nav-link-hover-color: #4abdac;
 }
 
 #home-logo {
-	max-height: 250px;
+	max-height: 150px;
+}
+
+#home-logo:hover {
+	max-height: 200px;
 }
 
 .reactions {
@@ -130,7 +137,7 @@ h2 span {
 }
 
 #answer {
-    background-color: #F78733; /* fresh water */
+    background-color: #a7e245; /* fresh water */
     font-family: 'Arima', cursive;
 	font-size: 25px;
 	border-radius: 9px;
@@ -139,10 +146,11 @@ h2 span {
 }
 
 #answer:hover {
-	background-color: #d66f20; /* fresh water */
+	background-color: #759e32; /* fresh water */
 }
+
 .question span {
-	background: #a7e245;
+	background: #f7B733;
 }
 
 #post-button {
@@ -193,6 +201,19 @@ h2 span {
 
 .friend-name:hover {
 	color: #4abdac;
+}
+
+.request-prompt {
+	font-size: 30px;
+
+}
+.pending-friend {
+	font-size: 25px;
+}
+
+.friend-request-name {
+	font-size: 25px;
+
 }
 
 .col-5 {

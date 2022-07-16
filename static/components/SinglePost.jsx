@@ -325,6 +325,7 @@ const SinglePost = (props) => {
                     <ReactBootstrap.Card.Footer className="text-muted">
                         <span>posted date: {props.post_date}</span>
                     </ReactBootstrap.Card.Footer>
+                    
                 </ReactBootstrap.Card>
             </div>  
         </React.Fragment>
