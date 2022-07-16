@@ -1,11 +1,13 @@
 body.background {
-	margin: 20px;
+	/* margin: 20px; */
 	height: 100%;
 	width: 100%;
 }
 
 body {
 	font-family: 'Lora', serif;
+	height: 100%;
+
 }
 
 img {
@@ -112,6 +114,12 @@ a {
 	position: relative; 
 }
 
+.navbar-brand {
+	margin-right: auto;
+	padding-top: 0%;
+	padding-bottom: 0%;
+}
+
 .navbar-tabs span {
 	/* text-align: center; */
 	font-size: 30px;
@@ -123,12 +131,20 @@ a {
  --bs-nav-link-hover-color: #4abdac;
 }
 
+.nav-link {
+	margin-top: 50px;
+}
+
+#logout {
+	float: right;
+}
+
 #home-logo {
-	max-height: 150px;
+	max-height: 200px;
 }
 
 #home-logo:hover {
-	max-height: 200px;
+	max-height: 250px;
 }
 
 .reactions {
@@ -151,9 +167,6 @@ a {
     font-family: 'Arima', cursive;
 	font-size: 25px;
 	border-radius: 9px;
-	text-align: center;
-	text-decoration: none;
-	justify-content: center;
 
 }
 
@@ -204,6 +217,11 @@ a {
 
 .my-friends {
 	cursor: pointer;
+	color: #4abdac;
+}
+
+#my-friends {
+	height: 100vh;
 }
 
 .friend-name {
@@ -217,15 +235,14 @@ a {
 
 .request-prompt {
 	font-size: 30px;
-
 }
+
 .pending-friend {
 	font-size: 25px;
 }
 
 .friend-request-name {
 	font-size: 25px;
-
 }
 
 .col-5 {
@@ -248,9 +265,12 @@ a {
 
 .footer {
 	background-color: #cddbef;
-
+	position: sticky;
+	left:0;
+	margin-bottom:0;
+	right:0;
+	
 }
-
 
 .forms-section {
 	display: flex;

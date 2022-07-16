@@ -3,26 +3,24 @@ const Footer = () => {
 
     return (
         <React.Fragment>
-         
-          <div className="text-center" >
-            <div className="container d-flex justify-content-center py-5">
-              <button type="button" className="btn btn-primary btn-lg btn-floating mx-2" >
+          <div className="footer" >
+            <div className="container d-flex justify-content-center py-3">
+              <a href="https://www.linkedin.com/in/rachelmoon7/" type="button" className="btn btn-primary btn-lg btn-floating mx-2" >
                 <i class="bi bi-linkedin"></i>
-              </button>
-              <button type="button" className="btn btn-primary btn-lg btn-floating mx-2" >
+              </a>
+              <a type="button" className="btn btn-primary btn-lg btn-floating mx-3" >
                 <i class="bi bi-youtube"></i>
-              </button>
-              <button type="button" className="btn btn-primary btn-lg btn-floating mx-2" >
+              </a>
+              <a href="https://github.com/rachelmoon7/Q-Hey-" type="button" className="btn btn-primary btn-lg btn-floating mx-2" >
                 <i class="bi bi-github"></i>
-              </button>
+              </a>
               <button type="button" className="btn btn-primary btn-lg btn-floating mx-2" >
               <i class="bi bi-file-earmark-person"></i>
               </button>
             </div>
 
-            <div className="text-center text-white p-3" >
-              © 2022 Copyright:
-              <a className="text-white" href="https://mdbootstrap.com/">Q & Hey!</a>
+            <div className="text-center text-black p-1" >
+            © 2022 Copyright: Q & Hey!
             </div>
 
           </div>

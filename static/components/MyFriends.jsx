@@ -88,9 +88,7 @@ const MyFriends = () => {
                             <h2>Search for friends to add:</h2>
                             </ReactBootstrap.ListGroup.Item>
                         </ReactBootstrap.ListGroup>
-                        
-                        
-
+                        <div id="my-friend-page"></div>
                         <span>
                             <input type="text" key={showSearchResult} 
                                                 name ="searchString" 
@@ -119,7 +117,7 @@ const MyFriends = () => {
                     <ReactBootstrap.Col>
                         <ReactBootstrap.ListGroup>
                             <ReactBootstrap.ListGroup.Item>
-                                <h2>My Friends:</h2>
+                                <h2 className="my-friends">My Friends:</h2>
                             </ReactBootstrap.ListGroup.Item>
                             
                             <div className="my-friends">{allFriends}</div>
@@ -130,7 +128,7 @@ const MyFriends = () => {
                     <ReactBootstrap.Col>
                         <ReactBootstrap.ListGroup>
                             <ReactBootstrap.ListGroup.Item>
-                                <h2 className="friend-requests">Friend Request:</h2>
+                                <h2 className="my-friends">Friend Request:</h2>
                             </ReactBootstrap.ListGroup.Item>
                         </ReactBootstrap.ListGroup>
                         
@@ -138,7 +136,7 @@ const MyFriends = () => {
 
                         <ReactBootstrap.ListGroup>
                             <ReactBootstrap.ListGroup.Item>
-                                <h2 className="requested-to">Requested to:</h2>
+                                <h2 className="my-friends">Requested to:</h2>
                             </ReactBootstrap.ListGroup.Item>
                         </ReactBootstrap.ListGroup>
                         
