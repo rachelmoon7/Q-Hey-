@@ -52,6 +52,7 @@ const SinglePost = (props) => {
         gettingAllReactions();
     }, [ , newReaction, afterUndoReaction, props.newPostReactions, afterDeletedPost]);
 
+    //called in useEffect hook 
     const gettingAllComments = () => {
         fetch('/get-all-comments', {
             method: 'POST',
@@ -170,17 +171,19 @@ const SinglePost = (props) => {
         })
     }
 
+    //allows users to click through carousel of images rather than auto-slide
     const handleSelect = (selectedIndex, e) => {
         setIndex(selectedIndex);
         };
 
+    //initialize empty array to push carousel of img's into since there may be one or two img's
     const carouselItems = [];
-
+        
     carouselItems.push(<ReactBootstrap.Carousel.Item>
                             <img
                                 className="d-block w-100"
                                 src={props.img_url} 
-                                alt="First slide"
+                                alt="No image"
                             />
                         </ReactBootstrap.Carousel.Item>
                     );
@@ -205,12 +208,15 @@ const SinglePost = (props) => {
                     </ReactBootstrap.Card.Header>
                     <ReactBootstrap.Card.Body>
                         <ReactBootstrap.Stack direction="horizontal" gap={3}>
-                            <div className="bg-light border"> <ReactBootstrap.Carousel activeIndex={index} onSelect={handleSelect} interval={null}>
-                                            {carouselItems}
-                                        </ReactBootstrap.Carousel></div>
-                            <div className="bg-light border"><div id="all-comments">
-                                            {allComments}
-                                        </div></div>
+                            <div className="bg-light border"> 
+                                <ReactBootstrap.Carousel activeIndex={index} onSelect={handleSelect} interval={null}>
+                                    {carouselItems}
+                                </ReactBootstrap.Carousel></div>
+                            <div className="bg-light border">
+                                <div id="all-comments">
+                                    {allComments}
+                                </div>
+                            </div>
                         </ReactBootstrap.Stack>
 
                         <ReactBootstrap.Stack direction="horizontal" gap={3}>
@@ -220,6 +226,7 @@ const SinglePost = (props) => {
                                         <span id="caption">"{props.caption}"</span>
                                     : <span>{props.username}</span>
                                     }
+
                                     <div id="post-date"></div>   
                                 </div>
                             </div>
@@ -228,11 +235,9 @@ const SinglePost = (props) => {
                         <button className="comment"
                                 onClick={() => {setShowCommentBox(true), 
                                                 setPostToComment(props.post_id)}
-                                        }
-                        >
+                                        }>
                             <span >
-                                <i className="bi bi-chat-dots">
-                                </i>
+                                <i className="bi bi-chat-dots"></i>
                             </span>
                         </button>
                         {/* space between chat and react button */}

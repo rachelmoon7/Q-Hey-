@@ -47,7 +47,7 @@ def login_user():
 
 @app.route('/logout')
 def logout():
-    "Log out the user"
+    "Log out the user by clearing session."
 
     session.clear()
 
@@ -60,10 +60,8 @@ def landing_page():
 
     questions = crud.get_question()
     week_num = datetime.now().isocalendar().week
-    posts = crud.get_post()
-    images = crud.get_image()
     
-    return render_template('landing-page.html', questions=questions, week_num=week_num, posts=posts, images=images)
+    return render_template('landing-page.html', questions=questions, week_num=week_num)
 
 
 @app.route('/register', methods=["POST"])
@@ -149,8 +147,7 @@ def request_friend():
     crud.request_friend(logged_in_user, potential_friend)
     db.session.add(potential_friend)
     db.session.commit()
-    print("$$-158-$$POTENTIAL FRIEND'S FOLLOWERS:", potential_friend.followers)
-    #send friend request to potential_friend
+    # print("$$-150-$$POTENTIAL FRIEND'S FOLLOWERS:", potential_friend.followers)
 
     return jsonify([{'user': session["user_id"]}])
 
@@ -198,13 +195,8 @@ def delete_friend():
 @app.route('/myFriends')
 def show_friends_and_requests():
     """Show list of friends and any friend requests"""
-
-    logged_in_user = crud.get_user_by_id(session["user_id"])
     
-    requested = set(logged_in_user.following) - set(logged_in_user.followers)
-
-    
-    return render_template("myfriends.html",                    requested=requested)
+    return render_template("myfriends.html")
 
 
 @app.route('/get_list_of_friends')

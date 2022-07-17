@@ -28,7 +28,7 @@ const Comment = (props) => {
     return (
         <React.Fragment>
             <span className="comment-div-1">
-                {props.username} comments: {props.text} on {props.commentDate} 
+                {props.username} comments: "{props.text}" on {props.commentDate} 
             </span>
             
             {props.deleteOption && showTrash?

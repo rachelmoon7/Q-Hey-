@@ -8,7 +8,7 @@ const LandingPosts = (props) => {
         fetch('/get-landing-posts')
         .then((response) => response.json())
         .then((result) => {
-            console.log("*LANDINPOSTS RESULT FROM SERVER*:", result)
+            // console.log("*LANDINPOSTS RESULT FROM SERVER*:", result)
             setAllLandingPosts(result)
         })
     }, []);    
