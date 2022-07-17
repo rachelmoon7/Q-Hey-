@@ -40,8 +40,6 @@ const ShowPosts = (props) => {
                                                 deleteOnProfile={props.deleteOnProfile}
                                                 newPostComments={props.newPostComments}
                                                 newPostReactions={props.newPostReactions}
-                                                // refreshAfterDelete={refreshAfterDelete}
-                                                // setRefreshAfterDelete={setRefreshAfterDelete}
                                             /> 
                                         </div>])
         }};        

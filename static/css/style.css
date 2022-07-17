@@ -71,16 +71,6 @@ a {
 	color: #FC4A1A;
 }
 
-
-/* h2 span { */
-	/* background: #f7B733; */
-/* } */
-
-/* tabs in navbar */
-/* .me-auto span {
-	background: #a7e245;
-} */
-
 .post-container {
 	display: flex;
     justify-content: center;
@@ -260,16 +250,17 @@ a {
 }
 
 .homepage {
-	margin: 0;
+	margin: 20px;
 	font-family: Roboto, -apple-system, 'Helvetica Neue', 'Segoe UI', Arial, sans-serif;
 	/* background: #E9E9E9; */
 	background-image: url("/static/images/LogosLandscape.jpg");
 	background-size: 1600px;
+	margin-top: 0;
 }
 
 .footer {
 	background-color: #cddbef;
-	position: sticky;
+	position: absolute;
 	left:0;
 	margin-bottom:0;
 	right:0;
@@ -281,6 +272,7 @@ a {
 	flex-direction: column;
 	justify-content: center;
 	align-items: center;
+	height: 100vh;
 }
 
 .section-title {
