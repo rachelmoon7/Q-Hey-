@@ -34,7 +34,7 @@ const Comment = (props) => {
             {props.deleteOption && showTrash?
                 <span>
                     <button className="trash" 
-                            onClick={() => {setCommentToDelete(props.commentID), 
+                            onClick={() => {setCommentToDelete(props.commentID),
                                             setShowConfirmDelete(true),
                                             setShowTrash(false);
                                             }}>

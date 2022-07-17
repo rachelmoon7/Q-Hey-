@@ -1,9 +1,8 @@
 const LandingPosts = (props) => {
     const [allLandingPosts, setAllLandingPosts] = React.useState([]);
-    //added after glitch;
     const [newPostComments, setNewPostComments] = React.useState(false); 
     const [newPostReactions, setNewPostReactions] = React.useState(false);
-
+    const [refreshAfterDelete, setRefreshAfterDelete] = React.useState(false);
 
     React.useEffect(() => {
         fetch('/get-landing-posts')
@@ -12,7 +11,7 @@ const LandingPosts = (props) => {
             // console.log("*LANDINPOSTS RESULT FROM SERVER*:", result)
             setAllLandingPosts(result)
         })
-    }, []);    
+    }, [ , newPostComments, newPostReactions]);    
 
     //passing in newPostComments and setNewPostComments to trigger changes when there is NewPost 
     //prop drilling to re-rendering Comments everytime there is new post 
@@ -35,6 +34,8 @@ const LandingPosts = (props) => {
                             deleteOnProfile={false}
                             newPostComments={newPostComments}
                             newPostReactions={newPostReactions}
+                            // setRefreshAfterDelete={setRefreshAfterDelete}
+                            // refreshAfterDelete={refreshAfterDelete}
                     />
                 </div>
             

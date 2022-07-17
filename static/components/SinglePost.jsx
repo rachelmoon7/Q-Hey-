@@ -29,12 +29,14 @@ const SinglePost = (props) => {
     const [usersWhoHugged, setUsersWhoHugged] = React.useState([]);
 
     const [index, setIndex] = React.useState(0);
+    const [count, setCount] = React.useState(props.count);
 
     
     // console.log("**entering singlepost")
     // console.log("!!allComments", allComments)
 
     React.useEffect(() => {
+        console.log('user', count)
         fetch('/get-logged-in-user')
         .then((response) => response.json())
         .then((result) => {
@@ -43,17 +45,24 @@ const SinglePost = (props) => {
         })
     }, []);
 
-    React.useEffect(() => {
-        // console.log("get all comments")
-        gettingAllComments();
+    // React.useEffect(() => {
+    //     gettingAllComments();
+    //     // gettingAllReactions();
+    // }, [afterDeletedPost])
+
+    React.useEffect(() => {        
+        gettingAllComments();        
+        // console.log("afterDeletedPost", afterDeletedPost)
     }, [ , afterDeletedComment, props.newPostComments, afterDeletedPost]);
 
     React.useEffect(() => {
         gettingAllReactions();
+        console.log('reactions')
     }, [ , newReaction, afterUndoReaction, props.newPostReactions, afterDeletedPost]);
 
     //called in useEffect hook 
     const gettingAllComments = () => {
+        // console.log("$$$$props.post_id)", props.post_id)
         fetch('/get-all-comments', {
             method: 'POST',
             headers: { "Content-Type": "application/json"},
@@ -61,7 +70,7 @@ const SinglePost = (props) => {
         })
         .then((response) => response.json())
         .then((result) => {
-            // console.log("getallcomments result text:", result)
+            console.log("getallcomments result text:", result)
             //resetting allComments to [] to reset state
             setAllComments([]);
             for (const [each_comment, comment_info] of Object.entries(result)) {
@@ -79,8 +88,8 @@ const SinglePost = (props) => {
                                                                     afterDeletedComment={afterDeletedComment}
                                                                 />
                                                             </div>])
-            }
-        })
+            }            
+        });
     }
 
     const gettingAllReactions = () => {
@@ -91,6 +100,7 @@ const SinglePost = (props) => {
         })
         .then((response) => response.json())
         .then((result) => {
+            // console.log("!!gettingallreaction", result)
             setUsersWhoLiked([]);
             setUsersWhoLoved([]);
             setUsersWhoHaha([]);
@@ -134,6 +144,17 @@ const SinglePost = (props) => {
             } else {
                 setAfterDeletedPost(false);
             }
+
+            // if (props.refreshAfterDelete==false) {
+            //     props.setRefreshAfterDelete(true)
+            // } else {
+            //     props.setRefreshAfterDelete(false)
+            // }
+            // if (props.afterDeletePost==false) {
+            //     props.setAfterDeletePost(true)
+            // } else {
+            //     props.setAfterDeletePost(false)
+            // }
         })
         .then(() => {
             gettingAllComments();
@@ -329,7 +350,7 @@ const SinglePost = (props) => {
                         {loggedInUser==props.username && showTrash ? 
                             <button onClick={() => {setPostToDelete(props.post_id), 
                                                     setDeleteOrigin(props.deleteOnProfile), 
-                                                    setShowConfirmDelete(true)
+                                                    setShowConfirmDelete(true),
                                                     setShowTrash(false)}
                                             }
                                             className="trash" id="trash-post"><i className="bi bi-trash"></i></button>

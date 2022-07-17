@@ -55,8 +55,9 @@ const NewPost = (props) => {
         })
         .then((response) => response.json())
         .then((result) => {
-            // console.log("NEWPOST RESULT:", result);
-            
+            console.log("NEWPOST RESULT:", result);
+            props.setAllLandingPosts(result);
+
             if (props.newPostComments==false) {
                 props.setNewPostComments(true);
             } else {
@@ -68,7 +69,7 @@ const NewPost = (props) => {
             } else {
                 props.setNewPostReactions(false);
             }
-            props.setAllLandingPosts(result);
+            
             setShowImgForm2(false);
             setImgURL('');
             setImg('');
