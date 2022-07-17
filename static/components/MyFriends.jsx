@@ -19,12 +19,11 @@ const MyFriends = () => {
             setAllFriends([]);
             for (const [userID, info] of Object.entries(result)) {
                 setAllFriends((x) => [...x, <ReactBootstrap.ListGroup>
-                    
                                                 <ReactBootstrap.ListGroup.Item>
                                                     <Friend user_id={info['user_id']}
-                                                    fname={info['fname']}
-                                                    lname={info['lname']} 
-                                                    setAfterFriendDeleted={setAfterFriendDeleted}/>
+                                                            fname={info['fname']}
+                                                            lname={info['lname']} 
+                                                            setAfterFriendDeleted={setAfterFriendDeleted}/>
                                                 </ReactBootstrap.ListGroup.Item>
                                             </ReactBootstrap.ListGroup>
                                                     ])
@@ -90,10 +89,12 @@ const MyFriends = () => {
                         </ReactBootstrap.ListGroup>
                         <div id="my-friend-page"></div>
                         <span>
-                            <input type="text" key={showSearchResult} 
-                                                name ="searchString" 
-                                                placeholder="Find friends via username" 
-                                                onChange={(e) => setSearchString(e.target.value)}
+                            <input id="search-friend-box"
+                                    type="text" 
+                                    key={showSearchResult} 
+                                    name ="searchString" 
+                                    placeholder="Find friends via username" 
+                                    onChange={(e) => setSearchString(e.target.value)}
                             ></input>
                         </span>
 

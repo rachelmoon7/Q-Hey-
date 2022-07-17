@@ -7,7 +7,6 @@ body.background {
 body {
 	font-family: 'Lora', serif;
 	height: 100%;
-
 }
 
 img {
@@ -26,6 +25,7 @@ button {
     background-color: #4abdac; /* Fresh */
 	cursor: pointer;
 	font-size: 20px;
+	border-radius: 20%;
 }
 
 #submit-comment {
@@ -220,6 +220,10 @@ a {
 	color: #4abdac;
 }
 
+#search-friend-box {
+	width: 89%;
+}
+
 #my-friends {
 	height: 100vh;
 }
@@ -387,7 +391,7 @@ a {
 	min-width: 260px;
 	margin-top: 50px;
 	padding: 30px 25px;
-  border-radius: 5px;
+  	border-radius: 5px;
 	transform-origin: top;
 }
 

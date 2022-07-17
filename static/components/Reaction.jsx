@@ -11,15 +11,14 @@ const Reaction = (props) => {
     const [showUnhug, setShowUnhug] = React.useState(false);
 
     const addReaction = (type) => {
-        console.log("REACTION.JSX PROPS", props)
-
+        // console.log("REACTION.JSX PROPS", props)
         fetch('/add-reaction', {
             method:'POST',
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify( {'reactionType': type, 'postID': props.postID })
             })
         .then((response) => response.json())
-        .then((result) => {
+        .then(() => {
             if (props.newReaction==false) {
                 props.setNewReaction(true)
             } else {
@@ -29,7 +28,7 @@ const Reaction = (props) => {
     }
     
     const undoReaction = (type) => {
-        console.log("UNLIKE", type)
+        // console.log("UNLIKE", type)
         fetch('/undo-reaction', {
             method:'POST',
             headers: { "Content-Type": "application/json" },

@@ -1,5 +1,6 @@
 const LandingPosts = (props) => {
     const [allLandingPosts, setAllLandingPosts] = React.useState([]);
+    //added after glitch;
     const [newPostComments, setNewPostComments] = React.useState(false); 
     const [newPostReactions, setNewPostReactions] = React.useState(false);
 

@@ -17,7 +17,6 @@ const NewPost = (props) => {
     }
 
     const getCloudinaryLink = (file) => {
-        console.log("!!!")
         const data = new FormData();
         data.append("file", file);
         data.append("upload_preset", "pba5lu5s");
@@ -29,13 +28,14 @@ const NewPost = (props) => {
         })
         .then((response) => response.json())
         .then((result) => {
+            console.log("!!checking something", result)
             if (imgURL == "") {
-                console.log("entering IF");
+                console.log("*ENTERING IF - 1st img");
                 setImgURL(result.url);
                 setImg(result.url)
                 setShowChosenImage(true)
             } else {
-                console.log("ENTERING ELSE");
+                console.log("*ENTERING ELSE - 2nd img");
                 setImgURL2(result.url);
                 setImg2(result.url)
                 setShowChosenImage2(true)
@@ -55,7 +55,7 @@ const NewPost = (props) => {
         })
         .then((response) => response.json())
         .then((result) => {
-            console.log("NEWPOST RESULT:", result);
+            // console.log("NEWPOST RESULT:", result);
             
             if (props.newPostComments==false) {
                 props.setNewPostComments(true);

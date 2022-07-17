@@ -149,6 +149,7 @@ const SinglePost = (props) => {
                 })
         .then((response) => response.json())
         .then((result) => {
+            setAllComments([]);
             let d = new Date(result['comment_date']);
             setAllComments(x => [...x, <div>
                                             <Comment username={result['username']}
@@ -164,7 +165,6 @@ const SinglePost = (props) => {
                                         </div>]);
             setComment('');
             setShowCommentBox(false);
-
         })
         .then(() => {
             gettingAllComments();
