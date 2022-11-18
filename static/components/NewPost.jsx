@@ -28,7 +28,7 @@ const NewPost = (props) => {
         })
         .then((response) => response.json())
         .then((result) => {
-            console.log("!!checking something", result)
+            console.log("!!result:", result)
             if (imgURL == "") {
                 console.log("*ENTERING IF - 1st img");
                 setImgURL(result.url);
